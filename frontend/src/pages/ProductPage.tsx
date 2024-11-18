@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Typography, Button, Card, CardHeader, CardBody, CardFooter } from '@material-tailwind/react';
 import CarouselCustomNavigation from '../components/Carousel';
 import { MyProduct } from '../services/GetProduct';
 import { CartChoice } from '../services/CartChoice';
 
-// interface SingleProductProps {
-//         product_id: number;
-// }
 
 const SingleProduct = () => {
-    // const { params } = useParams();
-    
-    
     const location = useLocation();
     const product_id = location.state?.product_id;
-    // console.log('location');
-    // console.log(location);
-    // console.log(product_id);
-    // const product_id = location.state?.product_id;
     const [productData, setProductData] = useState<any>({});
 
     useEffect(() => {
@@ -27,13 +17,9 @@ const SingleProduct = () => {
             console.log(response.data);
             console.log(response);
             setProductData(response);
-            // setCartItems(response.carts[0].cart_items);
-            // setCartTotalAmount(response.carts[0].total_amount);
         };
         fetchCart();
     }, [product_id]);
-
-    // const productData = 
 
     return (
         <div className="container mx-auto p-4 pt-6 mt-6">

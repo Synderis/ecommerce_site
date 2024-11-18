@@ -23,6 +23,7 @@ async def startup_event():
 
 app.add_event_handler("startup", startup_event)
 app.mount("/assets", StaticFiles(directory="./assets"), name="assets")
+
 # Include Stripe webhook and CRUD routes
 # app.include_router(crud.router)
 # app.include_router(stripe_webhook.router)
@@ -32,6 +33,3 @@ app.include_router(orders.router)
 app.include_router(users.router)
 app.include_router(accounts.router)
 app.include_router(auth.router)
-
-
-# models.Base.metadata.create_all(bind=engine)

@@ -108,3 +108,21 @@ class Order(Base):
     # Relationship with user and cart
     user = relationship("User")
     cart_contents = relationship("Cart")
+    
+class Addresses(Base):
+    __tablename__ = "addresses"
+
+    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    full_name = Column(String, nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
+    street_address = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    state = Column(String, nullable=False)
+    country = Column(String, nullable=False)
+    zip = Column(String, nullable=False)
+    address_type = Column(String, nullable=False)
+    
+    # Relationship with user and order
+    user = relationship("User")
+    order = relationship("Order")

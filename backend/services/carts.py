@@ -119,6 +119,18 @@ class CartService:
         db.refresh(cart)
         return ResponseHandler.update_success("cart", cart.id, cart)
 
+
+    @staticmethod
+    def deactivate_cart(token, db: Session, cart_id: int):
+        user_id = get_current_user(token)
+        cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
+        if not cart:
+            ResponseHandler.not_found_error("Cart", cart_id)
+        cart.active = False
+        db.commit()
+        db.refresh(cart)
+        return ResponseHandler.update_success("Cart", cart_id, cart)
+
     # Delete Both Cart and CartItems
     @staticmethod
     def delete_cart(token, db: Session, cart_id: int):

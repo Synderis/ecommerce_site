@@ -63,7 +63,7 @@ class CartService:
             return ResponseHandler.not_found_error("Cart", cart_id)
         existing_item = next((item for item in cart.cart_items if item.product_id == cart_item.product_id), None)
         if existing_item:
-            existing_item.quantity += cart_item.quantity
+            existing_item.quantity = cart_item.quantity
         else:
             product = db.query(Product).filter(Product.id == cart_item.product_id).first()
             if not product:

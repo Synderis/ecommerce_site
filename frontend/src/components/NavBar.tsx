@@ -9,12 +9,8 @@ import {
 } from "@material-tailwind/react";
 
 import { Routes, Link, Route} from 'react-router-dom';
-import ProductPage from '../pages/ProductGridPage';
-import SignUpForm from "../pages/SignUpPage";
-import SignInForm from "../pages/SignInPage";
-import MyAccount from "../pages/MyAccountPage";
-import HomePage from "../pages/Home";
-import CartPage from "../pages/CartPage";
+import { routes } from "../utils/routes";
+// import SingleProductPage from "../pages/ProductPage";
 import FooterBar from "./Footer";
 
 export function StickyNavbar() {
@@ -161,12 +157,9 @@ export function StickyNavbar() {
                 </MobileNav>
             </Navbar>
             <Routes>
-                <Route path="/products" element={<ProductPage />} />
-                <Route path="/sign-up" element={<SignUpForm />} />
-                <Route path="/sign-in" element={<SignInForm />} />
-                <Route path="/account" element={<MyAccount />} />
-                <Route path="/my-cart" element={<CartPage />} />
-                <Route path="/" element={<HomePage />} />
+            {routes.map((route) => (
+                <Route key={route.path} path={route.path} element={route.element} />
+            ))}
             </Routes>
             <FooterBar />
         </div>

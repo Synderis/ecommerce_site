@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 # from backend import crud, stripe_webhook
-from routers import products, carts, users, accounts, auth
+from routers import products, carts, users, accounts, auth, orders
 from core.security import get_user_token
 
 
@@ -28,8 +28,10 @@ app.mount("/assets", StaticFiles(directory="./assets"), name="assets")
 # app.include_router(stripe_webhook.router)
 app.include_router(products.router)
 app.include_router(carts.router)
+app.include_router(orders.router)
 app.include_router(users.router)
 app.include_router(accounts.router)
 app.include_router(auth.router)
+
 
 # models.Base.metadata.create_all(bind=engine)

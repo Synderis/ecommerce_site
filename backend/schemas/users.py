@@ -2,6 +2,7 @@ from pydantic import BaseModel , EmailStr
 from typing import List
 from datetime import datetime
 from schemas.carts import CartBase
+from schemas.orders import OrderBase
 
 
 class BaseConfig:
@@ -18,6 +19,7 @@ class UserBase(BaseModel):
     is_active: bool
     created_at: datetime
     carts: List[CartBase]
+    orders: List[OrderBase]
 
     class Config(BaseConfig):
         pass

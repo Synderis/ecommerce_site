@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { Button } from "@material-tailwind/react";
 import { MyCart } from "../services/GetCarts";
 import { UpdateCart } from "../services/UpdateCartItems";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
+import { Link } from "react-router-dom";
 
 
 
@@ -50,6 +52,11 @@ const CurrentCart = () => {
         }
     };
 
+    // const handleCheckout = () => {
+    //     console.log("Checkout");
+    //     console.log(cart);
+    // };
+
 
     return (
         <div className="container mx-auto px-4">
@@ -75,6 +82,14 @@ const CurrentCart = () => {
                             </button>
                         </div>
                         <div className="text-sm text-slate-500 mt-2">Total: {cartTotalAmount}</div>
+                        <Link to="/shipping-details">
+                            <Button
+                            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                            // onClick={() => handleCheckout()}
+                            >
+                            Checkout
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

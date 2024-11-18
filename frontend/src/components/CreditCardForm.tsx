@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask';
 
 interface CreditCardFormProps {
     onSubmit: (data: { cardHolderName: string, cardNumber: string, expirationDate: string, cvc: string }) => void;
 }
 
-const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
+const CreditCard = () => {
     const [cardHolderName, setCardHolderName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
     const [cvc, setCvc] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit({ cardHolderName, cardNumber, expirationDate, cvc });
-        setCardHolderName('');
-        setCardNumber('');
-        setExpirationDate('');
-        setCvc('');
+        const data = { cardHolderName, cardNumber, expirationDate, cvc };
+        console.log('Form submitted with data:', data);
     };
 
     return (
@@ -48,7 +46,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
                         <div className="relative right-0">
                             <ul className="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100" data-tabs="tabs" role="tablist">
                                 <li className="z-30 flex-auto text-center">
-                                    {/* <a className="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+                                    <a className="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
                                         data-tab-target="" role="tab" aria-selected="true">
                                         Pay with Card
                                     </a>
@@ -57,7 +55,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
                                     <a className="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit"
                                         data-tab-target="" role="tab" aria-selected="false">
                                         Pay with PayPal
-                                    </a> */}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -81,12 +79,13 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
                                 <label className="block mb-1 text-sm text-slate-600 mt-4">
                                     Card Details
                                 </label>
-                                <input
+                                <InputMask
                                     type="text"
+                                    mask="9999 9999 9999 9999"
                                     className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-20 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                                     placeholder="1234 5678 9012 3456"
                                     value={cardNumber}
-                                    onChange={(e) => setCardNumber(e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCardNumber(e.target.value)}
                                     required
                                 />
 
@@ -95,12 +94,18 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
                                         <label className="block mb-1 text-sm text-slate-600 mt-4">
                                             Expiration Date
                                         </label>
-                                        <input
+                                        <InputMask
                                             type="text"
                                             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-20 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                                            placeholder="MM/YY"
+                                            mask="99/99"
                                             value={expirationDate}
-                                            onChange={(e) => setExpirationDate(e.target.value)}
+                                            placeholder='MM/YY'
+                                            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                                                if ((e.target as HTMLInputElement).value.length === 2 && !(e.target as HTMLInputElement).value.includes('/')) {
+                                                    (e.target as HTMLInputElement).value += '/';
+                                                }
+                                            }}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExpirationDate(e.target.value)}
                                             required
                                         />
                                     </div>
@@ -108,10 +113,11 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
                                         <label className="block mb-1 text-sm text-slate-600 mt-4">
                                             CVV
                                         </label>
-                                        <input
+                                        <InputMask
                                             type="text"
                                             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                                             placeholder="123"
+                                            mask="999"
                                             value={cvc}
                                             onChange={(e) => setCvc(e.target.value)}
                                             required
@@ -144,4 +150,4 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
     );
 };
 
-export default CreditCardForm;
+export default CreditCard;

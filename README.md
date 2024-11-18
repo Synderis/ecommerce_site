@@ -37,10 +37,12 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 
 To get started with the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo-name.git`
-2. Install dependencies: `npm install` or `yarn install`
-3. Start the backend server: `uvicorn main:app --host 0.0.0.0 --port 8000`
+1. Clone the repository: `git clone https://github.com/Synderis/ecommerce_site.git`
+2. Install frontend dependencies: `npm install` or `yarn install`
+3. Install backend dependencies: `pip install -r requirements.txt`
 4. Start the frontend server: `npm start` or `yarn start`
+5. Start the backend server: `python run.py`
+
 
 ## API Documentation
 

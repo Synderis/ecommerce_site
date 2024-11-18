@@ -21,6 +21,9 @@ class User(Base):
 
     # Relationship with carts
     carts = relationship("Cart", back_populates="user")
+    
+    # Relationship with orders
+    orders = relationship("Order", back_populates="user")
 
 
 class Cart(Base):
@@ -36,6 +39,8 @@ class Cart(Base):
 
     # Relationship with cart items
     cart_items = relationship("CartItem", back_populates="cart")
+    
+    orders = relationship("Order", backref="cart")
 
 
 class CartItem(Base):
@@ -84,3 +89,22 @@ class Product(Base):
 
     # Relationship with cart items
     cart_items = relationship("CartItem", back_populates="product")
+
+class Order(Base):
+    __tablename__ = "orders"
+
+    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    cart_id = Column(Integer, ForeignKey("carts.id", ondelete="CASCADE"), nullable=False)
+    order_timestamp = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
+    item_total = Column(Float, nullable=False)
+    tax_total = Column(Float, nullable=False)
+    shipping_total = Column(Float, nullable=False)
+    order_total = Column(Float, nullable=False)
+    payment_type = Column(String, nullable=False)
+    completed = Column(Boolean, server_default="False", nullable=False)
+    shipped = Column(Boolean, server_default="False", nullable=False)
+
+    # Relationship with user and cart
+    user = relationship("User")
+    cart_contents = relationship("Cart")

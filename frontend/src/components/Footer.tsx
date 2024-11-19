@@ -1,7 +1,17 @@
+import React, { useState, useLayoutEffect } from 'react';
+
 const FooterBar = () => {
 
+    const [footerHeight, setFooterHeight] = useState(0);
+
+    useLayoutEffect(() => {
+        const footer = document.querySelector('.footer') as HTMLElement;
+        setFooterHeight(footer?.offsetHeight ?? 0);
+    }, []);
+
     return (
-        <footer className="relative w-full mt-12">
+        <div className="footer" style={{ bottom: footerHeight }}>
+        <footer className="mt-auto relative bottom-0 w-full dark:bg-gray-800">
             <div className="w-full px-12 lg:px-1 mx-auto max-w-7xl">
                 <div className="grid justify-between grid-cols-1 gap-4 md:grid-cols-2">
                     <h5 className="mb-1 text-xl font-semibold text-slate-800 lg:ml-8 self-end">
@@ -55,7 +65,7 @@ const FooterBar = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center w-full py-4 mt-4 border-t border-slate-200 md:flex-row md:justify-between">
+                <div className="flex flex-col items-center justify-center w-full py-4 mt-4 border-t dark:border-orange-300 md:flex-row md:justify-between">
                     <p className="block mb-4 text-sm text-center text-slate-500 md:mb-0 lg:ml-4 lg:mr-4">
                         Copyright © 2024
                         <a href="https://material-tailwind.com/"> Synderis</a>. All
@@ -101,6 +111,7 @@ const FooterBar = () => {
                 </div>
             </div>
         </footer>
+        </div>
     )
 };
 

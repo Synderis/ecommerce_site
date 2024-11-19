@@ -52,14 +52,10 @@ const CurrentCart = () => {
         }
     };
 
-    // const handleCheckout = () => {
-    //     console.log("Checkout");
-    //     console.log(cart);
-    // };
 
 
     return (
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto min-h-screen lg:h-screenHeight px-4">
             <div className="w-full flex justify-between items-center mb-3 mt-8 pl-7">
                 <div>
                     <h3 className="text-lg font-semibold text-slate-800">Shopping Cart</h3>
@@ -67,40 +63,25 @@ const CurrentCart = () => {
                 </div>
                 <div className="mx-3">
                     <div className="w-full max-w-sm min-w-[200px] relative">
-                        <div className="relative">
-                            <input
-                                className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-                                placeholder="Search for product..."
-                            />
-                            <button
-                                className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
-                                type="button"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" className="w-8 h-8 text-slate-600">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="text-sm text-slate-500 mt-2">Total: {cartTotalAmount}</div>
                         <Link to="/shipping-details">
                             <Button
-                            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                            // onClick={() => handleCheckout()}
+                            className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
                             >
                             Checkout
                             </Button>
                         </Link>
+                        <div className="text-lg text-slate-500 mt-2 dark:text-orange-300">Total: {cartTotalAmount}</div>
                     </div>
                 </div>
             </div>
-            <div className="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+            <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
                 <table className="w-full text-left table-auto min-w-max pl-7 ml-3">
                     <thead>
-                        <tr className="border-b border-slate-300 bg-slate-50">
-                            <th className="p-1 text-sm font-normal leading-none text-slate-500">Product</th>
-                            <th className="p-1 text-sm font-normal leading-none text-slate-500">Name</th>
-                            <th className="p-1 text-sm font-normal leading-none text-slate-500">Quantity</th>
-                            <th className="p-1 text-sm font-normal leading-none text-slate-500">Subtotal</th>
+                        <tr className="bg-slate-50">
+                            <th className="p-1 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Product</th>
+                            <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Name</th>
+                            <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Quantity</th>
+                            <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Subtotal</th>
                             <th className="p-1 text-sm font-normal leading-none text-slate-500"></th>
                         </tr>
                     </thead>
@@ -108,10 +89,10 @@ const CurrentCart = () => {
                         {cartItems?.map((item, index) => (
                             <tr key={index} className="hover:bg-slate-50">
                                 <td className="p-0 border-b border-slate-200 py-5"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
-                                <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
-                                <td className="p-0 border-b border-slate-200 py-5">{item.quantity}</td>
-                                <td className="p-0 border-b border-slate-200 py-5">{item.subtotal}</td>
-                                <td className="p-0 border-b border-slate-200 py-5 pr-4">
+                                <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate dark:opacity-80 dark:text-white" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
+                                <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.quantity}</td>
+                                <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.subtotal}</td>
+                                <td className="p-0 py-5 pr-4">
                                     <button type="button" className="text-slate-500 hover:text-slate-700" onClick={() => handleRemoveFromCart(item.product.id)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />

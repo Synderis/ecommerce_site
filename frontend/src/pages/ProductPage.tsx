@@ -28,22 +28,22 @@ const SingleProduct = () => {
                     <CarouselCustomNavigation />
                 </div>
                 <div className="w-full xl:w-4/12 p-4">
-                    <Card className="h-full py-8" color='blue'>
+                    <Card className="h-full py-8 dark:bg-gray-900 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900">
                         <CardHeader color="gray">
-                            <Typography variant="h3" color="white" style={{ marginLeft: '10px' }}>
+                            <Typography variant="h3" color="white" className='ml-2 dark:text-gray-300'>
                                 {productData.title}
                             </Typography>
                         </CardHeader>
                         <CardBody>
-                            <Typography color="gray">
+                            <Typography color="gray" className="font-normal opacity-75 dark:text-white">
                                 {productData.description}
                             </Typography>
-                            <Typography variant="h4" color="gray" className="mt-4">
+                            <Typography variant="h4" color="gray" className="mt-4 opacity-75 dark:text-white">
                                 ${productData.price}
                             </Typography>
                         </CardBody>
                         <CardFooter>
-                            <Button color="gray" size="lg" onClick={() => CartChoice(product_id, 1)}>
+                            <Button color="gray" className='bg-gray-900 text-blue-gray-900 dark:text-gray-300 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100' size="lg" onClick={() => CartChoice(product_id, 1)}>
                                 Add to Cart
                             </Button>
                         </CardFooter>

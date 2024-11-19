@@ -20,3 +20,14 @@ export interface UserData {
     email: string;
     full_name: string;
 }
+
+export interface Order {
+    id: number;
+    item_total: number;
+    tax_total: number;
+    shipping_total: number;
+    order_total: number;
+    order_timestamp: string;
+    completed: boolean;
+    shipped: boolean;
+}

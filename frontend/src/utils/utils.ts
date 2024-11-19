@@ -12,3 +12,5 @@ export function useIsLargeScreen() {
 // export const isLargeScreen = useMediaQuery({ query: '(min-width: 1024px)' });
 
 // export const token = localStorage.getItem('token');
+
+export const themeToggle = document.getElementById('theme-toggle');

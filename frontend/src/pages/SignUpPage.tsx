@@ -55,10 +55,10 @@ const SignUpForm = () => {
         <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8">
             {/* <div className="relative flex flex-col rounded-xl bg-transparent mx-auto my-auto items-center justify-center"> */}
             <div>
-                <Typography variant="h3" color="blue-gray" className="mb-1">
+                <Typography variant="h3" color="blue-gray" className="mb-1 text-slate-500">
                     Sign Up
                 </Typography>
-                <Typography className="mb-4 text-gray-600 font-normal text-[18px]">
+                <Typography className="mb-4 text-gray font-normal text-[18px]">
                     Enter your information to sign up
                 </Typography>
                 <form onSubmit={handleSubmit} className="mx-auto max-w-[24rem] text-left">
@@ -76,7 +76,7 @@ const SignUpForm = () => {
                                 size="lg"
                                 type="text"
                                 placeholder="john doe"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -84,7 +84,7 @@ const SignUpForm = () => {
                         </div>
                         <div className="md-3">
                             <label htmlFor="email">
-                                <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                                <Typography variant="small" className="mb-2 block font-medium text-gray-900 dark:focus:border-orange-300">
                                     Email
                                 </Typography>
                             </label>
@@ -97,7 +97,7 @@ const SignUpForm = () => {
                                 type="email"
                                 name="email"
                                 placeholder="name@mail.com"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -105,7 +105,7 @@ const SignUpForm = () => {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="username">
-                                <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                                <Typography variant="small" className="mb-2 block font-medium text-gray-900 dark:focus:border-orange-300">
                                     User Name
                                 </Typography>
                             </label>
@@ -118,7 +118,7 @@ const SignUpForm = () => {
                                 type="text"
                                 name="username"
                                 placeholder="user name"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -126,7 +126,7 @@ const SignUpForm = () => {
                         </div>
                         <div className="md-3">
                             <label htmlFor="password">
-                                <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                                <Typography variant="small" className="mb-2 block font-medium text-gray-900 dark:focus:border-orange-300">
                                     Password
                                 </Typography>
                             </label>
@@ -141,7 +141,7 @@ const SignUpForm = () => {
                                 labelProps={{
                                     className: "hidden",
                                 }}
-                                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:focus:border-orange-300"
                                 type={passwordShown ? "text" : "password"}
                                 icon={
                                     <i onClick={togglePasswordVisiblity}>
@@ -180,7 +180,7 @@ const SignUpForm = () => {
                         </label>
                     </div>
                     <button
-                        className="mt-4 w-full rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        className="mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white"
                         type="submit"
                     >
                         Sign Up

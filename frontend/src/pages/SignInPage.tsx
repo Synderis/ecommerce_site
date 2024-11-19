@@ -66,10 +66,10 @@ const SignInForm = () => {
     return (
         <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8">
             <div>
-                <Typography variant="h3" color="blue-gray" className="mb-2">
+                <Typography variant="h3" color="blue-gray" className="mb-2 text-slate-500">
                     Sign In
                 </Typography>
-                <Typography className="mb-16 text-gray-600 font-normal text-[18px]">
+                <Typography className="mb-16 text-gray font-normal text-[18px]">
                     Enter your user name and password to sign in
                 </Typography>
                 <form onSubmit={handleSubmit} className="mx-auto max-w-[24rem] text-left">
@@ -90,7 +90,7 @@ const SignInForm = () => {
                             type="text"
                             name="username"
                             placeholder="user name"
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                             labelProps={{
                                 className: "hidden",
                             }}
@@ -113,7 +113,7 @@ const SignInForm = () => {
                             labelProps={{
                                 className: "hidden",
                             }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                             type={passwordShown ? "text" : "password"}
                             icon={
                                 <i onClick={togglePasswordVisiblity}>
@@ -126,16 +126,15 @@ const SignInForm = () => {
                             }
                         />
                     </div>
-                    <Button type="submit" color="gray" size="lg" className="mt-6" fullWidth>
+                    <Button type="submit" color="gray" size="lg" className="mt-6 mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white" fullWidth>
                         sign in
                     </Button>
                     <div className="!mt-4 flex justify-end">
                         <Typography
                             as="a"
                             href="#"
-                            color="blue-gray"
                             variant="small"
-                            className="font-medium"
+                            className="font-medium text-gray-900"
                         >
                             Forgot password
                         </Typography>

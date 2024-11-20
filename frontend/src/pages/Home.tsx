@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Button } from '@material-tailwind/react';
 import CarouselCustomNavigation from '../components/Carousel';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     return (
@@ -14,7 +15,9 @@ const HomePage = () => {
                 <Typography variant="lead" className="opacity-70 mb-8">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.
                 </Typography>
-                <Button className="mb-8">See All Products</Button>
+                <Link to={"/products"}>
+                    <Button className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">See All Products</Button>
+                </Link>
             </div>
 
             {/* Carousel Section */}

@@ -64,7 +64,8 @@ const SignInForm = () => {
     };
 
     return (
-        <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8">
+        
+        <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             <div>
                 <Typography variant="h3" color="blue-gray" className="mb-2 text-slate-500">
                     Sign In

@@ -52,7 +52,7 @@ const SignUpForm = () => {
 
     return (
         // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh' }}>
-        <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8">
+        <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             {/* <div className="relative flex flex-col rounded-xl bg-transparent mx-auto my-auto items-center justify-center"> */}
             <div>
                 <Typography variant="h3" color="blue-gray" className="mb-1 text-slate-500">

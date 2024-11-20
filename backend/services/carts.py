@@ -54,7 +54,7 @@ class CartService:
         db.commit()
         db.refresh(cart_db)
         return ResponseHandler.create_success("Cart", cart_db.id, cart_db)
-    
+
     @staticmethod
     def add_to_cart(token, db: Session, cart_id: int, cart_item: CartItemCreate):
         user_id = get_current_user(token)

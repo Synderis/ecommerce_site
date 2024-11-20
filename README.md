@@ -7,6 +7,7 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 ## Features
 
 * **FastAPI Backend**: Built using FastAPI, a modern, fast (high-performance), web framework for building APIs.
+* **PostgreSQL**: Highly Customizable Database for storing users, products, orders, etc.
 * **React Frontend**: Built using React, a popular JavaScript library for building user interfaces.
 * **TypeScript**: Used for type checking and ensuring code quality.
 * **Tailwind CSS**: Used for styling and layout, providing a responsive and consistent design.
@@ -15,23 +16,36 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 
 ### Home Page
 
-[![Home Page](https://i.imgur.com/owrXHc8.jpeg)](https://i.imgur.com/owrXHc8.jpeg)
+[![Home Page](https://i.imgur.com/cX6q0UP.png)](https://i.imgur.com/cX6q0UP.png)
 
 ### Product Page
 
-[![Product Page](https://i.imgur.com/5IIFtF3.jpeg)](https://i.imgur.com/5IIFtF3.jpeg)
+[![Product Page](https://i.imgur.com/Gx0m4jT.png)](https://i.imgur.com/Gx0m4jT.png)
 
 ### Cart Page
 
-[![Cart Page](https://i.imgur.com/9BxSvbY.png)](https://i.imgur.com/9BxSvbY.png)
+[![Cart Page](https://i.imgur.com/ezLmp1B.png)](https://i.imgur.com/ezLmp1B.png)
 
 ### Checkout Page
 
 [![Checkout Page](https://i.imgur.com/GVpLJrT.png)](https://i.imgur.com/GVpLJrT.png)
 
-### Order Summary
+### Login Page
 
-[![Order Summary](https://i.imgur.com/wskFkaT.png)](https://i.imgur.com/wskFkaT.png)
+[![Login Page](https://i.imgur.com/aMw2TN3.png)](https://i.imgur.com/aMw2TN3.png)
+
+### Sign-up Page
+
+[![Sign-up Page](https://i.imgur.com/PhtmGYm.png)](https://i.imgur.com/PhtmGYm.png)
+
+### Account Page
+
+[![Account Page](https://i.imgur.com/yePmjvd.png)](https://i.imgur.com/yePmjvd.png)
+
+### Order Summary Modal
+
+[![Order Summary Modal](https://i.imgur.com/Awwo4ri.png)](https://i.imgur.com/Awwo4ri.png)
+
 
 ## Getting Started
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import { MyCart } from "../services/GetCarts";
+import { MyInfo } from "../services/GetInfo";
 import { UpdateCart } from "../services/UpdateCartItems";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
@@ -19,7 +19,7 @@ const CurrentCart = () => {
 
     useEffect(() => {
         const fetchCart = async () => {
-            const response = await MyCart();
+            const response = await MyInfo();
             console.log(response.carts[0]);
             setCart(response.carts[0]);
             setCartItems(response.carts[0].cart_items);
@@ -55,8 +55,9 @@ const CurrentCart = () => {
 
 
     return (
+        <section className="dark:bg-gradient-to-b mb-2 h-screenHeight dark:from-orange-800/10 dark:to-gray-800">
         <div className="container mx-auto min-h-screen lg:h-screenHeight px-4">
-            <div className="w-full flex justify-between items-center mb-3 mt-8 pl-7">
+            <div className="w-full flex justify-between items-center mb-3 pt-8 pl-7">
                 <div>
                     <h3 className="text-lg font-semibold text-slate-800">Shopping Cart</h3>
                     <p className="text-slate-500">Review your selected items.</p>
@@ -82,7 +83,7 @@ const CurrentCart = () => {
                             <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Name</th>
                             <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Quantity</th>
                             <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Subtotal</th>
-                            <th className="p-1 text-sm font-normal leading-none text-slate-500"></th>
+                            <th className="text-sm font-normal leading-none text-slate-500"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,8 +93,8 @@ const CurrentCart = () => {
                                 <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate dark:opacity-80 dark:text-white" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
                                 <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.quantity}</td>
                                 <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.subtotal}</td>
-                                <td className="p-0 py-5 pr-4">
-                                    <button type="button" className="text-slate-500 hover:text-slate-700" onClick={() => handleRemoveFromCart(item.product.id)}>
+                                <td className="py-5 dark:opacity-80">
+                                    <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
@@ -105,6 +106,7 @@ const CurrentCart = () => {
                 </table>
             </div>
         </div>
+        </section>
     );
 };
 

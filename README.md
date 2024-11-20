@@ -44,7 +44,7 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 
 ### Order Summary Modal
 
-[![Order Summary Modal](https://i.imgur.com/Awwo4ri.png)](https://i.imgur.com/Awwo4ri.png)
+[![Order Summary Modal](https://i.imgur.com/e9Es2bx.png)](https://i.imgur.com/e9Es2bx.png)
 
 
 ## Getting Started

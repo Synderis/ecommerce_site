@@ -22,13 +22,13 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 
 [![Product Page](https://i.imgur.com/Gx0m4jT.png)](https://i.imgur.com/Gx0m4jT.png)
 
+### Product Details Page
+
+[![Product Details Page](https://i.imgur.com/EJnpi25.png)](https://i.imgur.com/EJnpi25.png)
+
 ### Cart Page
 
 [![Cart Page](https://i.imgur.com/ezLmp1B.png)](https://i.imgur.com/ezLmp1B.png)
-
-### Checkout Page
-
-[![Checkout Page](https://i.imgur.com/GVpLJrT.png)](https://i.imgur.com/GVpLJrT.png)
 
 ### Login Page
 

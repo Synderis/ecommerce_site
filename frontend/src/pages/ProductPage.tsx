@@ -22,6 +22,7 @@ const SingleProduct = () => {
     }, [product_id]);
 
     return (
+        <section className="dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800 ">
         <div className="container mx-auto p-4 pt-6 mt-6">
             <div className="flex flex-wrap -mx-4">
                 <div className="w-full xl:w-8/12 p-4">
@@ -51,6 +52,7 @@ const SingleProduct = () => {
                 </div>
             </div>
         </div>
+    </section>
     );
 };
 

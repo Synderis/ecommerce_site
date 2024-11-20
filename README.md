@@ -73,6 +73,7 @@ This project is licensed under the MIT License.
 ## Acknowledgments
 
 * FastAPI: <https://fastapi.tiangolo.com/>
+* PostgreSQL: <https://www.postgresql.org/>
 * React: <https://reactjs.org/>
 * TypeScript: <https://www.typescriptlang.org/>
 * Tailwind CSS: <https://tailwindcss.com/>

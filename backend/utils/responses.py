@@ -52,3 +52,9 @@ class ResponseHandler:
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid {name} token.",
             headers={"WWW-Authenticate": "Bearer"})
+
+    @staticmethod
+    def blacklisted_token(token, code):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"{code} with token for {token}",)

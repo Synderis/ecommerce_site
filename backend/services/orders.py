@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from models.models import Cart, CartItem, Product, Order
 from utils.responses import ResponseHandler
 from datetime import datetime
-from core.security import get_current_user
+from core.security import get_current_user, check_auth
 import json
 
 
@@ -10,6 +10,8 @@ class OrderService:
     # Get All Orders
     @staticmethod
     def get_all_orders(token, db: Session, page: int, limit: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         orders = db.query(Order).filter(Order.user_id == user_id).offset((page - 1) * limit).limit(limit).all()
         message = f"Page {page} with {limit} orders"
@@ -18,15 +20,31 @@ class OrderService:
     # Get A Order By ID
     @staticmethod
     def get_order(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
         if not order:
             ResponseHandler.not_found_error("Order", order)
         return ResponseHandler.get_single_success("order", order_id, order)
+    
+    # Get Order By User ID
+    @staticmethod
+    def get_user_orders(token, db: Session):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        user_id = get_current_user(token)
+        orders = db.query(Order).filter(Order.user_id == user_id).all()
+        message = f"Page with  orders"
+        if not orders:
+            ResponseHandler.not_found_error("Order", orders)
+        return ResponseHandler.success(message, orders)
 
     # Create a new Order
     @staticmethod
     def create_order(token, db: Session, cart_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
         if not cart:
@@ -55,6 +73,8 @@ class OrderService:
     # Delete Order
     @staticmethod
     def delete_order(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         order = (
             db.query(Order)

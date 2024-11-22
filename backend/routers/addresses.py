@@ -38,6 +38,7 @@ def get_address(
 def create_address(
         address: AddressCreate, db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    
     return AddressService.create_address(token, db, address)
 
 

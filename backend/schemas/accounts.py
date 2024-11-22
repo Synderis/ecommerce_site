@@ -11,6 +11,7 @@ class AccountBase(BaseModel):
     full_name: str
     role: str
     is_active: bool
+    logged_in: bool
     created_at: datetime
     carts: List[CartBase]
 

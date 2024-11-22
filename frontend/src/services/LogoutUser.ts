@@ -2,11 +2,10 @@
 // import { token } from "../utils/utils";
 
 
-export const MyInfo = async () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
-    const response = await fetch("http://localhost:8000/me/", {
-        method: "GET",
+export const Logout = async () => {
+    // console.log(token);
+    const response = await fetch("http://localhost:8000/auth/logout", {
+        method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
         },

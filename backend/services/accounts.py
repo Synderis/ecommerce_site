@@ -1,13 +1,17 @@
 from sqlalchemy.orm import Session
 from models.models import User
 from utils.responses import ResponseHandler
-from core.security import get_password_hash, get_token_payload
+from core.security import get_password_hash, get_token_payload, check_auth
 
 
 class AccountService:
     @staticmethod
     def get_my_info(db: Session, token):
+        print(token)
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token.credentials, 'Auth failed')
         user_id = get_token_payload(token.credentials).get('id')
+        print(user_id)
         user = db.query(User).filter(User.id == user_id).first()
         if not user:
             ResponseHandler.not_found_error("User", user_id)
@@ -15,6 +19,8 @@ class AccountService:
 
     @staticmethod
     def edit_my_info(db: Session, token, updated_user):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_token_payload(token.credentials).get('id')
         db_user = db.query(User).filter(User.id == user_id).first()
         if not db_user:
@@ -29,6 +35,8 @@ class AccountService:
 
     @staticmethod
     def remove_my_account(db: Session, token):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_token_payload(token.credentials).get('id')
         db_user = db.query(User).filter(User.id == user_id).first()
         if not db_user:

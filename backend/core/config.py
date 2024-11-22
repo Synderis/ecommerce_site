@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 # from pydantic import dict as pydantic_dict
-
+import logging
+logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
     def __init__(self):
@@ -23,3 +24,24 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+class Blacklist:
+    def __init__(self):
+        self.blacklisted_tokens = set()
+
+    def add_token(self, token):
+        self.blacklisted_tokens.add(token)
+
+    def is_token_blacklisted(self, token):
+        logger.info(token)
+        logger.info(self.blacklisted_tokens)
+        print(token)
+        print(self.blacklisted_tokens)
+        if token in self.blacklisted_tokens:
+            return True
+        else:
+            return False
+        # return token in self.blacklisted_tokens
+
+
+blacklist = Blacklist()

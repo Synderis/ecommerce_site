@@ -6,6 +6,8 @@ import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 const SignInForm = () => {
 
     const navigate = useNavigate();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
@@ -18,8 +20,6 @@ const SignInForm = () => {
     // const password = "string";
 
     const [formData, setFormData] = useState({
-        // full_name: "",
-        // email: "",
         grant_type: grantType,
         username: "",
         password: "",
@@ -30,7 +30,7 @@ const SignInForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Sign up");
+        console.log("Sign in");
         console.log(formData);
         const url = window.location.host === "localhost:3000" ? `http://localhost:8000/auth/login` : `https://.com/`;
         const response = await fetch(url, {
@@ -43,11 +43,12 @@ const SignInForm = () => {
         const data = await response.json();
 
         if (response.ok) {
-            console.log("Sign up successful");
+            console.log("Sign in successful");
             localStorage.setItem("token", data.access_token);
+            setLoggedIn(true);
             navigate("/");
         } else {
-            console.log("Sign up failed");
+            console.log("Sign in failed");
             if (data.detail === "Email already exists") {
                 alert("Email already exists");
             } else if (data.detail === "Username already exists") {

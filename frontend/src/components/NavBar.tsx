@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Navbar,
     MobileNav,
@@ -13,21 +13,46 @@ import { routes } from "../utils/routes";
 // import SingleProductPage from "../pages/ProductPage";
 import FooterBar from "./Footer";
 // import { themeToggle } from "../utils/utils";
+import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
+import { MyInfo } from "../services/GetInfo";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
     const [dark, setDark] = React.useState(false);
+    const [user, setUser] = useState(Boolean);
 
     const darkModeHandler = () => {
         setDark(!dark);
+        if (!dark) {
+            document.body.style.backgroundColor = 'rgb(66, 66, 66)';
+        } else {
+            document.body.style.backgroundColor = '';
+        }
         document.body.classList.toggle("dark");
         localStorage.setItem('dark-mode', !dark ? 'true' : 'false');
     }
 
 
-    React.useEffect(() => {
+    useEffect(() => {
+        // Logic to get the user information from the authentication provider
+        // For example, you can use the `auth` object from Firebase Authentication
+        // or any other authentication provider
+        const getUser = async () => {
+            const loggedIn = await MyInfo();
+                if (loggedIn) {
+                    console.log(loggedIn);
+                    setUser(loggedIn.logged_in);
+                }
+                
+        }; // <--- Add a semicolon here to end the function declaration
+        getUser();
+        // Clean up the subscription when the component unmounts
+    }, []);
+
+
+    useEffect(() => {
         const storedDarkMode = localStorage.getItem('dark-mode');
         if (storedDarkMode === 'true') {
             setDark(true);
@@ -35,15 +60,31 @@ export function StickyNavbar() {
         }
     }, []);
 
-    React.useEffect(() => {
+
+    useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
 
+    const handleLogout = () => {
+        Logout();
+        setUser(false)
+    };
+
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className="p-1 font-normal"
+            >
+                <a href="/admin" className="flex items-center dark:text-orange-300">
+                    Admin
+                </a>
+            </Typography>
             <Typography
                 as="li"
                 variant="small"
@@ -92,13 +133,14 @@ export function StickyNavbar() {
         <div className="-m-6  w-[calc(100%+24px)] dark:bg-gray-800 overflow-visible">
             <Navbar className="sticky top-0 border-t-0 border-r-0 dark:border-orange-300 dark:bg-gray-800 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
                 <div className="flex items-center justify-between text-blue-gray-900">
-                    <Typography
-                        as="a"
-                        href="#"
-                        className="mr-4 cursor-pointer py-1.5 font-medium dark:text-orange-300"
-                    >
-                        Synderis Ecommerce App
-                    </Typography>
+                    <Link to={"/"}>
+                        <Typography
+                            as="a"
+                            className="mr-4 cursor-pointer py-1.5 font-medium dark:text-orange-300"
+                        >
+                            Synderis Ecommerce App
+                        </Typography>
+                    </Link>
                     <button onClick={() => darkModeHandler()}>
                         {
 
@@ -111,15 +153,24 @@ export function StickyNavbar() {
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
                         <div className="flex items-center gap-x-1">
-                            <Link to={"/sign-in"}>
-                                <Button
-                                    variant="text"
-                                    size="sm"
-                                    className="hidden lg:inline-block"
+                            {user ? (
+                                <button
+                                    className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
+                                    onClick={() => handleLogout()}
                                 >
-                                    <span>Log In</span>
-                                </Button>
-                            </Link>
+                                    Logout
+                                </button>
+                            ) : (
+                                <Link to={"/sign-in"}>
+                                    <Button
+                                        variant="text"
+                                        size="sm"
+                                        className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
+                                    >
+                                        Login
+                                    </Button>
+                                </Link>
+                            )}
                             <Link to={"/sign-up"}>
                                 <Button
                                     variant="gradient"
@@ -191,7 +242,7 @@ export function StickyNavbar() {
                 ))}
             </Routes>
             {navList && (
-            <FooterBar />
+                <FooterBar />
             )}
         </div>
     );

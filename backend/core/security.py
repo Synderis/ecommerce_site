@@ -1,7 +1,7 @@
 from fastapi.security.http import HTTPAuthorizationCredentials
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-from core.config import settings
+from core.config import settings, blacklist
 from jose import JWTError, jwt
 from schemas.auth import TokenResponse
 from fastapi.encoders import jsonable_encoder
@@ -11,6 +11,9 @@ from sqlalchemy.orm import Session
 from fastapi.security import HTTPBearer
 from db.database import get_db
 from utils.responses import ResponseHandler
+import logging
+logger = logging.getLogger(__name__)
+
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -84,3 +87,23 @@ def check_admin_role(
     role_user = db.query(User).filter(User.id == user_id).first()
     if role_user.role != "admin":
         raise HTTPException(status_code=403, detail="Admin role required")
+    
+def add_blacklist_token(token: str, db: Session = Depends(get_db)):
+    try:
+        # Add a token to the blacklist
+        logger.info(token)
+        print(token)
+        blacklist.add_token(token)
+        
+        
+    except:
+        raise HTTPException(status_code=403, detail="Blacklist token failure")
+    return
+
+def check_auth(token: str):
+    if blacklist.is_token_blacklisted(token):
+        raise HTTPException(status_code=403, detail="Token is blacklisted")
+    else:
+        return True
+    
+        

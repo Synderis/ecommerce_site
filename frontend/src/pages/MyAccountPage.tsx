@@ -44,7 +44,7 @@ const MyAccount = () => {
     }
 
     return (
-        <section className="dark:bg-gradient-to-b pt-20 h-screen dark:from-orange-800/10 dark:to-gray-800 ">
+        <section className="dark:bg-gradient-to-b pt-12 h-screen dark:from-orange-800/10 dark:to-gray-800 ">
         <div className="container mx-auto p-4">
             <Typography variant="h2" className="mb-4">
                 My Account
@@ -73,7 +73,7 @@ const MyAccount = () => {
             </div>
             {ordersData && (
             <div className="overflow-x-auto">
-            <table className="w-full lg:w-2/3 text-sm text-left rounded-lg overflow-hidden text-gray-500 dark:text-gray-400">
+            <table className="w-full lg:w-2/3 mx-auto w-1/2 text-sm text-left rounded-lg overflow-hidden text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                     <th className="py-2 px-2">Total</th>
@@ -86,7 +86,7 @@ const MyAccount = () => {
                 <tbody>
                 {Array.isArray(ordersData) && ordersData.map((order) => (
                     <tr key={order.id} className="bg-white dark:bg-gray-800 dark:border-gray-700">
-                        <td className="py-2 px-2">{order.order_total}</td>
+                        <td className="py-2 px-2">${order.order_total}</td>
                         <td className="py-2 px-2">{new Date(order.order_timestamp).toLocaleDateString()}</td>
                         {/* <td className="py-2 px-2">{order.completed ? 'Yes' : 'No'}</td> */}
                         <td className="py-2 px-2">{order.shipped ? 'Yes' : 'No'}</td>
@@ -104,26 +104,26 @@ const MyAccount = () => {
             )}
             {showModal && cartItems && (
                 <div
-                className="fixed inset-0 flex items-center justify-center z-50"
+                className="fixed inset-0 lg:w-full w-2/3 flex items-center justify-center z-50"
                 onClick={() => setShowModal(false)}
                 >
-                    <div className="dark:bg-gray-700 p-8 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
+                    <div className="dark:bg-gray-700 p-8 lg:ml-0 ml-32 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
                     <table className="w-full">
                         <thead>
                         <tr>
-                            <th className="py-2 px-4">Image</th>
-                            <th className="py-2 px-4">Product</th>
-                            <th className="py-2 px-4">Quantity</th>
-                            <th className="py-2 px-4">Subtotal</th>
+                            <th className="py-2 px-2 lg:px-4">Image</th>
+                            <th className="py-2 px-2 lg:px-4">Product</th>
+                            <th className="py-2 px-2 lg:px-4">Quantity</th>
+                            <th className="py-2 px-2 lg:px-4">Subtotal</th>
                         </tr>
                         </thead>
                         <tbody>
                         {cartItems.map((item) => (
                             <tr key={item.id}>
-                            <td className="py-2 px-4"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
-                            <td className="py-2 px-4">{item.product.title}</td>
-                            <td className="py-2 px-4">{item.quantity}</td>
-                            <td className="py-2 px-4">{item.subtotal}</td>
+                            <td className="py-2 px-2 lg:px-4"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                            <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
+                            <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
+                            <td className="py-2 px-2 lg:px-4">${item.subtotal}</td>
                             </tr>
                         ))}
                         </tbody>

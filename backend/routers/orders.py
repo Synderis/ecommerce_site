@@ -5,7 +5,7 @@ from services.orders import OrderService
 from sqlalchemy.orm import Session
 # from schemas.carts import CartCreate, CartUpdate, CartOut, CartOutDelete, CartsOutList, CartItemCreate
 from schemas.orders import OrderOut, OrdersOutList, OrderOutDelete, OrderCreate
-from core.security import get_current_user
+from core.security import get_current_user, check_admin_role
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
 
@@ -14,7 +14,7 @@ auth_scheme = HTTPBearer()
 
 
 # Get All Orders
-@router.get("/", status_code=status.HTTP_200_OK, response_model=OrdersOutList)
+@router.get("/admin-orders", status_code=status.HTTP_200_OK, response_model=OrdersOutList, dependencies=[Depends(check_admin_role)])
 def get_all_orders(
     db: Session = Depends(get_db),
     page: int = Query(1, ge=1, description="Page number"),
@@ -32,6 +32,12 @@ def get_order(
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return OrderService.get_order(token, db, order_id)
 
+# Get Order By User ID
+@router.get("/", status_code=status.HTTP_200_OK, response_model=OrderOut)
+def get_order(
+        db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return OrderService.get_user_orders(token, db)
 
 # Create New Order
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=OrderOut)

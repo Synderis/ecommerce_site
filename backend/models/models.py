@@ -15,6 +15,7 @@ class User(Base):
     full_name = Column(String, nullable=False)
     is_active = Column(Boolean, server_default="True", nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
+    logged_in = Column(Boolean, server_default="False", nullable=False)
 
     # New column for role
     role = Column(Enum("admin", "user", name="user_roles"), nullable=False, server_default="user")

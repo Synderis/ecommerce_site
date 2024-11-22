@@ -17,6 +17,7 @@ class UserBase(BaseModel):
     password: str
     role: str
     is_active: bool
+    logged_in: bool
     created_at: datetime
     carts: List[CartBase]
     orders: List[OrderBase]

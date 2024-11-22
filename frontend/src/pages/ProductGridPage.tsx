@@ -46,7 +46,7 @@ const ProductPage = () => {
     }
 
     return (
-        <section className="px-8 py-10 lg:py-20 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
+        <section className="pr-5 pl-9 py-10 lg:pl-8 lg:pr-8 lg:py-20 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             <div className="grid gap-10 grid-cols-1 lg:grid-cols-3 lg:gap-16 max-w-7xl mx-auto">
                 {products.map(product => {
                     return <ProductTile

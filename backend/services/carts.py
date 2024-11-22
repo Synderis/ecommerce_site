@@ -3,13 +3,15 @@ from models.models import Cart, CartItem, Product
 from schemas.carts import CartUpdate, CartCreate, CartItemCreate
 from utils.responses import ResponseHandler
 from sqlalchemy.orm import joinedload
-from core.security import get_current_user
+from core.security import get_current_user, check_auth
 
 
 class CartService:
     # Get All Carts
     @staticmethod
     def get_all_carts(token, db: Session, page: int, limit: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         carts = db.query(Cart).filter(Cart.user_id == user_id).offset((page - 1) * limit).limit(limit).all()
         message = f"Page {page} with {limit} carts"
@@ -18,6 +20,8 @@ class CartService:
     # Get A Cart By ID
     @staticmethod
     def get_cart(token, db: Session, cart_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
         if not cart:
@@ -27,6 +31,8 @@ class CartService:
     # Create a new Cart
     @staticmethod
     def create_cart(token, db: Session, cart: CartCreate):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart_dict = cart.model_dump()
 
@@ -57,6 +63,8 @@ class CartService:
 
     @staticmethod
     def add_to_cart(token, db: Session, cart_id: int, cart_item: CartItemCreate):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
         if not cart:
@@ -80,6 +88,8 @@ class CartService:
     # Update Cart & CartItem
     @staticmethod
     def update_cart(token, db: Session, cart_id: int, updated_cart: CartUpdate):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
 
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
@@ -122,6 +132,8 @@ class CartService:
 
     @staticmethod
     def deactivate_cart(token, db: Session, cart_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
         if not cart:
@@ -134,6 +146,9 @@ class CartService:
     # Delete Both Cart and CartItems
     @staticmethod
     def delete_cart(token, db: Session, cart_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        
         user_id = get_current_user(token)
         cart = (
             db.query(Cart)

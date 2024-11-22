@@ -60,6 +60,17 @@ def update_product(
 
 
 # Delete Product By ID
+@router.put(
+    "/{product_id}/deactivate",
+    status_code=status.HTTP_200_OK,
+    response_model=ProductOutDelete,
+    dependencies=[Depends(check_admin_role)])
+def deactivate_product(
+        product_id: int,
+        db: Session = Depends(get_db)):
+    return ProductService.deactivate_product(db, product_id)
+
+# Delete Product By ID
 @router.delete(
     "/{product_id}",
     status_code=status.HTTP_200_OK,

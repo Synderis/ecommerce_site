@@ -1,5 +1,3 @@
-// import { Route } from 'react-router-dom';
-// import ProductTile from '../pages/ProductGridPage';
 import SingleProductPage from '../pages/ProductPage';
 import ProductPage from '../pages/ProductGridPage';
 import SignUpForm from "../pages/SignUpPage";
@@ -9,14 +7,10 @@ import MyAccount from "../pages/MyAccountPage";
 import HomePage from "../pages/Home";
 import CartPage from "../pages/CartPage";
 import Checkout from "../pages/CheckoutPage";
+import AboutTheDev from '../pages/AboutDev';
+import AdminDashboard from '../pages/AdminPage';
 
 export const routes = [
-    // <Route path="/products" element={<ProductPage />} />
-    //             <Route path="/sign-up" element={<SignUpForm />} />
-    //             <Route path="/sign-in" element={<SignInForm />} />
-    //             <Route path="/account" element={<MyAccount />} />
-    //             <Route path="/my-cart" element={<CartPage />} />
-    //             <Route path="/" element={<HomePage />} />
     {
         path: '/',
         element: <HomePage />,
@@ -52,5 +46,13 @@ export const routes = [
     {
         path: '/shipping-details',
         element: <ShippingDetailsForm />,
-    }
+    },
+    {
+        path: '/about-the-dev',
+        element: <AboutTheDev />,
+    },
+    {
+        path: '/admin',
+        element: <AdminDashboard />,
+    },
 ];

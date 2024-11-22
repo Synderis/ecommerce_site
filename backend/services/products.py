@@ -51,7 +51,7 @@ class ProductService:
         db_product = db.query(Product).filter(Product.id == product_id).first()
         if not db_product:
             ResponseHandler.not_found_error("Product", product_id)
-        db_product.active = False
+        db_product.is_published = False
         db.commit()
         db.refresh(db_product)
         return ResponseHandler.update_success(db_product.title, db_product.id, db_product)

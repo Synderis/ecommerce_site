@@ -3,6 +3,12 @@ import { Typography, Button } from '@material-tailwind/react';
 import CarouselCustomNavigation from '../components/Carousel';
 import { Link } from 'react-router-dom';
 
+const homeImages = [
+'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80',
+'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80',
+'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80',
+];
+
 const HomePage = () => {
     return (
         <section className="dark:bg-gradient-to-b mb-2 h-screenHeight dark:from-orange-800/10 dark:to-gray-800">
@@ -22,9 +28,23 @@ const HomePage = () => {
 
             {/* Carousel Section */}
             <div className="flex justify-center mr-2 ml-5 lg:w-full lg:mr-0 lg:ml-0">
-                <CarouselCustomNavigation />
+                <CarouselCustomNavigation images={homeImages} />
             </div>
-
+            {/* <img
+                src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+                alt="first"
+                className="h-full w-full object-cover"
+            />
+            <img
+                src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                alt="second"
+                className="h-full w-full object-cover"
+            />
+            <img
+                src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                alt="third"
+                className="h-full w-full object-cover"
+            /> */}
             {/* <div className="flex flex-col items-center text-center mt-0 lg:w-full">
                 <Typography variant="h2" className="mb-4">Our Features</Typography>
                 <div className="grid gap-8 lg:w-full">

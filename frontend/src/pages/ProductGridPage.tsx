@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ProductTile from '../components/ProductTile';
+import { Product } from '../utils/types';
 // import FooterBar from "../components/Footer";
 
-interface Product {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    thumbnail: string;
-}
 
 const ProductPage = () => {
     const [products, setProducts] = useState<Product[]>([]);

@@ -4,7 +4,7 @@ from services.carts import CartService
 from services.addresses import AddressService
 from sqlalchemy.orm import Session
 from schemas.carts import CartCreate, CartUpdate, CartOut, CartOutDelete, CartsOutList, CartItemCreate
-from schemas.addresses import AddressCreate, AddressUpdate
+from schemas.addresses import AddressCreate, AddressUpdate, AddressesOut, AddressOut
 from core.security import get_current_user
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
@@ -14,7 +14,7 @@ auth_scheme = HTTPBearer()
 
 
 # Get All Carts
-@router.get("/", status_code=status.HTTP_200_OK, response_model=CartsOutList)
+@router.get("/", status_code=status.HTTP_200_OK, response_model=AddressesOut)
 def get_all_addresses(
     db: Session = Depends(get_db),
     page: int = Query(1, ge=1, description="Page number"),
@@ -25,7 +25,7 @@ def get_all_addresses(
 
 
 # Get Cart By User ID
-@router.get("/{user_id}", status_code=status.HTTP_200_OK, response_model=CartOut)
+@router.get("/{user_id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
 def get_address(
         user_id: int,
         db: Session = Depends(get_db),
@@ -34,7 +34,7 @@ def get_address(
 
 
 # Create New Cart
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=CartOut)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=AddressOut)
 def create_address(
         address: AddressCreate, db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):

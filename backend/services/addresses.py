@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.models import Addresses, CartItem, Product
+from models.models import Addresses, CartItem, Product, Order, OrderItem
 from schemas.addresses import AddressCreate, AddressUpdate
 from utils.responses import ResponseHandler
 from sqlalchemy.orm import joinedload
@@ -35,50 +35,11 @@ class AddressService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         address_dict = address.model_dump()
-
-        # cart_items_data = cart_dict.pop("cart_items", [])
-        # cart_items = []
-        # total_amount = 0
-        # for item_data in cart_items_data:
-        #     product_id = item_data['product_id']
-        #     quantity = item_data['quantity']
-
-        #     product = db.query(Product).filter(Product.id == product_id).first()
-        #     if not product:
-        #         return ResponseHandler.not_found_error("Product", product_id)
-        #     if product.discount_percentage == 0:
-        #         subtotal = quantity * product.price
-        #     else:
-        #         subtotal = quantity * product.price * (product.discount_percentage / 100)
-
-        #     cart_item = CartItem(product_id=product_id, quantity=quantity, subtotal=subtotal)
-        #     total_amount += subtotal
-
-        #     cart_items.append(cart_item)
-        address_db = Addresses(user_id=user_id, **address_dict)
-        # cart_db = Cart(cart_items=cart_items, user_id=user_id, total_amount=total_amount, **cart_dict)
+        order = db.query(Order).filter(Order.user_id == user_id, Order.completed == False).first()
+        address_dict['order_id'] = order.id
+        address_dict['user_id'] = user_id
+        address_db = Addresses(**address_dict)
         db.add(address_db)
         db.commit()
         db.refresh(address_db)
-        return ResponseHandler.create_success("Cart",   address_db.id, address_db)
-
-
-    # Delete Both Cart and CartItems
-    # @staticmethod
-    # def delete_cart(token, db: Session, cart_id: int):
-    #     user_id = get_current_user(token)
-    #     cart = (
-    #         db.query(Cart)
-    #         .options(joinedload(Cart.cart_items).joinedload(CartItem.product))
-    #         .filter(Cart.id == cart_id, Cart.user_id == user_id)
-    #         .first()
-    #     )
-    #     if not cart:
-    #         ResponseHandler.not_found_error("Cart", cart_id)
-
-    #     for cart_item in cart.cart_items:
-    #         db.delete(cart_item)
-
-    #     db.delete(cart)
-    #     db.commit()
-    #     return ResponseHandler.delete_success("Cart", cart_id, cart)
+        return ResponseHandler.create_success("Address", address_db.id, address_db)

@@ -10,7 +10,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-import { CartChoice } from '../services/CartChoice';
+import { CartChoice } from '../services/CartServices';
 
 interface ProductProps {
     id: number;

@@ -5,6 +5,11 @@ class ResponseHandler:
     @staticmethod
     def success(message, data=None):
         return {"message": message, "data": data}
+    
+    @staticmethod
+    def perm_success():
+        message = f"xdd"
+        return ResponseHandler.success(message)
 
     @staticmethod
     def get_single_success(name, id, data):
@@ -17,7 +22,7 @@ class ResponseHandler:
         return ResponseHandler.success(message, data)
     
     @staticmethod
-    def create_failure(data,error):
+    def create_failure(data, error):
         if 'users_email_key' in error:
             message = "Email already exists"
         elif 'users_username_key' in error:

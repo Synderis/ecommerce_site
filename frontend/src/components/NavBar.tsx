@@ -17,11 +17,14 @@ import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
 import { MyInfo } from "../services/GetInfo";
+import { UserData } from "../utils/types";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
     const [dark, setDark] = React.useState(false);
-    const [user, setUser] = useState(Boolean);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState<UserData | null>(null);
+
 
     const darkModeHandler = () => {
         setDark(!dark);
@@ -40,10 +43,11 @@ export function StickyNavbar() {
         // For example, you can use the `auth` object from Firebase Authentication
         // or any other authentication provider
         const getUser = async () => {
-            const loggedIn = await MyInfo();
-                if (loggedIn) {
-                    console.log(loggedIn);
-                    setUser(loggedIn.logged_in);
+            const userLogin = await MyInfo();
+                if (userLogin) {
+                    console.log(userLogin);
+                    setLoggedIn(userLogin.logged_in);
+                    setUser(userLogin);
                 }
                 
         }; // <--- Add a semicolon here to end the function declaration
@@ -70,11 +74,12 @@ export function StickyNavbar() {
 
     const handleLogout = () => {
         Logout();
-        setUser(false)
+        setLoggedIn(false)
     };
 
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            {user?.role === 'admin' && (
             <Typography
                 as="li"
                 variant="small"
@@ -85,6 +90,7 @@ export function StickyNavbar() {
                     Admin
                 </a>
             </Typography>
+            )}
             <Typography
                 as="li"
                 variant="small"
@@ -153,7 +159,7 @@ export function StickyNavbar() {
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
                         <div className="flex items-center gap-x-1">
-                            {user ? (
+                            {loggedIn ? (
                                 <button
                                     className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
                                     onClick={() => handleLogout()}

@@ -31,6 +31,13 @@ def get_cart(
     return CartService.get_cart(token, db, cart_id)
 
 
+@router.get("/active", status_code=status.HTTP_200_OK, response_model=CartOut)
+def get_active_cart(
+        db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return CartService.get_active_cart(token, db)
+
+
 # Create New Cart
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=CartOut)
 def create_cart(

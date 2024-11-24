@@ -14,7 +14,7 @@ class AddressBase(BaseModel):
     user_id: int
     order_id: int
     full_name: str
-    address: str
+    street_address: str
     city: str
     state: str
     country: str
@@ -26,8 +26,14 @@ class AddressBase(BaseModel):
 
 
 # Create Product
-class AddressCreate(AddressBase):
-    pass
+class AddressCreate(BaseModel):
+    full_name: str
+    street_address: str
+    city: str
+    state: str
+    country: str
+    zip: str
+    address_type: str
 
     class Config(BaseConfig):
         pass

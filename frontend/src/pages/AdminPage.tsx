@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import OrdersTable from '../components/OrdersAdmin';
 import UsersTable from '../components/UsersAdmin';
 import ProductsTable from '../components/ProductsAdmin';
+import ProductCreateModal from '../components/ProductCreateModal';
+
+
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('orders');
+    const [createProductModalOpen, setCreateProductModalOpen] = useState(false);
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);
@@ -15,24 +19,34 @@ const AdminDashboard = () => {
         <div className="container mx-auto p-4 mt-6">
             <div className="flex justify-center mx-auto mt-8 mb-4">
                 <button
-                    className={`px-4 py-2 ${activeTab === 'orders' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                    className={`px-4 py-2 ${activeTab === 'orders' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
                     onClick={() => handleTabChange('orders')}
                 >
                     Orders
                 </button>
                 <button
-                    className={`px-4 py-2 ${activeTab === 'users' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                    className={`px-4 py-2 ${activeTab === 'users' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
                     onClick={() => handleTabChange('users')}
                 >
                     Users
                 </button>
                 <button
-                    className={`px-4 py-2 ${activeTab === 'products' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                    className={`px-4 py-2 ${activeTab === 'products' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
                     onClick={() => handleTabChange('products')}
                 >
                     Products
                 </button>
+                
             </div>
+            <div className="flex justify-end mx-auto mt-8 mb-4">
+            <button
+                    className={`px-4 py-2 bg-blue-500 dark:bg-orange-800/30 text-white rounded-md bg-gray-200`}
+                    onClick={() => setCreateProductModalOpen(true)}
+                >
+                    Create Product
+            </button>
+            </div>
+            {createProductModalOpen && <ProductCreateModal isOpen={createProductModalOpen} onClose={() => setCreateProductModalOpen(false)} />}
             {activeTab === 'orders' && (
                 <div>
                     <h2>Orders</h2>

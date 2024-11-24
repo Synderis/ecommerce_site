@@ -2,14 +2,21 @@ from sqlalchemy.orm import Session
 from models.models import Product, Category
 from schemas.products import ProductCreate, ProductUpdate
 from utils.responses import ResponseHandler
+from fastapi.responses import JSONResponse
+from datetime import datetime
 
 
 class ProductService:
     @staticmethod
-    def get_all_products(db: Session, page: int, limit: int, search: str = ""):
+    def get_products(db: Session, page: int, limit: int, search: str = ""):
         products = db.query(Product).order_by(Product.id.asc()).filter(
-            Product.title.contains(search), Product.stock > 0).limit(limit).offset((page - 1) * limit).all()
+            Product.stock > 0, Product.is_published == True).all()
         return {"message": f"Page {page} with {limit} products", "data": products}
+    
+    @staticmethod
+    def get_all_products(db: Session):
+        products = db.query(Product).order_by(Product.id.asc()).all()
+        return {"message": f"Page with products", "data": products}
 
     @staticmethod
     def get_product(db: Session, product_id: int):
@@ -20,11 +27,13 @@ class ProductService:
 
     @staticmethod
     def create_product(db: Session, product: ProductCreate):
-        category_exists = db.query(Category).filter(Category.id == product.category_id).first()
-        if not category_exists:
+        product_exists = db.query(Product).filter(Product.title == product.title).first()
+        if product_exists:
             ResponseHandler.not_found_error("Category", product.category_id)
 
         product_dict = product.model_dump()
+        if not product_dict["created_at"]:
+            product_dict["created_at"] = datetime.now()
         if product_dict["stock"] == 0:
             product_dict["stock"] = 1
         db_product = Product(**product_dict)
@@ -32,6 +41,13 @@ class ProductService:
         db.commit()
         db.refresh(db_product)
         return ResponseHandler.create_success(db_product.title, db_product.id, db_product)
+    
+    @staticmethod
+    def upload_image(file):
+        file_path = f"./assets/{file.filename}"
+        with open(file_path, "wb") as f:
+            f.write(file.file.read())
+        return JSONResponse(content={"message": "Image uploaded successfully"}, status_code=200)
 
     @staticmethod
     def update_product(db: Session, product_id: int, updated_product: ProductUpdate):

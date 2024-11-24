@@ -29,7 +29,6 @@ export interface UserData {
 export interface Order {
     id: number;
     user_id: number;
-    cart_id: number;
     item_total: number;
     tax_total: number;
     shipping_total: number;
@@ -37,12 +36,25 @@ export interface Order {
     order_timestamp: string;
     completed: boolean;
     shipped: boolean;
+    order_items: {
+        id: number;
+        quantity: number;
+        subtotal: number;
+        product: {
+            id: number;
+            title: string;
+            description: string;
+            price: number;
+            thumbnail: string;
+        };
+    }[];
 }
 
 export interface Product {
     id: number;
     title: string;
     description: string;
+    brand: string;
     price: number;
     stock: number;
     thumbnail: string;
@@ -50,4 +62,30 @@ export interface Product {
     is_published: boolean;
     created_at: string;
     category_id: number;
+}
+
+export interface ProductCreate {
+    id: number;
+    title: string;
+    description: string;
+    brand: string;
+    price: number;
+    stock: number;
+    thumbnail: string;
+    images: string[];
+    is_published: boolean;
+    category_id: number;
+}
+
+export interface AddressDetails {
+    id: number;
+    user_id: number;
+    order_id: number;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+    address_type: string;
 }

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Typography, Button, Card, CardHeader, CardBody, CardFooter } from '@material-tailwind/react';
 import CarouselCustomNavigation from '../components/Carousel';
 import { MyProduct } from '../services/GetProduct';
-import { CartChoice } from '../services/CartChoice';
+import { CartChoice } from '../services/CartServices';
 
 
 const SingleProduct = () => {
@@ -26,7 +26,7 @@ const SingleProduct = () => {
         <div className="container mx-auto p-4 pt-6 mt-6">
             <div className="flex flex-wrap -mx-4">
                 <div className="w-full xl:w-8/12 p-4">
-                    <CarouselCustomNavigation />
+                <CarouselCustomNavigation images={productData && productData.images ? productData.images.map((image: string) => `http://localhost:8000/assets/${image}`) : []} />
                 </div>
                 <div className="w-full xl:w-4/12 p-4">
                     <Card className="h-full py-8 dark:bg-gray-900 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900">

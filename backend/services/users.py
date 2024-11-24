@@ -9,12 +9,9 @@ from core.security import get_password_hash
 
 class UserService:
     @staticmethod
-    def get_all_users(db: Session, page: int, limit: int, search: str = "", role: str = "user"):
-        # users = db.query(User).order_by(User.id.asc()).filter(
-        #     User.username.contains(search), User.role == role).limit(limit).offset((page - 1) * limit).all()
-        users = db.query(User).order_by(User.id.asc()).filter(
-            User.username.contains(search)).limit(limit).offset((page - 1) * limit).all()
-        return {"message": f"Page {page} with {limit} users", "data": users}
+    def get_all_users(db: Session):
+        users = db.query(User).order_by(User.id.asc()).all()
+        return {"message": f"Page with users", "data": users}
 
     @staticmethod
     def get_user(db: Session, user_id: int):

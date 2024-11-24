@@ -4,7 +4,7 @@ from db.database import get_db
 from services.orders import OrderService
 from sqlalchemy.orm import Session
 # from schemas.carts import CartCreate, CartUpdate, CartOut, CartOutDelete, CartsOutList, CartItemCreate
-from schemas.orders import OrderOut, OrdersOutList, OrderOutDelete, OrderCreate
+from schemas.orders import OrderOut, OrdersOutList, OrderOutDelete, OrderCreate, OrderItemsOut
 from core.security import get_current_user, check_admin_role
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
@@ -17,12 +17,23 @@ auth_scheme = HTTPBearer()
 @router.get("/admin-orders", status_code=status.HTTP_200_OK, response_model=OrdersOutList, dependencies=[Depends(check_admin_role)])
 def get_all_orders(
     db: Session = Depends(get_db),
-    page: int = Query(1, ge=1, description="Page number"),
-    limit: int = Query(10, ge=1, le=100, description="Items per page"),
     token: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
-    return OrderService.get_all_orders(token, db, page, limit)
+    return OrderService.get_all_orders(token, db)
 
+@router.get("/current-order", status_code=status.HTTP_200_OK, response_model=OrderOut)
+def get_current_order(
+        db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    print(token)
+    return OrderService.get_current_order(token, db)
+
+@router.put("/{order_id}", status_code=status.HTTP_200_OK, dependencies=[Depends(check_admin_role)])
+def update_order(
+        order_id: int,
+        db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return OrderService.update_order(token, db, order_id)
 
 # Get Order By User ID
 @router.get("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderOut)
@@ -32,18 +43,25 @@ def get_order(
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return OrderService.get_order(token, db, order_id)
 
+@router.get("/{order_id}/items", status_code=status.HTTP_200_OK, response_model=OrderItemsOut)
+def get_order_items(
+        order_id: int,
+        db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return OrderService.get_order_items(token, db, order_id)
+
 # Get Order By User ID
-@router.get("/", status_code=status.HTTP_200_OK, response_model=OrderOut)
+@router.get("/", status_code=status.HTTP_200_OK)
 def get_order(
         db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return OrderService.get_user_orders(token, db)
 
 # Create New Order
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=OrderOut)
+@router.post("/{cart_id}/create", status_code=status.HTTP_201_CREATED, response_model=OrderOut)
 def create_order(
         cart_id: int,
-        order: OrderCreate, db: Session = Depends(get_db),
+        db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return OrderService.create_order(token, db, cart_id)
 

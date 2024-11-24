@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { Card, Input, Button } from '@material-tailwind/react';
+import { CreateAddress } from '../services/OrderServices';
 
-interface ShippingDetails {
-    name: string;
-    address: string;
-    city: string;
-    state: string;
-    zip: string;
-    country: string;
-}
+
 
 const ShippingDetailsForm: React.FC = () => {
-    const [shippingDetails, setShippingDetails] = useState<ShippingDetails>({
-        name: '',
-        address: '',
+    const [sameAsBilling, setSameAsBilling] = useState(false);
+    const [shippingDetails, setShippingDetails] = useState({
+        full_name: '',
+        street_address: '',
         city: '',
         state: '',
         zip: '',
         country: '',
+        address_type: '',
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,10 +21,27 @@ const ShippingDetailsForm: React.FC = () => {
         setShippingDetails({ ...shippingDetails, [name]: value });
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(shippingDetails);
-        // Call API to save shipping details
+
+    const handleSubmit = async () => {
+        if (Object.keys(shippingDetails).length === 1 && shippingDetails.address_type) {
+            // Handle the case where only the address_type is provided
+            const address = { address_type: shippingDetails.address_type };
+            await CreateAddress(address);
+            console.log('Address:', address);
+        } else {
+            if (sameAsBilling) {
+                const shippingAddress = { ...shippingDetails, address_type: 'shipping' };
+                await CreateAddress(shippingAddress);
+                console.log('Shipping address:', shippingAddress);
+                const billingAddress = { ...shippingDetails, address_type: 'billing' };
+                await CreateAddress(billingAddress);
+                console.log('Billing address:', billingAddress);
+            } else {
+                const shippingAddress = { ...shippingDetails, address_type: 'shipping' };
+                await CreateAddress(shippingAddress);
+                console.log('Shipping address:', shippingAddress);
+            }
+        }
     };
 
     return (
@@ -39,8 +52,8 @@ const ShippingDetailsForm: React.FC = () => {
                     <label className="text-sm font-medium mb-2 opacity-75 dark:text-white">Name</label>
                     <Input
                         type="text"
-                        name="name"
-                        value={shippingDetails.name}
+                        name="full_name"
+                        value={shippingDetails.full_name}
                         onChange={handleChange}
                         placeholder='John Doe'
                         className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
@@ -53,8 +66,8 @@ const ShippingDetailsForm: React.FC = () => {
                     <label className="text-sm font-medium mb-2 opacity-75 dark:text-white">Address</label>
                     <Input
                         type="text"
-                        name="address"
-                        value={shippingDetails.address}
+                        name="street_address"
+                        value={shippingDetails.street_address}
                         onChange={handleChange}
                         placeholder='123 Main Street'
                         className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
@@ -126,6 +139,8 @@ const ShippingDetailsForm: React.FC = () => {
                             type="checkbox"
                             className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
                             id="check-2"
+                            checked={sameAsBilling}
+                            onChange={() => setSameAsBilling(!sameAsBilling)}
                         />
                         <span className="absolute text-white opacity-0 pointer-events-none peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             <svg
@@ -149,7 +164,7 @@ const ShippingDetailsForm: React.FC = () => {
                     </label>
                 </div>
                 <div>
-                    <Button type="submit" className="mt-6 mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white">
+                    <Button onClick={handleSubmit} className="mt-6 mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white">
                         Save Shipping Details
                     </Button>
                 </div>

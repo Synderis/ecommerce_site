@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, Field
 from datetime import datetime
 from typing import List, Optional, ClassVar
 from schemas.categories import CategoryBase
@@ -28,7 +28,7 @@ class ProductBase(BaseModel):
     thumbnail: str
     images: List[str]
     is_published: bool
-    created_at: datetime
+    created_at: datetime = Field(default_factory=datetime.now)
     category_id: int
     category: CategoryBase
 
@@ -58,6 +58,13 @@ class ProductOut(BaseModel):
     class Config(BaseConfig):
         pass
 
+
+class ImageOut(BaseModel):
+    filename: str
+    base64: str
+
+    class Config(BaseConfig):
+        pass
 
 class ProductsOut(BaseModel):
     message: str

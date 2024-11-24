@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Typography, Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/GetInfo";
-import { MyOrders } from "../services/GetOrders";
+import { MyOrders } from "../services/OrderServices";
 import { Order, UserData, Cart } from "../utils/types";
-import { MyCart } from "../services/GetCart";
+import { MyCart } from "../services/CartServices";
 
 
 const MyAccount = () => {
@@ -33,11 +33,6 @@ const MyAccount = () => {
         setCartItems(response.cart_items);
         setShowModal(true);
     };
-
-
-
-
-
 
     if (!userData) {
         return <div>Loading...</div>;

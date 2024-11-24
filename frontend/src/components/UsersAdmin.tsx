@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserData } from '../utils/types';
-import { AllUsers } from '../services/GetUsers';
+import { AllUsers } from '../services/AdminServices';
 
 const UsersTable = () => {
   const [users, setUsers] = useState<UserData[]>([]);

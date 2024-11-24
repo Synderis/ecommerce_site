@@ -27,6 +27,16 @@ class CartService:
         if not cart:
             ResponseHandler.not_found_error("Cart", cart_id)
         return ResponseHandler.get_single_success("cart", cart_id, cart)
+    
+    @staticmethod
+    def get_active_cart(token, db: Session):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        user_id = get_current_user(token).get('id')
+        cart = db.query(Cart).filter(Cart.user_id == user_id, Cart.active == True).first()
+        if not cart:
+            ResponseHandler.not_found_error("Cart", Cart.id)
+        return ResponseHandler.get_single_success("cart", Cart.id, cart)
 
     # Create a new Cart
     @staticmethod

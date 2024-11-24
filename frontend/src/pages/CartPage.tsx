@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
+// import { MyActiveCart } from "../services/CartServices";
 import { MyInfo } from "../services/GetInfo";
-import { UpdateCart } from "../services/UpdateCartItems";
+import { UpdateCart } from "../services/CartServices";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
 import { Link } from "react-router-dom";
+import { CreateOrder } from "../services/OrderServices";
 
 
 
@@ -20,11 +22,16 @@ const CurrentCart = () => {
     useEffect(() => {
         const fetchCart = async () => {
             try {
+                // const response = await MyActiveCart();
                 const response = await MyInfo();
                 console.log(response.carts[0]);
                 setCart(response.carts[0]);
                 setCartItems(response.carts[0].cart_items);
                 setCartTotalAmount(response.carts[0].total_amount);
+                // console.log(response);
+                // setCart(response);
+                // setCartItems(response.cart_items);
+                // setCartTotalAmount(response.total_amount);
             } catch (error) {
                 console.error("Failed to fetch cart:", error);
             }
@@ -56,6 +63,15 @@ const CurrentCart = () => {
         }
     };
 
+    const handleOrderCreate = async () => {
+        try {
+            if (!cart) return;
+            await CreateOrder(cart.id);
+        } catch (error) {
+            console.error("Failed to create order:", error);
+        }
+    };
+
 
 
     return (
@@ -71,11 +87,12 @@ const CurrentCart = () => {
                             <Link to="/shipping-details">
                                 <Button
                                     className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                                    onClick={handleOrderCreate}
                                 >
                                     Checkout
                                 </Button>
                             </Link>
-                            <div className="text-lg text-slate-500 mt-2 dark:text-orange-300">Total: {cartTotalAmount}</div>
+                            <div className="text-lg text-slate-500 mt-2 dark:text-orange-300">Total: ${cartTotalAmount.toFixed(2)}</div>
                         </div>
                     </div>
                 </div>

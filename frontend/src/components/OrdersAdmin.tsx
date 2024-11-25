@@ -73,10 +73,10 @@ const OrdersTable = () => {
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.id}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.user_id}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{new Date(order.order_timestamp).toLocaleString()}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.item_total}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.tax_total}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.shipping_total}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.order_total}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.item_total / 100).toFixed(2)}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.tax_total / 100).toFixed(2)}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.shipping_total / 100).toFixed(2)}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.order_total / 100).toFixed(2)}</td>
             {/* <td>{order.payment_type}</td> */}
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.completed ? 'Completed' : 'Pending'}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.shipped ? 'Shipped' : 'Not Shipped'}</td>
@@ -117,7 +117,7 @@ const OrdersTable = () => {
                   <td className="py-2 px-2 lg:px-4"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                   <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
                   <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
-                  <td className="py-2 px-2 lg:px-4">${item.subtotal}</td>
+                  <td className="py-2 px-2 lg:px-4">${(item.subtotal / 100).toFixed(2)}</td>
                   </tr>
               ))}
               </tbody>

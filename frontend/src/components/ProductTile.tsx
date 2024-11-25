@@ -39,7 +39,7 @@ const ProductTile: React.FC<ProductProps> = ({ id, title, price, description, th
                                 {title}
                             </Typography>
                             <Typography color="blue-gray" className="font-medium dark:text-orange-300">
-                                ${price}
+                                ${(price / 100).toFixed(2)}
                             </Typography>
                         </div>
                         <Typography

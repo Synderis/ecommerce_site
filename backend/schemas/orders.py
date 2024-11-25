@@ -19,7 +19,7 @@ class OrderItemBase(BaseModel):
     id: int
     product_id: int
     quantity: int
-    subtotal: float
+    subtotal: int
     product: ProductBaseCart
 
 
@@ -27,10 +27,10 @@ class OrderBase(BaseModel):
     id: int
     order_timestamp: datetime
     user_id: int
-    item_total: float
-    tax_total: float
-    shipping_total: float
-    order_total: float
+    item_total: int
+    tax_total: int
+    shipping_total: int
+    order_total: int
     payment_type: str
     completed: bool
     shipped: bool
@@ -51,10 +51,10 @@ class OrderOutBase(BaseModel):
     id: int
     order_timestamp: datetime
     user_id: int
-    item_total: float
-    tax_total: float
-    shipping_total: float
-    order_total: float
+    item_total: int
+    tax_total: int
+    shipping_total: int
+    order_total: int
     payment_type: str
     completed: bool
     shipped: bool

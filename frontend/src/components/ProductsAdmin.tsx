@@ -80,7 +80,7 @@ const ProductsTable = () => {
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.id}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.title}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.description}</td>
-              <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.price}</td>
+              <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(product.price / 100).toFixed(2)}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.is_published ? 'Yes' : 'No'}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{new Date(product.created_at).toLocaleString()}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.stock}</td>

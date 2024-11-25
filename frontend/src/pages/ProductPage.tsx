@@ -40,7 +40,7 @@ const SingleProduct = () => {
                                 {productData.description}
                             </Typography>
                             <Typography variant="h4" color="gray" className="mt-4 opacity-75 dark:text-white">
-                                ${productData.price}
+                                ${(productData.price / 100).toFixed(2)}
                             </Typography>
                         </CardBody>
                         <CardFooter>

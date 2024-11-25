@@ -69,3 +69,17 @@ export const UnfinishedOrder = async () => {
     // return responseData.data.carts[0];
     return responseData.data;
 };
+
+export const FinishOrder = async ( order_id: number ) => {
+    // console.log(token);
+    const response = await fetch(`http://localhost:8000/stripe/process-payment/${order_id}`, {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+    // return responseData.data.carts[0];
+    return responseData.data;
+};

@@ -21,7 +21,6 @@ auth_scheme = HTTPBearer()
 # stripe = Stripe(stripe_secret_key)
 
 
-@router.post("/process-payment/")
-async def process_payment(amount: float, currency: str, token: str, db: Session = Depends(get_db),
-                        current_user: HTTPAuthorizationCredentials = Depends(get_current_user)):
-    return await StripeService.process_payment(token, db, amount, currency)
+@router.post("/process-payment/{order_id}")
+async def process_payment(order_id: int, db: Session = Depends(get_db), token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return await StripeService.process_payment(token, db, order_id)

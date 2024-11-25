@@ -33,7 +33,7 @@ class Cart(Base):
     id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
-    total_amount = Column(Float, nullable=False)
+    total_amount = Column(Integer, nullable=False)
 
     # Relationship with user
     user = relationship("User", back_populates="carts")
@@ -49,7 +49,7 @@ class CartItem(Base):
     cart_id = Column(Integer, ForeignKey("carts.id", ondelete="CASCADE"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
     quantity = Column(Integer, nullable=False)
-    subtotal = Column(Float, nullable=False)
+    subtotal = Column(Integer, nullable=False)
 
     # Relationship with cart and product
     cart = relationship("Cart", back_populates="cart_items")
@@ -72,7 +72,7 @@ class Product(Base):
     id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    price = Column(Float(precision=2), nullable=False)
+    price = Column(Integer, nullable=False)
     discount_percentage = Column(Float, nullable=False)
     rating = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)
@@ -96,10 +96,10 @@ class Order(Base):
     id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     order_timestamp = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
-    item_total = Column(Float, nullable=False)
-    tax_total = Column(Float, nullable=False)
-    shipping_total = Column(Float, nullable=False)
-    order_total = Column(Float, nullable=False)
+    item_total = Column(Integer, nullable=False)
+    tax_total = Column(Integer, nullable=False)
+    shipping_total = Column(Integer, nullable=False)
+    order_total = Column(Integer, nullable=False)
     payment_type = Column(String, nullable=False)
     completed = Column(Boolean, server_default="False", nullable=False)
     shipped = Column(Boolean, server_default="False", nullable=False)
@@ -133,7 +133,8 @@ class OrderItem(Base):
     order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
     quantity = Column(Integer, nullable=False)
-    subtotal = Column(Float, nullable=False)
+    subtotal = Column(Integer, nullable=False)
+    tax_subtotal = Column(Integer, nullable=True)
 
     # Relationship with order and product
     order = relationship("Order", back_populates="order_items")

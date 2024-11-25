@@ -58,7 +58,8 @@ class OrderService:
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
-        orders = db.query(Order).filter(Order.user_id == user_id, Order.completed == True).all()
+        # orders = db.query(Order).filter(Order.user_id == user_id, Order.completed == True).all()
+        orders = db.query(Order).filter(Order.user_id == user_id).all()
         message = f"Page with  orders"
         print(type(orders))
         if not orders:

@@ -63,3 +63,9 @@ class ResponseHandler:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"{code} with token for {token}",)
+        
+    @staticmethod
+    def payment_failure(message, error):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Payment {message} failed due to {error}",)

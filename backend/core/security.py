@@ -35,7 +35,7 @@ def verify_password(plain_password, hashed_password):
 async def get_user_token(id: int, refresh_token=None):
     payload = {"id": id}
 
-    access_token_expiry = timedelta(minutes=settings.access_token_expire_minutes)
+    access_token_expiry = timedelta(minutes=31)
 
     access_token = await create_access_token(payload, access_token_expiry)
     
@@ -94,8 +94,6 @@ def add_blacklist_token(token: str, db: Session = Depends(get_db)):
         logger.info(token)
         print(token)
         blacklist.add_token(token)
-        
-        
     except:
         raise HTTPException(status_code=403, detail="Blacklist token failure")
     return
@@ -105,5 +103,3 @@ def check_auth(token: str):
         raise HTTPException(status_code=403, detail="Token is blacklisted")
     else:
         return True
-    
-        

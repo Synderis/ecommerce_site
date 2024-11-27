@@ -1,6 +1,3 @@
-
-
-
 export const DeactivateProduct = async (product_id: number) => {
     // console.log(token);
     // const product_id = 1;

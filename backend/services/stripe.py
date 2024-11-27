@@ -22,43 +22,89 @@ if stripe_secret_key is None:
 stripe.api_key = stripe_secret_key
 
 class StripeService:
+    # @staticmethod
+    # async def process_payment(token, db: Session, order_id: int):
+    #     if not check_auth(token.credentials):
+    #         return ResponseHandler.blacklisted_token(token, 'Auth failed')
+    #     order = db.query(Order).filter(Order.id == order_id, Order.completed == False).first()
+    #     address = db.query(Addresses).filter(Addresses.order_id == order_id, Addresses.address_type == "billing").first()
+    #     updated_order = await StripeService.calculate_tax(db, order, address)
+    #     try:
+    #         payment_intent = stripe.PaymentIntent.create(
+    #             amount=updated_order.order_total,
+    #             currency="usd",
+    #             customer="cus_RHGNSyj6v50QT8",
+    #             payment_method_types=["card"],
+    #             metadata={"token": token},
+    #         )
+    #     except Exception as e:
+    #         return ResponseHandler.payment_failure(message="Create", error=str(e))
+
+    #     # Confirm the PaymentIntent
+    #     try:
+    #         payment_intent.confirm(
+    #             payment_method="pm_1QOxzqDeMPHtfstrRwU4aj4c",
+    #         )
+    #     except Exception as e:
+    #         return ResponseHandler.payment_failure(message="Confirm", error=str(e))
+        
+    #     if payment_intent.get("status") == "succeeded":
+    #         order.completed = True
+    #         order.payment_type = payment_intent.get("payment_method_types")[0]
+    #         db.commit()
+    #         db.refresh(updated_order)
+    #         message = f"Payment successful for order {updated_order.id}"
+    #         print(message)
+    #         return ResponseHandler.success(message, updated_order)
+    #     else:
+    #         print('failed but not sure why')
+    #         return ResponseHandler.payment_failure("Confirm", "status is not success")
+    
     @staticmethod
     async def process_payment(token, db: Session, order_id: int):
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        user = get_current_user(token)
         order = db.query(Order).filter(Order.id == order_id, Order.completed == False).first()
         address = db.query(Addresses).filter(Addresses.order_id == order_id, Addresses.address_type == "billing").first()
-        updated_order = await StripeService.calculate_tax(db, order, address)
         try:
-            payment_intent = stripe.PaymentIntent.create(
-                amount=updated_order.order_total,
-                currency="usd",
-                customer="cus_RHGNSyj6v50QT8",
-                payment_method_types=["card"],
-                metadata={"token": token},
+            checkout_session = stripe.checkout.Session.create(
+                customer_email='toccidylan@gmail.com',
+                currency='usd',
+                submit_type='auto',
+                billing_address_collection='auto',
+                shipping_address_collection={
+                    'allowed_countries': ['US', 'CA'],
+                },
+                line_items = [
+                    {
+                        "price_data": {
+                            "currency": "usd",
+                            "product_data": {
+                                "name": item.product_id,
+                            },
+                            "unit_amount": item.subtotal,
+                        },
+                        # "reference": f"product_id_{item.product_id}",
+                        "quantity": 1,
+                    }
+                    for item in order.order_items
+                ],
+                # receipt_email='toccidylan@gmail.com',
+                mode='payment',
+                success_url=f'https://synderispricechecker.com/?success=true/{order.id}',
+                # cancel_url=YOUR_DOMAIN + '?canceled=true',
+                automatic_tax={'enabled': True},
             )
         except Exception as e:
-            return ResponseHandler.payment_failure(message="Create", error=str(e))
+            return str(e)
+        checkout_id = checkout_session.id
+        order.payment_id = checkout_id
+        db.commit()
+        db.refresh(order)
+        print(checkout_session.url)
 
-        # Confirm the PaymentIntent
-        try:
-            payment_intent.confirm(
-                payment_method="pm_1QOxzqDeMPHtfstrRwU4aj4c",
-            )
-        except Exception as e:
-            return ResponseHandler.payment_failure(message="Confirm", error=str(e))
-        
-        if payment_intent.get("status") == "succeeded":
-            order.completed = True
-            order.payment_type = payment_intent.get("payment_method_types")[0]
-            db.commit()
-            db.refresh(updated_order)
-            message = f"Payment successful for order {updated_order.id}"
-            print(message)
-            return ResponseHandler.success(message, updated_order)
-        else:
-            print('failed but not sure why')
-            return ResponseHandler.payment_failure("Confirm", "status is not success")
+        return ResponseHandler.perm_success2(checkout_session.url, checkout_id)
     
     @staticmethod
     async def calculate_tax(db: Session, order, address):
@@ -108,3 +154,35 @@ class StripeService:
             return order
         except Exception as e:
             print(e, tax_calc)
+            
+    @staticmethod
+    async def confirm_payment(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        user = get_current_user(token)
+        order = db.query(Order).filter(Order.id == order_id).first()
+        payment_data = stripe.checkout.Session.list_line_items(order.payment_id)
+        payment_items = payment_data.data
+        Addresses(order_id=order.id,
+                user_id=user.id,
+                full_name=payment_data.shipping_details.name,
+                street_address=payment_data.shipping_details.address.line1,
+                city=payment_data.shipping_details.address.city,
+                state=payment_data.shipping_details.address.state,
+                zip=payment_data.shipping_details.address.postal_code,
+                address_type="shipping").save(db)
+        
+        order.completed = True
+        for item in order.order_items:
+            for i in payment_items.data:
+                if i.description == f"{item.product_id}":
+                    item.tax_subtotal = payment_items.data
+        for item in payment_items.data:
+            order.tax_total += item.amount_tax
+        order.payment_type = payment_data.get("payment_method_types")[0]
+        order.payment_id = None
+        db.commit()
+        db.refresh(order)
+        return ResponseHandler.success("Order", order)
+        # checkout_data = stripe.checkout.Session.retrieve(session_id)
+        # checkout_data.shipping_details

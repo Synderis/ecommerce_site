@@ -3,7 +3,7 @@ from db.database import get_db
 from services.carts import CartService
 from sqlalchemy.orm import Session
 from schemas.carts import CartCreate, CartUpdate, CartOut, CartOutDelete, CartsOutList, CartItemCreate
-from core.security import get_current_user
+from core.security import get_current_user, check_admin_role
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
 
@@ -67,7 +67,7 @@ def update_cart(
 
 
 # Delete Cart By User ID
-@router.delete("/{cart_id}", status_code=status.HTTP_200_OK, response_model=CartOutDelete)
+@router.delete("/{cart_id}", status_code=status.HTTP_200_OK, response_model=CartOutDelete, dependencies=[Depends(check_admin_role)])
 def delete_cart(
         cart_id: int, db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):

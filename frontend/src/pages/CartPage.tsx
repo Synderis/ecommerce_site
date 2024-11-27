@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-// import { MyActiveCart } from "../services/CartServices";
 import { MyInfo } from "../services/GetInfo";
 import { UpdateCart } from "../services/CartServices";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
-import { Link } from "react-router-dom";
-import { CreateOrder } from "../services/OrderServices";
+import { CreateOrder, FinishOrder } from "../services/OrderServices";
 
 
 
@@ -66,7 +64,10 @@ const CurrentCart = () => {
     const handleOrderCreate = async () => {
         try {
             if (!cart) return;
-            await CreateOrder(cart.id);
+            const order = await CreateOrder(cart.id);
+            const checkout = await FinishOrder(order.id);
+            console.log(checkout);
+            window.location.href = `${checkout[0]}`;
         } catch (error) {
             console.error("Failed to create order:", error);
         }
@@ -84,14 +85,12 @@ const CurrentCart = () => {
                     </div>
                     <div className="mx-3">
                         <div className="w-full max-w-sm min-w-[200px] relative">
-                            <Link to="/shipping-details">
-                                <Button
-                                    className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                                    onClick={handleOrderCreate}
-                                >
-                                    Checkout
-                                </Button>
-                            </Link>
+                            <Button
+                                className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                                onClick={handleOrderCreate}
+                            >
+                                Checkout
+                            </Button>
                             <div className="text-lg text-slate-500 mt-2 dark:text-orange-300">Total: ${(cartTotalAmount / 100).toFixed(2)}</div>
                         </div>
                     </div>

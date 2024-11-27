@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from models.models import Cart, CartItem, Product, Order, OrderItem
 from schemas.orders import OrderOut
 from utils.responses import ResponseHandler
@@ -33,9 +34,9 @@ class OrderService:
     def get_order_items(token, db: Session, order_id: int):
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
-        # user_id = get_current_user(token)
-        # order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
-        order_items = db.query(OrderItem).filter(OrderItem.order_id == order_id).all()
+        user_id = get_current_user(token)
+        order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
+        order_items = order.order_items
         if not order_items:
             ResponseHandler.not_found_error("Order", order_items)
         return ResponseHandler.success("order", order_items)
@@ -46,7 +47,7 @@ class OrderService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         current_user_id = get_current_user(token)
         print(current_user_id)
-        order = db.query(Order).filter(Order.user_id == current_user_id, Order.completed == False).first()
+        order = db.query(Order).filter(Order.user_id == current_user_id, Order.completed == False).order_by(desc(Order.id)).first()
         if not order:
             ResponseHandler.not_found_error("Order", order)
         message = f"Current order"
@@ -70,8 +71,8 @@ class OrderService:
     def update_order(token, db: Session, order_id: int):
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
-        # user_id = get_current_user(token)
-        order = db.query(Order).filter(Order.id == order_id).first()
+        user_id = get_current_user(token)
+        order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
         if not order:
             return ResponseHandler.not_found_error("Order", order_id)
         order.shipped = True
@@ -86,7 +87,7 @@ class OrderService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         cart = db.query(Cart).filter(Cart.id == cart_id, Cart.user_id == user_id).first()
-        cart_items = db.query(CartItem).filter(CartItem.cart_id == cart_id).all()
+        cart_items = cart.cart_items
         if not cart:
             return ResponseHandler.not_found_error("Cart", cart_id)
         cart_id = cart_id
@@ -139,3 +140,15 @@ class OrderService:
         db.delete(order)
         db.commit()
         return ResponseHandler.delete_success("Order", order_id, order)
+    
+    # @staticmethod
+    # def get_finished_order(token, db: Session):
+    #     if not check_auth(token.credentials):
+    #         return ResponseHandler.blacklisted_token(token, 'Auth failed')
+    #     user_id = get_current_user(token)
+    #     orders = db.query(Order).filter(Order.completed == True, Order.user_id == user_id).order_by(desc(Order.id)).first()
+    #     message = f"Page with  orders"
+    #     print(type(orders))
+    #     if not orders:
+    #         ResponseHandler.not_found_error("Order", orders)
+    #     return ResponseHandler.success(message, orders)

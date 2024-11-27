@@ -10,6 +10,13 @@ class ResponseHandler:
     def perm_success():
         message = f"xdd"
         return ResponseHandler.success(message)
+    
+    @staticmethod
+    def perm_success2(link, event_id):
+        message = f"url: {link}"
+        # print(message)
+        data_list = [link, event_id]
+        return ResponseHandler.success(message, data_list)
 
     @staticmethod
     def get_single_success(name, id, data):

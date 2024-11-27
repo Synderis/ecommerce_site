@@ -141,7 +141,7 @@ const SignInForm = () => {
                             Forgot password
                         </Typography>
                     </div>
-                    <Button
+                    {/* <Button
                         variant="outlined"
                         size="lg"
                         className="mt-6 flex h-12 items-center justify-center gap-2"
@@ -153,7 +153,7 @@ const SignInForm = () => {
                             className="h-6 w-6"
                         />{" "}
                         sign in with google
-                    </Button>
+                    </Button> */}
                     <Typography
                         variant="small"
                         color="gray"

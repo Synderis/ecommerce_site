@@ -31,15 +31,8 @@ class UserService:
             db.refresh(db_user)
             return ResponseHandler.create_success(db_user.username, db_user.id, db_user)
         except IntegrityError as e:
-            # Handle the unique constraint error
             return ResponseHandler.create_failure(user,str(e))
-            # if "users_email_key" in str(e):
-            #     return HTTPException(status_code=400, detail="Email already exists")
-            # elif "users_username_key" in str(e):
-            #     return HTTPException(status_code=400, detail="Username already exists")
-            # else:
-            #     # Handle other integrity errors
-            #     return HTTPException(status_code=500, detail="Internal Server Error")
+
 
     @staticmethod
     def update_user(db: Session, user_id: int, updated_user: UserUpdate):

@@ -3,7 +3,6 @@ import { Typography, Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/GetInfo";
 import { MyOrders, OrderItems, FinishOrder } from "../services/OrderServices";
 import { Order, UserData } from "../utils/types";
-// import { MyCart } from "../services/CartServices";
 
 
 const MyAccount = () => {
@@ -30,6 +29,7 @@ const MyAccount = () => {
     const handleProcessPayment = async (order_id: number) => {
         const response = await FinishOrder(order_id);
         console.log(response);
+        window.location.href = response.message;
         // setShowModal(false);
     };
 
@@ -75,9 +75,9 @@ const MyAccount = () => {
                 </div>
                 {ordersData && (
                     // <div className="overflow-x-auto relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
-                    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+                    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 lg:w-2/3 h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
                         {/* <table className="w-full lg:w-2/3 mx-auto w-1/2 text-sm text-left rounded-lg overflow-hidden text-gray-500 dark:text-gray-400"> */}
-                        <table className="w-full text-left table-auto min-w-max pl-7 ml-3">
+                        <table className="w-full text-left table-auto lg:min-w-2/3 pl-7 ml-3">
                             {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> */}
                             <thead>
                                 <tr className="bg-slate-50">
@@ -110,7 +110,7 @@ const MyAccount = () => {
                                         ) : (
                                             <td className="py-5 dark:opacity-80">
                                                 <Button
-                                                    className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 w-20"
+                                                    className="bg-orange-300 px-15 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 w-20"
                                                     onClick={() => handleProcessPayment(order.id)}
                                                 >
                                                     Complete order

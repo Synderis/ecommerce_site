@@ -2,13 +2,13 @@ import SingleProductPage from '../pages/ProductPage';
 import ProductPage from '../pages/ProductGridPage';
 import SignUpForm from "../pages/SignUpPage";
 import SignInForm from "../pages/SignInPage";
-import ShippingDetailsForm from '../components/ShippingDetails';
 import MyAccount from "../pages/MyAccountPage";
 import HomePage from "../pages/Home";
 import CartPage from "../pages/CartPage";
-import Checkout from "../pages/CheckoutPage";
 import AboutTheDev from '../pages/AboutDev';
 import AdminDashboard from '../pages/AdminPage';
+import CompletePage from '../pages/CheckoutComplete';
+
 
 export const routes = [
     {
@@ -36,16 +36,12 @@ export const routes = [
         element: <CartPage />,
     },
     {
+        path: '/?success=true/*',
+        element: <CompletePage />,
+    },
+    {
         path: '/products/:productId',
         element: <SingleProductPage />,
-    },
-    {
-        path: 'checkout',
-        element: <Checkout />,
-    },
-    {
-        path: '/shipping-details',
-        element: <ShippingDetailsForm />,
     },
     {
         path: '/about-the-dev',

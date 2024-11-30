@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from services.auth import AuthService
 from db.database import get_db
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
-from schemas.auth import UserOut, Signup
+from schemas.auth import UserOut, Signup, SignUpResponse
 from core.security import get_current_user
 from fastapi.security.http import HTTPAuthorizationCredentials
 from fastapi.security import HTTPBearer
@@ -13,7 +13,7 @@ router = APIRouter(tags=["Auth"], prefix="/auth")
 auth_scheme = HTTPBearer()
 
 
-@router.post("/signup", status_code=status.HTTP_200_OK, response_model=UserOut)
+@router.post("/signup", status_code=status.HTTP_200_OK, response_model=SignUpResponse)
 async def user_signup(
         user: Signup,
         db: Session = Depends(get_db)):

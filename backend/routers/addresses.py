@@ -5,7 +5,7 @@ from services.addresses import AddressService
 from sqlalchemy.orm import Session
 from schemas.carts import CartCreate, CartUpdate, CartOut, CartOutDelete, CartsOutList, CartItemCreate
 from schemas.addresses import AddressCreate, AddressUpdate, AddressesOut, AddressOut
-from core.security import get_current_user
+from core.security import get_current_user, check_admin_role
 from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
 
@@ -14,32 +14,40 @@ auth_scheme = HTTPBearer()
 
 
 # Get All Carts
-@router.get("/", status_code=status.HTTP_200_OK, response_model=AddressesOut)
-def get_all_addresses(
+# @router.get("/", status_code=status.HTTP_200_OK, response_model=AddressesOut)
+# def get_all_addresses(
+#     db: Session = Depends(get_db),
+#     page: int = Query(1, ge=1, description="Page number"),
+#     limit: int = Query(10, ge=1, le=100, description="Items per page"),
+#     token: HTTPAuthorizationCredentials = Depends(auth_scheme)
+# ):
+#     return CartService.get_addresses(token, db, page, limit)
+
+
+# # Get Cart By User ID
+# @router.get("/{user_id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
+# def get_address(
+#         user_id: int,
+#         db: Session = Depends(get_db),
+#         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+#     return AddressService.get_address(token, db, user_id)
+
+
+# # Create New Cart
+# @router.post("/", status_code=status.HTTP_201_CREATED, response_model=AddressOut)
+# def create_address(
+#         address: AddressCreate, db: Session = Depends(get_db),
+#         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    
+#     return AddressService.create_address(token, db, address)
+
+@router.get("/{order_id}/shipping", status_code=status.HTTP_201_CREATED, response_model=AddressOut, dependencies=[Depends(check_admin_role)])
+def get_shipping_address(
+    order_id: int,
     db: Session = Depends(get_db),
-    page: int = Query(1, ge=1, description="Page number"),
-    limit: int = Query(10, ge=1, le=100, description="Items per page"),
     token: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
-    return CartService.get_addresses(token, db, page, limit)
-
-
-# Get Cart By User ID
-@router.get("/{user_id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
-def get_address(
-        user_id: int,
-        db: Session = Depends(get_db),
-        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
-    return AddressService.get_address(token, db, user_id)
-
-
-# Create New Cart
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=AddressOut)
-def create_address(
-        address: AddressCreate, db: Session = Depends(get_db),
-        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
-    
-    return AddressService.create_address(token, db, address)
+    return AddressService.get_shipping_address(token, db, order_id)
 
 
 

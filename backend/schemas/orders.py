@@ -25,7 +25,9 @@ class OrderItemBase(BaseModel):
 
 class OrderBase(BaseModel):
     id: int
-    order_timestamp: datetime
+    created_at: datetime
+    completed_at: datetime
+    shipped_at: datetime
     user_id: int
     item_total: int
     tax_total: int
@@ -49,7 +51,9 @@ class OrderItemsOut(BaseModel):
 
 class OrderOutBase(BaseModel):
     id: int
-    order_timestamp: datetime
+    created_at: datetime
+    completed_at: datetime
+    shipped_at: datetime
     user_id: int
     item_total: int
     tax_total: int

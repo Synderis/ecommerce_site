@@ -19,8 +19,6 @@ logger = logging.getLogger(__name__)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 auth_scheme = HTTPBearer()
 
-# Create Hash Password
-
 
 def get_password_hash(password):
     return pwd_context.hash(password)
@@ -63,6 +61,9 @@ async def create_access_token(data: dict, access_token_expiry=None):
 
 # Create Refresh Token
 async def create_refresh_token(data):
+    payload = data.copy()
+    expire = datetime.utcnow() + timedelta(hours=24)  # expires in 24 hours
+    payload.update({"exp": expire})
     return jwt.encode(data, settings.secret_key, settings.algorithm)
 
 

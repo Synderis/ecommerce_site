@@ -9,11 +9,12 @@ const App: React.FC = () => {
         const response = await fetch('http://localhost:8000/auth/refresh', {
           method: 'POST',
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('refreshToken'),
+            'refresh-token': localStorage.getItem('refreshToken') ?? '',
           }
         });
         const data = await response.json();
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('refreshToken', data.refresh_token);
         localStorage.setItem('tokenExpires', `${Date.now() + 30 * 60 * 1000}`);
       } catch (error) {
         console.error('Error refreshing token:', error);

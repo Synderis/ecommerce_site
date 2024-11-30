@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-# from backend import crud, stripe_webhook
 from routers import products, carts, users, accounts, auth, orders, addresses, stripe
 from core.security import get_user_token
 
@@ -24,9 +23,6 @@ async def startup_event():
 app.add_event_handler("startup", startup_event)
 app.mount("/assets", StaticFiles(directory="./assets"), name="assets")
 
-# Include Stripe webhook and CRUD routes
-# app.include_router(crud.router)
-# app.include_router(stripe_webhook.router)
 app.include_router(stripe.router)
 app.include_router(addresses.router)
 app.include_router(products.router)

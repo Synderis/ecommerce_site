@@ -12,7 +12,7 @@ const homeImages = [
 const HomePage = () => {
     return (
         <section className="dark:bg-gradient-to-b mb-2 h-screenHeight dark:from-orange-800/10 dark:to-gray-800">
-        <div className="container mx-auto py-12 lg:pb-24 lg:py-20 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center" style={{ paddingBottom: '242px' }}>
+        <div className="container mx-auto py-12 lg:pb-24 lg:py-20 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center" style={{ paddingBottom: '223px' }}>
             {/* Welcome Section */}
             <div className="flex flex-col items-center text-center ml-5 mr-5 lg:w-full">
                 <Typography variant="h1" className="mb-4">
@@ -22,7 +22,7 @@ const HomePage = () => {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.
                 </Typography>
                 <Link to={"/products"}>
-                    <Button className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">See All Products</Button>
+                    <Button className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 focus:shadow-none active:scale-100">See All Products</Button>
                 </Link>
             </div>
 

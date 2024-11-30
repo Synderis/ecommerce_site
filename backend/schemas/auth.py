@@ -25,6 +25,20 @@ class UserBase(BaseModel):
         pass
 
 
+class UserCreate(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    full_name: str
+    password: str
+    role: str
+    is_active: bool
+    logged_in: bool
+    created_at: datetime
+
+    class Config(BaseConfig):
+        pass
+
 class Signup(BaseModel):
     full_name: str
     username: str
@@ -33,6 +47,10 @@ class Signup(BaseModel):
 
     class Config(BaseConfig):
         pass
+    
+class SignUpResponse(BaseModel):
+    message: str
+    data: UserCreate
 
 
 class UserOut(BaseModel):

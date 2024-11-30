@@ -10,9 +10,7 @@ import {
 
 import { Routes, Link, Route } from 'react-router-dom';
 import { routes } from "../utils/routes";
-// import SingleProductPage from "../pages/ProductPage";
 import FooterBar from "./Footer";
-// import { themeToggle } from "../utils/utils";
 import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
@@ -20,8 +18,8 @@ import { MyInfo } from "../services/GetInfo";
 import { UserData } from "../utils/types";
 
 export function StickyNavbar() {
-    const [openNav, setOpenNav] = React.useState(false);
-    const [dark, setDark] = React.useState(false);
+    const [openNav, setOpenNav] = useState(false);
+    const [dark, setDark] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState<UserData | null>(null);
 
@@ -39,17 +37,18 @@ export function StickyNavbar() {
 
 
     useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setLoggedIn(true);
+        }
         // Logic to get the user information from the authentication provider
         // For example, you can use the `auth` object from Firebase Authentication
         // or any other authentication provider
         const getUser = async () => {
             const userLogin = await MyInfo();
-                if (userLogin) {
-                    console.log(userLogin);
-                    setLoggedIn(userLogin.logged_in);
-                    setUser(userLogin);
-                }
-                
+            if (userLogin) {
+                console.log(userLogin);
+                setUser(userLogin);
+            }
         }; // <--- Add a semicolon here to end the function declaration
         getUser();
         // Clean up the subscription when the component unmounts
@@ -73,6 +72,7 @@ export function StickyNavbar() {
     }, []);
 
     const handleLogout = () => {
+        localStorage.removeItem('token');
         Logout();
         setLoggedIn(false)
     };
@@ -80,16 +80,17 @@ export function StickyNavbar() {
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
             {user?.role === 'admin' && (
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <a href="/admin" className="flex items-center dark:text-orange-300">
-                    Admin
-                </a>
-            </Typography>
+                <Typography
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className="p-1 font-normal"
+                >
+                    <a href="/admin" className="relative flex items-center dark:text-orange-300 group">
+                        Admin
+                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </Typography>
             )}
             <Typography
                 as="li"
@@ -97,8 +98,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/" className="flex items-center dark:text-orange-300">
+                <a href="/" className="relative flex items-center dark:text-orange-300 group">
                     Home
+                    <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </Typography>
             <Typography
@@ -107,8 +109,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/products" className="flex items-center dark:text-orange-300">
+                <a href="/products" className="relative flex items-center dark:text-orange-300 group">
                     Products
+                    <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </Typography>
             <Typography
@@ -117,8 +120,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/account" className="flex items-center dark:text-orange-300">
+                <a href="/account" className="relative flex items-center dark:text-orange-300 group">
                     Account
+                    <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </Typography>
             <Typography
@@ -127,8 +131,9 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/my-cart" className="flex items-center dark:text-orange-300">
+                <a href="/my-cart" className="relative flex items-center dark:text-orange-300 group">
                     Cart
+                    <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </Typography>
         </ul>
@@ -148,40 +153,37 @@ export function StickyNavbar() {
                         </Typography>
                     </Link>
                     <button onClick={() => darkModeHandler()}>
-                        {
-
-                            dark && <IoSunny />
-                        }
-                        {
-                            !dark && <IoMoon />
-                        }
+                        {dark && <IoSunny />}
+                        {!dark && <IoMoon />}
                     </button>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
-                        <div className="flex items-center gap-x-1">
+                        <div className="flex items-center ml-1 gap-x-1">
                             {loggedIn ? (
-                                <button
-                                    className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
+                                <Button
+                                    variant="text"
+                                    size="sm"
+                                    className="bg-orange-300 dark:bg-orange-800/30 dark:hover:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 active:scale-100 rounded-md px-2 py-1"
                                     onClick={() => handleLogout()}
                                 >
-                                    Logout
-                                </button>
+                                    Log out
+                                </Button>
                             ) : (
                                 <Link to={"/sign-in"}>
                                     <Button
                                         variant="text"
                                         size="sm"
-                                        className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
+                                        className="bg-orange-300 dark:bg-orange-800/30 dark:hover:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 active:scale-100 rounded-md px-2 py-1"
                                     >
-                                        Login
+                                        Log in
                                     </Button>
                                 </Link>
                             )}
                             <Link to={"/sign-up"}>
                                 <Button
-                                    variant="gradient"
+                                    variant="text"
                                     size="sm"
-                                    className="hidden lg:inline-block"
+                                    className="bg-orange-300 dark:bg-orange-800/30 dark:hover:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 focus:shadow-none active:scale-100 rounded-md px-2 py-1"
                                 >
                                     Sign Up
                                 </Button>

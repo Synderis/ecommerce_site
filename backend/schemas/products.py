@@ -13,7 +13,7 @@ class ProductBase(BaseModel):
     id: int
     title: str
     description: Optional[str]
-    price: int
+    price: float
 
     @validator("discount_percentage", pre=True)
     def validate_discount_percentage(cls, v):

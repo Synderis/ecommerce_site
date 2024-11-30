@@ -76,6 +76,7 @@ class OrderService:
         if not order:
             return ResponseHandler.not_found_error("Order", order_id)
         order.shipped = True
+        order.shipped_at = datetime.now()
         db.commit()
         db.refresh(order)
         return ResponseHandler.update_success("Order", order_id, order)

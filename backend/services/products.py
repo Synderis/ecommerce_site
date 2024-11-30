@@ -27,13 +27,13 @@ class ProductService:
 
     @staticmethod
     def create_product(db: Session, product: ProductCreate):
-        product_exists = db.query(Product).filter(Product.title == product.title).first()
-        if product_exists:
-            ResponseHandler.not_found_error("Category", product.category_id)
+        # product_exists = db.query(Product).filter(Product.title == product.title).first()
+        # if product_exists:
+        #     ResponseHandler.not_found_error("Category", product.category_id)
 
         product_dict = product.model_dump()
-        if type(product_dict['price']) == float:
-            product_dict['price'] == int(product_dict['price'] * 100)
+        # if type(product_dict['price']) == float:
+        product_dict['price'] = int(product_dict['price'] * 100)
         if not product_dict["created_at"]:
             product_dict["created_at"] = datetime.now()
         if product_dict["stock"] == 0:
@@ -60,8 +60,8 @@ class ProductService:
         for key, value in updated_product.model_dump().items():
             setattr(db_product, key, value)
 
-        if type(db_product.price) == float:
-            db_product.price = int(db_product.price * 100)
+        # if type(db_product.price) == float:
+        db_product.price = int(db_product.price * 100)
 
         db.commit()
         db.refresh(db_product)

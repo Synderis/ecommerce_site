@@ -81,8 +81,8 @@ export interface AddressDetails {
     id: number;
     user_id: number;
     order_id: number;
-    name: string;
-    address: string;
+    full_name: string;
+    street_address: string;
     city: string;
     state: string;
     zip: string;

@@ -95,7 +95,9 @@ class Order(Base):
 
     id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    order_timestamp = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=False)
+    completed_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=True)
+    shipped_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"), nullable=True)
     item_total = Column(Integer, nullable=False)
     tax_total = Column(Integer, nullable=False)
     shipping_total = Column(Integer, nullable=False)

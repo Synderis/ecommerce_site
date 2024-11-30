@@ -131,3 +131,17 @@ export const UpdateShippingStatus = async (order_id: number) => {
     // return responseData.data.carts[0];
     return responseData.data
 };
+
+export const GetShippingDetails = async (order_id: number) => {
+    // console.log(token);
+    const response = await fetch(`http://localhost:8000/address/${order_id}/shipping`, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+    // return responseData.data.carts[0];
+    return responseData.data
+};

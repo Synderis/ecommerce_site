@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 const FooterBar = () => {
 
@@ -29,7 +28,7 @@ const FooterBar = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
+                                <a href="/?success=true/50" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
                                     Features
                                 </a>
                             </li>
@@ -40,13 +39,17 @@ const FooterBar = () => {
                             </p>
                             <li>
                                 <a href="#" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    About the Artist
+                                    <span className="relative group">About the Artist
+                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
-                                <Link to="/about-the-dev" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    About the Developer
-                                </Link>
+                                <a href="/about-the-dev" className="relative block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm group">
+                                    <span className="relative group">About the Developer
+                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
+                                </a>
                             </li>
                         </ul>
                         <ul>
@@ -54,8 +57,10 @@ const FooterBar = () => {
                                 Resource
                             </p>
                             <li>
-                                <a href="#" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    Blog
+                                <a href="/support" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
+                                    <span className="relative group">Support
+                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
                                 </a>
                             </li>
                             <li>

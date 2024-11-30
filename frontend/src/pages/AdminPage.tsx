@@ -19,19 +19,19 @@ const AdminDashboard = () => {
         <div className="container mx-auto p-4 mt-6">
             <div className="flex justify-center mx-auto mt-8 mb-4">
                 <button
-                    className={`px-4 py-2 ${activeTab === 'orders' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
+                    className={`px-4 py-2 ${activeTab === 'orders' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mx-2 rounded-md`}
                     onClick={() => handleTabChange('orders')}
                 >
                     Orders
                 </button>
                 <button
-                    className={`px-4 py-2 ${activeTab === 'users' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
+                    className={`px-4 py-2 ${activeTab === 'users' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mx-2 rounded-md`}
                     onClick={() => handleTabChange('users')}
                 >
                     Users
                 </button>
                 <button
-                    className={`px-4 py-2 ${activeTab === 'products' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}
+                    className={`px-4 py-2 ${activeTab === 'products' ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mx-2 rounded-md`}
                     onClick={() => handleTabChange('products')}
                 >
                     Products

@@ -43,3 +43,13 @@ class AddressService:
         db.commit()
         db.refresh(address_db)
         return ResponseHandler.create_success("Address", address_db.id, address_db)
+    
+    @staticmethod
+    def get_shipping_address(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        user_id = get_current_user(token)
+        address = db.query(Addresses).filter(Addresses.order_id == order_id, Addresses.address_type == "shipping").first()
+        if not address:
+            ResponseHandler.not_found_error("Address", user_id)
+        return ResponseHandler.get_single_success("address", address.id, address)

@@ -20,16 +20,14 @@ const CurrentCart = () => {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                // const response = await MyActiveCart();
                 const response = await MyInfo();
+                if (!response) {
+                    window.location.href = "http://localhost:3000/sign-in";
+                }
                 console.log(response.carts[0]);
                 setCart(response.carts[0]);
                 setCartItems(response.carts[0].cart_items);
                 setCartTotalAmount(response.carts[0].total_amount);
-                // console.log(response);
-                // setCart(response);
-                // setCartItems(response.cart_items);
-                // setCartTotalAmount(response.total_amount);
             } catch (error) {
                 console.error("Failed to fetch cart:", error);
             }
@@ -76,7 +74,7 @@ const CurrentCart = () => {
 
 
     return (
-        <section className="dark:bg-gradient-to-b mb-2 h-screenHeight dark:from-orange-800/10 dark:to-gray-800">
+        <section className="dark:bg-gradient-to-b mb-2 overflow-visible h-screen min-h-screen dark:from-orange-800/10 dark:to-gray-800">
             <div className="container mx-auto min-h-screen lg:h-screenHeight px-4">
                 <div className="w-full flex justify-between items-center mb-3 pt-8 pl-7">
                     <div>

@@ -16,8 +16,6 @@ const SignInForm = () => {
     const clientSecret = "string";
     const grantType = "password";
     const scope = "";
-    // const username = "string";
-    // const password = "string";
 
     const [formData, setFormData] = useState({
         grant_type: grantType,
@@ -45,6 +43,7 @@ const SignInForm = () => {
         if (response.ok) {
             console.log("Sign in successful");
             localStorage.setItem("token", data.access_token);
+            localStorage.setItem('refreshToken', data.refresh_token);
             setLoggedIn(true);
             navigate("/");
         } else {
@@ -92,7 +91,7 @@ const SignInForm = () => {
                             type="text"
                             name="username"
                             placeholder="user name"
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                            className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                             labelProps={{
                                 className: "hidden",
                             }}
@@ -115,7 +114,7 @@ const SignInForm = () => {
                             labelProps={{
                                 className: "hidden",
                             }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                            className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                             type={passwordShown ? "text" : "password"}
                             icon={
                                 <i onClick={togglePasswordVisiblity}>
@@ -157,10 +156,10 @@ const SignInForm = () => {
                     <Typography
                         variant="small"
                         color="gray"
-                        className="!mt-4 text-center font-normal"
+                        className="!mt-4 text-center font-normal text-gray-900"
                     >
                         Not registered?{" "}
-                        <a href="/sign-up" className="font-medium text-gray-900">
+                        <a href="/sign-up" className="font-medium text-orange-300">
                             Create account
                         </a>
                     </Typography>

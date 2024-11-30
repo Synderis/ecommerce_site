@@ -117,7 +117,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                 type="text"
                                 name="title"
                                 placeholder="product name"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 dark:text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -125,7 +125,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                         </div>
                         <div className="form-group">
                             <label>Description</label>
-                            <Textarea color="gray" size="lg" name="description" onChange={handleTextAreaChange} className='w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300'>
+                            <Textarea color="gray" size="lg" name="description" onChange={handleTextAreaChange} className='w-full dark:text-gray-900 placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300'>
                             </Textarea>
                         </div>
                         <div className="form-group">
@@ -138,7 +138,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                 type="number"
                                 name="price"
                                 placeholder="product price"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 dark:text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -154,7 +154,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                 type="number"
                                 name="stock"
                                 placeholder="1"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 dark:text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -170,7 +170,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                 type="text"
                                 name="brand"
                                 placeholder="product brand"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 dark:text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}

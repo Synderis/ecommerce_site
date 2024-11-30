@@ -8,6 +8,7 @@ import CartPage from "../pages/CartPage";
 import AboutTheDev from '../pages/AboutDev';
 import AdminDashboard from '../pages/AdminPage';
 import CompletePage from '../pages/CheckoutComplete';
+import ContactSection from '../pages/Support';
 
 
 export const routes = [
@@ -42,6 +43,10 @@ export const routes = [
     {
         path: '/products/:productId',
         element: <SingleProductPage />,
+    },
+    {
+        path: '/support',
+        element: <ContactSection />,
     },
     {
         path: '/about-the-dev',

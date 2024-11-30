@@ -76,7 +76,7 @@ const SignUpForm = () => {
                                 size="lg"
                                 type="text"
                                 placeholder="john doe"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -97,7 +97,7 @@ const SignUpForm = () => {
                                 type="email"
                                 name="email"
                                 placeholder="name@mail.com"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -118,7 +118,7 @@ const SignUpForm = () => {
                                 type="text"
                                 name="username"
                                 placeholder="user name"
-                                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                                className="w-full placeholder:opacity-100 text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -141,7 +141,7 @@ const SignUpForm = () => {
                                 labelProps={{
                                     className: "hidden",
                                 }}
-                                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:focus:border-orange-300"
+                                className="w-full bg-transparent placeholder:text-slate-400 text-gray-900 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:focus:border-orange-300"
                                 type={passwordShown ? "text" : "password"}
                                 icon={
                                     <i onClick={togglePasswordVisiblity}>

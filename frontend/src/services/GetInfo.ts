@@ -5,7 +5,8 @@
 export const MyInfo = async () => {
     const token = localStorage.getItem("token");
     console.log(token);
-    const response = await fetch("http://localhost:8000/me/", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/me`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

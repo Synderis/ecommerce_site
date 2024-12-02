@@ -60,6 +60,26 @@ class UserOut(BaseModel):
     class Config(BaseConfig):
         pass
 
+class ResetPassword(BaseModel):
+    reset_token: str
+    new_password: str
+    confirm_password: str
+    
+class EmailBase(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    message: str
+
+    class Config:
+        from_attributes = True
+        
+class EmailOut(BaseModel):
+    message: str
+    data: EmailBase
+
+    class Config(BaseConfig):
+        pass
 
 # Token
 class TokenResponse(BaseModel):

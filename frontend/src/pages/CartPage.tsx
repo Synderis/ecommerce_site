@@ -22,7 +22,8 @@ const CurrentCart = () => {
             try {
                 const response = await MyInfo();
                 if (!response) {
-                    window.location.href = "http://localhost:3000/sign-in";
+                    const url = `${window.location.protocol}//${window.location.host}${window.location.host === 'localhost' ? ':3000' : ''}/sign-in`;
+                    window.location.href = url;
                 }
                 console.log(response.carts[0]);
                 setCart(response.carts[0]);

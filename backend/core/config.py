@@ -20,6 +20,12 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int
     
     stripe_secret_key: str
+    
+    # SMTP Config
+    smtp_login: str
+    smtp_password: str
+    smtp_server: str
+    smtp_port: int
 
     class Config:
         env_file = ".env"

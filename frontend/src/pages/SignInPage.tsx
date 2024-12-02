@@ -30,7 +30,7 @@ const SignInForm = () => {
         e.preventDefault();
         console.log("Sign in");
         console.log(formData);
-        const url = window.location.host === "localhost:3000" ? `http://localhost:8000/auth/login` : `https://.com/`;
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/login`;
         const response = await fetch(url, {
             method: "POST",
             headers: {

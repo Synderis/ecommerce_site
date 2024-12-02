@@ -1,6 +1,7 @@
 export const MyOrders = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/orders/", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -14,7 +15,8 @@ export const MyOrders = async () => {
 
 export const OrderItems = async ( order_id: number ) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/orders/${order_id}/items`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/${order_id}/items`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -28,7 +30,8 @@ export const OrderItems = async ( order_id: number ) => {
 
 export const CreateOrder = async ( cart_id: number ) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/orders/${cart_id}/create`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/${cart_id}/create`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -42,7 +45,8 @@ export const CreateOrder = async ( cart_id: number ) => {
 
 export const CreateAddress = async ( address: any ) => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/address/", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -58,7 +62,8 @@ export const CreateAddress = async ( address: any ) => {
 
 export const UnfinishedOrder = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/orders/current-order", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/current-order`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -72,7 +77,8 @@ export const UnfinishedOrder = async () => {
 
 export const FinishOrder = async ( order_id: number ) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/stripe/process-payment/${order_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/stripe/process-payment/${order_id}`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -86,7 +92,8 @@ export const FinishOrder = async ( order_id: number ) => {
 
 export const ConfirmPayment = async ( order_id: number ) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/stripe/confirm-payment/${order_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/stripe/confirm-payment/${order_id}`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

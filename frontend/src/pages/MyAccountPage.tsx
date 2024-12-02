@@ -15,7 +15,9 @@ const MyAccount = () => {
     const fetchUserData = async () => {
         const response = await MyInfo();
         if (!response) {
-            window.location.href = "http://localhost:3000/sign-in";
+            const url = `${window.location.protocol}//${window.location.host}${window.location.host === 'localhost' ? ':3000' : ''}/sign-in`;
+            window.location.href = url;
+
         }
         setUserData(response);
         const orders = await MyOrders();

@@ -64,6 +64,8 @@ class StripeService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user = get_current_user(token)
         order = db.query(Order).filter(Order.id == order_id).first()
+        if order.completed:
+            return ResponseHandler.not_found_error("Order", order)
         payment_data = stripe.checkout.Session.list_line_items(order.payment_id)
         payment_items = payment_data.data
         Addresses(order_id=order.id,

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from services.auth import AuthService
 from db.database import get_db
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
-from schemas.auth import UserOut, Signup, SignUpResponse
+from schemas.auth import UserOut, Signup, SignUpResponse, ResetPassword, EmailOut, EmailBase
 from core.security import get_current_user
 from fastapi.security.http import HTTPAuthorizationCredentials
 from fastapi.security import HTTPBearer
@@ -36,3 +36,20 @@ async def refresh_access_token(
         refresh_token: str = Header(),
         db: Session = Depends(get_db)):
     return await AuthService.get_refresh_token(token=refresh_token, db=db)
+
+@router.post("/contact", status_code=status.HTTP_200_OK)
+async def contact(
+        email_data: EmailBase):
+    return await AuthService.contact(email_data)
+
+@router.post("/forgot-password", status_code=status.HTTP_200_OK)
+async def forgot_password(
+        email: str,
+        db: Session = Depends(get_db)):
+    return await AuthService.forgot_password(email, db)
+
+@router.post("/reset-password/{reset_token}", status_code=status.HTTP_200_OK)
+async def reset_password(
+        reset_data: ResetPassword,
+        db: Session = Depends(get_db)):
+    return await AuthService.reset_password(reset_data, db)

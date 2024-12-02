@@ -28,6 +28,11 @@ def get_password_hash(password):
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+def create_reset_password_token(email: str):
+    data = {"sub": email, "exp": datetime.utcnow() + timedelta(minutes=10)}
+    token = jwt.encode(data, settings.secret_key, settings.algorithm)
+    return token
+
 
 # Create Access & Refresh Token
 async def get_user_token(id: int, refresh_token=None):
@@ -73,6 +78,16 @@ def get_token_payload(token):
         return jwt.decode(token, settings.secret_key, [settings.algorithm])
     except JWTError:
         raise ResponseHandler.invalid_token('access')
+    
+
+def decode_reset_password_token(token: str):
+    try:
+        payload = jwt.decode(token, settings.secret_key,
+                algorithms=[settings.algorithm])
+        email: str = payload.get("sub")
+        return email
+    except JWTError:
+        return None 
 
 
 def get_current_user(token):

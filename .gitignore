@@ -29,6 +29,8 @@ archive.zip
 alembic/versions/
 .env
 .env_old
+.env.dev
+test.py
 # vim temporary files
 *~
 .*.sw?

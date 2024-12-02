@@ -6,7 +6,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
-        const response = await fetch('http://localhost:8000/auth/refresh', {
+        const url = `${window.location.protocol}://${window.location.host}${window.location.host === 'localhost' ? ':8000' : ''}/auth/refresh`;
+        const response = await fetch(url, {
           method: 'POST',
           headers: {
             'refresh-token': localStorage.getItem('refreshToken') ?? '',

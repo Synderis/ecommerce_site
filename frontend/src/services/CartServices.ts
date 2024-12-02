@@ -1,6 +1,7 @@
 export const CartChoice = async (product_id: number, quantity: number) => {
     // Get current cart
-    const response = await fetch("http://localhost:8000/me", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/me`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -10,7 +11,8 @@ export const CartChoice = async (product_id: number, quantity: number) => {
     const carts = responseData.data.carts;
     if (carts.length === 0) {
         // Create cart
-        const createCartResponse = await fetch("http://localhost:8000/carts/", {
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts`;
+        const createCartResponse = await fetch(url, {
             method: "POST",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -29,7 +31,8 @@ export const CartChoice = async (product_id: number, quantity: number) => {
         const currentCartId = carts[0].id;
 
         // Add product to cart
-        const addProductResponse = await fetch(`http://localhost:8000/carts/${currentCartId}/add`, {
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts/${currentCartId}/add`;
+        const addProductResponse = await fetch(url, {
             method: "PUT",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -47,7 +50,8 @@ export const CartChoice = async (product_id: number, quantity: number) => {
 
 export const MyCarts = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/carts/", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -61,7 +65,8 @@ export const MyCarts = async () => {
 
 export const MyActiveCart = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/carts/active/", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts/active`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -75,7 +80,8 @@ export const MyActiveCart = async () => {
 
 export const MyCart = async ( cart_id: number ) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/carts/${cart_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts/${cart_id}`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -95,7 +101,7 @@ export const UpdateCart = async (cart_id: number, updatedCartItems: any) => {
     const payload = {
         "cart_items": updatedCartItems,
     }
-    const url = window.location.host === "localhost:3000" ? `http://localhost:8000/carts/${cart_id}` : `https://.com/`;;
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/carts/${cart_id}`;
     const response = await fetch(url, {
         method: "PUT",
         headers: {

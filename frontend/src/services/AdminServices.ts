@@ -1,7 +1,8 @@
 export const DeactivateProduct = async (product_id: number) => {
     // console.log(token);
     // const product_id = 1;
-    const response = await fetch(`http://localhost:8000/products/${product_id}/deactivate`, {
+    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/${product_id}/deactivate`;
+    const response = await fetch(url, {
         method: "PUT",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -16,7 +17,8 @@ export const DeactivateProduct = async (product_id: number) => {
 
 export const AllOrders = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/orders/admin-orders", {
+    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/admin-orders`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -30,7 +32,8 @@ export const AllOrders = async () => {
 
 export const AllUsers = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/users/", {
+    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/users/admin-users`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -44,7 +47,8 @@ export const AllUsers = async () => {
 
 export const AllProducts = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/products/admin-products", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/admin-products`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -59,7 +63,8 @@ export const AllProducts = async () => {
 export const UpdateProduct = async (product_id: number, payload: any) => {
     // console.log(token);
     console.log(payload);
-    const response = await fetch(`http://localhost:8000/products/${product_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/${product_id}`;
+    const response = await fetch(url, {
         method: "PUT",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -81,7 +86,8 @@ export const UploadImage = async (file: any) => {
     // const boundary = '---------------------------boundary';
     // const requestBody = `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="${file.name}"\r\nContent-Type: ${file.type}\r\n\r\n${file}\r\n--${boundary}--`;
     try {
-        const response = await fetch("http://localhost:8000/products/upload", {
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/upload`;
+        const response = await fetch(url, {
             method: "POST",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -104,7 +110,8 @@ export const UploadImage = async (file: any) => {
 
 export const CreateProduct = async ( payload: any ) => {
     console.log(payload);
-    const response = await fetch(`http://localhost:8000/products/`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -120,7 +127,8 @@ export const CreateProduct = async ( payload: any ) => {
 
 export const UpdateShippingStatus = async (order_id: number) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/orders/${order_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/orders/${order_id}`;
+    const response = await fetch(url, {
         method: "PUT",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -134,7 +142,8 @@ export const UpdateShippingStatus = async (order_id: number) => {
 
 export const GetShippingDetails = async (order_id: number) => {
     // console.log(token);
-    const response = await fetch(`http://localhost:8000/address/${order_id}/shipping`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/${order_id}/shipping`;
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

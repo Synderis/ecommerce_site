@@ -1,7 +1,8 @@
 export const MyProduct = async ( product_id: number ) => {
     // console.log(token);
     // const product_id = 1;
-    const response = await fetch(`http://localhost:8000/products/${product_id}`, {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/${product_id}`;
+    const response = await fetch(url, {
         method: "GET",
         // headers: {
         //     Authorization: "Bearer " + localStorage.getItem("token"),

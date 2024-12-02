@@ -34,6 +34,14 @@ class UserCreate(BaseModel):
 
     class Config(BaseConfig):
         pass
+    
+
+class UserReset(BaseModel):
+    email: str
+    password: str
+
+    class Config(BaseConfig):
+        pass
 
 
 class UserUpdate(UserCreate):

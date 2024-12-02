@@ -1,7 +1,30 @@
 import React from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 
+
+
 export function ContactSection() {
+
+    const handleFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const data = Object.fromEntries(formData);
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/contact`;
+        const response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+        })
+        if (response.ok) {
+            alert("Message sent successfully");
+        }
+        // console.log(formData.get('first-name'))
+        // console.log(formData.get('last-name'))
+        // console.log(formData.get('email'))
+        // console.log(formData.get('message'))
+    };
+
+
+
     return (
         <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             <div>
@@ -26,7 +49,7 @@ export function ContactSection() {
                 </Typography>
                 <div className="flex flex-col items-center">
                     <form
-                        action="#"
+                        onSubmit={handleFormSubmit}
                         className="flex flex-col gap-4 lg:max-w-sm"
                     >
                         <div className="grid grid-cols-2 gap-4">
@@ -41,7 +64,7 @@ export function ContactSection() {
                                     color="gray"
                                     size="lg"
                                     placeholder="First Name"
-                                    name="first-name"
+                                    name="first_name"
                                     className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
                                     containerProps={{
                                         className: "min-w-full",
@@ -62,7 +85,7 @@ export function ContactSection() {
                                     color="gray"
                                     size="lg"
                                     placeholder="Last Name"
-                                    name="last-name"
+                                    name="last_name"
                                     className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
                                     containerProps={{
                                         className: "!min-w-full",
@@ -115,7 +138,7 @@ export function ContactSection() {
                                 }}
                             />
                         </div>
-                        <Button className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 active:scale-100" color="gray">
+                        <Button type="submit" className="bg-orange-300 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-1 hover:scale-105 focus:scale-105 active:scale-100" color="gray">
                             Send message
                         </Button>
                     </form>

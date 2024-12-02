@@ -20,7 +20,7 @@ const SignUpForm = () => {
         e.preventDefault();
         console.log("Sign up");
         console.log(formData);
-        const url = window.location.host === "localhost:3000" ? `http://localhost:8000/auth/signup` : `https://.com/`;
+        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/signup`;
         const response = await fetch(url, {
             method: "POST",
             headers: {

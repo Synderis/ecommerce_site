@@ -4,7 +4,8 @@
 
 export const Logout = async () => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/auth/logout", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/logout`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -27,7 +28,8 @@ export const Logout = async () => {
 
 export const Login = async ( formData: any ) => {
     // console.log(token);
-    const response = await fetch("http://localhost:8000/auth/login", {
+    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/login`;
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

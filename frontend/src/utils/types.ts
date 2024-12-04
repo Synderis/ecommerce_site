@@ -33,7 +33,9 @@ export interface Order {
     tax_total: number;
     shipping_total: number;
     order_total: number;
-    order_timestamp: string;
+    completed_at: string;
+    created_at: string;
+    shipped_at: string;
     completed: boolean;
     shipped: boolean;
     order_items: {
@@ -85,7 +87,7 @@ export interface AddressDetails {
     street_address: string;
     city: string;
     state: string;
-    zip: string;
+    zip_code: string;
     country: string;
     address_type: string;
 }

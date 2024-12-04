@@ -31,6 +31,9 @@ alembic/versions/
 .env_old
 .env.dev
 test.py
+ecs-cdk
+*.docker*
+docker-compose.yml
 # vim temporary files
 *~
 .*.sw?

@@ -42,7 +42,6 @@ async def get_user_token(id: int, refresh_token=None):
 
     access_token = await create_access_token(payload, access_token_expiry)
     
-    print(access_token)
 
     if not refresh_token:
         refresh_token = await create_refresh_token(payload)
@@ -108,7 +107,6 @@ def add_blacklist_token(token: str, db: Session = Depends(get_db)):
     try:
         # Add a token to the blacklist
         logger.info(token)
-        print(token)
         blacklist.add_token(token)
     except:
         raise HTTPException(status_code=403, detail="Blacklist token failure")

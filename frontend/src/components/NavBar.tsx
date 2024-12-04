@@ -8,20 +8,22 @@ import {
     // Card,
 } from "@material-tailwind/react";
 
-import { Routes, Link, Route } from 'react-router-dom';
+import { Routes, Link, Route, useLocation } from 'react-router-dom';
 import { routes } from "../utils/routes";
 import FooterBar from "./Footer";
 import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
 import { MyInfo } from "../services/GetInfo";
-import { UserData } from "../utils/types";
+// import { UserData } from "../utils/types";
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = useState(false);
     const [dark, setDark] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState<UserData | null>(null);
+    // const [user, setUser] = useState<UserData | null>(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const location = useLocation();
 
 
     const darkModeHandler = () => {
@@ -44,15 +46,21 @@ export function StickyNavbar() {
         // For example, you can use the `auth` object from Firebase Authentication
         // or any other authentication provider
         const getUser = async () => {
+            if (!localStorage.getItem('token')) {
+                return;
+            }
             const userLogin = await MyInfo();
             if (userLogin) {
                 console.log(userLogin);
-                setUser(userLogin);
+                if (userLogin.role === 'admin') {
+                    setIsAdmin(true);
+                }
+                // setUser(userLogin);
             }
         }; // <--- Add a semicolon here to end the function declaration
         getUser();
         // Clean up the subscription when the component unmounts
-    }, []);
+    }, [location]);
 
 
     useEffect(() => {
@@ -79,17 +87,17 @@ export function StickyNavbar() {
 
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            {user?.role === 'admin' && (
+            {isAdmin && (
                 <Typography
                     as="li"
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-normal"
                 >
-                    <a href="/admin" className="relative flex items-center dark:text-orange-300 group">
+                    <Link to={'/admin'} className="relative flex items-center dark:text-orange-300 group">
                         Admin
                         <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
-                    </a>
+                    </Link>
                 </Typography>
             )}
             <Typography
@@ -98,10 +106,10 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/" className="relative flex items-center dark:text-orange-300 group">
+                <Link to={'/'} className="relative flex items-center dark:text-orange-300 group">
                     Home
                     <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -109,10 +117,10 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/products" className="relative flex items-center dark:text-orange-300 group">
+                <Link to={'/products'} className="relative flex items-center dark:text-orange-300 group">
                     Products
                     <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -120,10 +128,10 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/account" className="relative flex items-center dark:text-orange-300 group">
+                <Link to={'/my-account'} className="relative flex items-center dark:text-orange-300 group">
                     Account
                     <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -131,10 +139,10 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="/my-cart" className="relative flex items-center dark:text-orange-300 group">
+                <Link to={'/my-cart'} className="relative flex items-center dark:text-orange-300 group">
                     Cart
                     <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-orange-300 dark:bg-orange-300 transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
             </Typography>
         </ul>
     );

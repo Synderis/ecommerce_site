@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import { api_url } from "../utils/utils";
 
 
 
@@ -9,7 +10,7 @@ export function ContactSection() {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
-        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/contact`;
+        const url = `${api_url}/auth/contact`;
         const response = await fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
@@ -17,10 +18,6 @@ export function ContactSection() {
         if (response.ok) {
             alert("Message sent successfully");
         }
-        // console.log(formData.get('first-name'))
-        // console.log(formData.get('last-name'))
-        // console.log(formData.get('email'))
-        // console.log(formData.get('message'))
     };
 
 

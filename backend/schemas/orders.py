@@ -1,5 +1,5 @@
 from pydantic import BaseModel , EmailStr, Field
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 from schemas.carts import CartBase
 from schemas.products import ProductBase, CategoryBase
@@ -26,8 +26,8 @@ class OrderItemBase(BaseModel):
 class OrderBase(BaseModel):
     id: int
     created_at: datetime
-    completed_at: datetime
-    shipped_at: datetime
+    completed_at: Optional[datetime] = None
+    shipped_at: Optional[datetime] = None
     user_id: int
     item_total: int
     tax_total: int
@@ -52,8 +52,8 @@ class OrderItemsOut(BaseModel):
 class OrderOutBase(BaseModel):
     id: int
     created_at: datetime
-    completed_at: datetime
-    shipped_at: datetime
+    completed_at: Optional[datetime] = None
+    shipped_at: Optional[datetime] = None
     user_id: int
     item_total: int
     tax_total: int

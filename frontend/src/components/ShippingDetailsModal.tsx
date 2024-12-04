@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 
-export const ShippingModal = ({ isOpen, onRequestClose, address }: { isOpen: boolean, onRequestClose: () => void, address: { full_name: string, street_address: string, city: string, state: string, zip: string } }) => {
+export const ShippingModal = ({ isOpen, onRequestClose, address }: { isOpen: boolean, onRequestClose: () => void, address: { full_name: string, street_address: string, city: string, state: string, zip_code: string } }) => {
     return (
         <div onClick={(e) => onRequestClose()}>
             <Modal
@@ -22,7 +22,7 @@ export const ShippingModal = ({ isOpen, onRequestClose, address }: { isOpen: boo
                             <p>Address: {address.street_address}</p>
                             <p>City: {address.city}</p>
                             <p>State: {address.state}</p>
-                            <p>Zip Code: {address.zip}</p>
+                            <p>Zip Code: {address.zip_code}</p>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,9 @@ from fastapi.security import HTTPBearer
 router = APIRouter(tags=["Auth"], prefix="/auth")
 auth_scheme = HTTPBearer()
 
+@router.get('/health')
+async def health_check():
+    return {'status': 'ok'}
 
 @router.post("/signup", status_code=status.HTTP_200_OK, response_model=SignUpResponse)
 async def user_signup(

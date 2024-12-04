@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { StickyNavbar } from './components/NavBar';
+import { api_url } from './utils/utils';
 
 const App: React.FC = () => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
-        const url = `${window.location.protocol}://${window.location.host}${window.location.host === 'localhost' ? ':8000' : ''}/auth/refresh`;
+        if (!localStorage.getItem('token')) {
+          return;
+        }
+        const url = `${api_url}/auth/refresh`;
         const response = await fetch(url, {
           method: 'POST',
           headers: {

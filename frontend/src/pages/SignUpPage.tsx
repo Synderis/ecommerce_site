@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { Input, Typography } from "@material-tailwind/react";
+import { api_url } from "../utils/utils";
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const SignUpForm = () => {
         e.preventDefault();
         console.log("Sign up");
         console.log(formData);
-        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/signup`;
+        const url = `${api_url}/auth/signup`;
         const response = await fetch(url, {
             method: "POST",
             headers: {

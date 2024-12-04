@@ -28,7 +28,7 @@ def get_current_order(
     print(token)
     return OrderService.get_current_order(token, db)
 
-@router.put("/{order_id}", status_code=status.HTTP_200_OK, dependencies=[Depends(check_admin_role)])
+@router.put("/{order_id}/update-order", status_code=status.HTTP_200_OK, dependencies=[Depends(check_admin_role)])
 def update_order(
         order_id: int,
         db: Session = Depends(get_db),
@@ -36,7 +36,7 @@ def update_order(
     return OrderService.update_order(token, db, order_id)
 
 # Get Order By User ID
-@router.get("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderOut)
+@router.get("/{order_id}/user-order", status_code=status.HTTP_200_OK, response_model=OrderOut)
 def get_order(
         order_id: int,
         db: Session = Depends(get_db),
@@ -51,7 +51,7 @@ def get_order_items(
     return OrderService.get_order_items(token, db, order_id)
 
 # Get Order By User ID
-@router.get("/", status_code=status.HTTP_200_OK)
+@router.get("/user-orders/", status_code=status.HTTP_200_OK, response_model=OrdersOutList)
 def get_order(
         db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
@@ -66,8 +66,8 @@ def create_order(
     return OrderService.create_order(token, db, cart_id)
 
 # Delete Order By User ID
-@router.delete("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderOutDelete, dependencies=[Depends(check_admin_role)])
-def delete_order(
-        order_id: int, db: Session = Depends(get_db),
-        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
-    return OrderService.delete_order(token, db, order_id)
+# @router.delete("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderOutDelete, dependencies=[Depends(check_admin_role)])
+# def delete_order(
+#         order_id: int, db: Session = Depends(get_db),
+#         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+#     return OrderService.delete_order(token, db, order_id)

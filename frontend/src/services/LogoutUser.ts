@@ -1,10 +1,10 @@
 // import { useState } from "react";
 // import { token } from "../utils/utils";
-
+import { api_url } from "../utils/utils";
 
 export const Logout = async () => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/logout`;
+    const url = `${api_url}/auth/logout`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -28,7 +28,7 @@ export const Logout = async () => {
 
 export const Login = async ( formData: any ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/login`;
+    const url = `${api_url}/auth/login`;
     const response = await fetch(url, {
         method: "POST",
         headers: {

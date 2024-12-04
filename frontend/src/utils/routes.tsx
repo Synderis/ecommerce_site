@@ -29,7 +29,7 @@ export const routes = [
         element: <SignInForm />,
     },
     {
-        path: '/account',
+        path: '/my-account',
         element: <MyAccount />,
     },
     {
@@ -37,7 +37,7 @@ export const routes = [
         element: <CartPage />,
     },
     {
-        path: '/?success=true/*',
+        path: '/success=true/:orderId',
         element: <CompletePage />,
     },
     {
@@ -53,7 +53,7 @@ export const routes = [
         element: <AboutTheDev />,
     },
     {
-        path: '/admin',
+        path: '/admin/',
         element: <AdminDashboard />,
     },
 ];

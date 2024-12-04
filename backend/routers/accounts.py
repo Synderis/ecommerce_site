@@ -13,14 +13,14 @@ router = APIRouter(tags=["Account"], prefix="/me")
 auth_scheme = HTTPBearer()
 
 
-@router.get("/", response_model=AccountOut)
+@router.get("/info", response_model=AccountOut)
 def get_my_info(
         db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return AccountService.get_my_info(db, token)
 
 
-@router.put("/", response_model=AccountOut)
+@router.put("/update-info", response_model=AccountOut)
 def edit_my_info(
         updated_user: AccountUpdate,
         db: Session = Depends(get_db),
@@ -28,7 +28,7 @@ def edit_my_info(
     return AccountService.edit_my_info(db, token, updated_user)
 
 
-@router.delete("/", response_model=AccountOut)
+@router.delete("/delete-info", response_model=AccountOut)
 def remove_my_account(
         db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):

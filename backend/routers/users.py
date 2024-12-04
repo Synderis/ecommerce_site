@@ -11,7 +11,7 @@ router = APIRouter(tags=["Users"], prefix="/users")
 
 # Get All Users
 @router.get(
-    "/",
+    "/admin-users",
     status_code=status.HTTP_200_OK,
     response_model=UsersOut,
     dependencies=[Depends(check_admin_role)])

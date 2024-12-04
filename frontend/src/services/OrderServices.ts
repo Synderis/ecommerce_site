@@ -1,6 +1,8 @@
+import { api_url } from "../utils/utils";
+
 export const MyOrders = async () => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/`;
+    const url = `${api_url}/orders/user-orders/`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -15,7 +17,7 @@ export const MyOrders = async () => {
 
 export const OrderItems = async ( order_id: number ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/${order_id}/items`;
+    const url = `${api_url}/orders/${order_id}/items`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -30,7 +32,7 @@ export const OrderItems = async ( order_id: number ) => {
 
 export const CreateOrder = async ( cart_id: number ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/${cart_id}/create`;
+    const url = `${api_url}/orders/${cart_id}/create`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -45,7 +47,7 @@ export const CreateOrder = async ( cart_id: number ) => {
 
 export const CreateAddress = async ( address: any ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/`;
+    const url = `${api_url}/address/`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -62,7 +64,7 @@ export const CreateAddress = async ( address: any ) => {
 
 export const UnfinishedOrder = async () => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/current-order`;
+    const url = `${api_url}/orders/current-order`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -77,7 +79,7 @@ export const UnfinishedOrder = async () => {
 
 export const FinishOrder = async ( order_id: number ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/stripe/process-payment/${order_id}`;
+    const url = `${api_url}/stripe/process-payment/${order_id}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -92,7 +94,7 @@ export const FinishOrder = async ( order_id: number ) => {
 
 export const ConfirmPayment = async ( order_id: number ) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/stripe/confirm-payment/${order_id}`;
+    const url = `${api_url}/stripe/confirm-payment/${order_id}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {

@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     smtp_login: str
     smtp_password: str
     smtp_server: str
-    smtp_port: int
+    smtp_port: str
 
     class Config:
         env_file = ".env"
@@ -43,8 +43,6 @@ class Blacklist:
     def is_token_blacklisted(self, token):
         logger.info(token)
         logger.info(self.blacklisted_tokens)
-        print(token)
-        print(self.blacklisted_tokens)
         if token in self.blacklisted_tokens:
             return True
         else:

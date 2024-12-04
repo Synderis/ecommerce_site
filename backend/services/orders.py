@@ -101,14 +101,16 @@ class OrderService:
         order_db = Order(id=None,
                         item_total=item_total,
                         user_id=user_id,
-                        order_timestamp=datetime.now(),
+                        created_at=datetime.now(),
                         tax_total=0,
                         shipping_total=0,
                         order_total=item_total,
                         payment_type="N/A",
                         completed=False,
                         shipped=False,
-                        order_items=order_items
+                        order_items=order_items,
+                        completed_at=None,
+                        shipped_at=None
                         )
 
         db.add(order_db)
@@ -125,22 +127,22 @@ class OrderService:
 
 
     # Delete Order
-    @staticmethod
-    def delete_order(token, db: Session, order_id: int):
-        if not check_auth(token.credentials):
-            return ResponseHandler.blacklisted_token(token, 'Auth failed')
-        user_id = get_current_user(token)
-        order = (
-            db.query(Order)
-            .filter(Order.id == order_id, Order.user_id == user_id)
-            .first()
-        )
-        if not order:
-            ResponseHandler.not_found_error("Order", order_id)
+    # @staticmethod
+    # def delete_order(token, db: Session, order_id: int):
+    #     if not check_auth(token.credentials):
+    #         return ResponseHandler.blacklisted_token(token, 'Auth failed')
+    #     user_id = get_current_user(token)
+    #     order = (
+    #         db.query(Order)
+    #         .filter(Order.id == order_id, Order.user_id == user_id)
+    #         .first()
+    #     )
+    #     if not order:
+    #         ResponseHandler.not_found_error("Order", order_id)
 
-        db.delete(order)
-        db.commit()
-        return ResponseHandler.delete_success("Order", order_id, order)
+    #     db.delete(order)
+    #     db.commit()
+    #     return ResponseHandler.delete_success("Order", order_id, order)
     
     # @staticmethod
     # def get_finished_order(token, db: Session):

@@ -119,10 +119,11 @@ class Addresses(Base):
     full_name = Column(String, nullable=False)
     order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
     street_address = Column(String, nullable=False)
+    street_address_sub = Column(String, nullable=True)
     city = Column(String, nullable=False)
     state = Column(String, nullable=False)
     country = Column(String, nullable=False)
-    zip = Column(String, nullable=False)
+    zip_code = Column(String, nullable=False)
     address_type = Column(String, nullable=False)
     
     # Relationship with user and order

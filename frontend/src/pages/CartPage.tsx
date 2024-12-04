@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
 import { CreateOrder, FinishOrder } from "../services/OrderServices";
+import { api_url, local_url } from "../utils/utils";
 
 
 
@@ -22,7 +23,7 @@ const CurrentCart = () => {
             try {
                 const response = await MyInfo();
                 if (!response) {
-                    const url = `${window.location.protocol}//${window.location.host}${window.location.host === 'localhost' ? ':3000' : ''}/sign-in`;
+                    const url = `${local_url}/sign-in`;
                     window.location.href = url;
                 }
                 console.log(response.carts[0]);
@@ -109,7 +110,7 @@ const CurrentCart = () => {
                             {cartItems && cartItems.length > 0 ? (
                                 cartItems.map((item) => (
                                     <tr key={item.product.id} className="hover:bg-slate-50">
-                                        <td className="p-0 border-b border-slate-200 py-5"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                                        <td className="p-0 border-b border-slate-200 py-5"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate dark:opacity-80 dark:text-white" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.quantity}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(item.subtotal / 100).toFixed(2)}</td>

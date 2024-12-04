@@ -65,7 +65,7 @@ async def upload_image(
 
 # Create New Product
 @router.post(
-    "/",
+    "/create",
     status_code=status.HTTP_201_CREATED,
     response_model=ProductOut,
     dependencies=[Depends(check_admin_role)])

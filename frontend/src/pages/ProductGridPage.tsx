@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductTile from '../components/ProductTile';
 import { Product } from '../utils/types';
+import { api_url } from "../utils/utils";
 // import FooterBar from "../components/Footer";
 
 
@@ -13,9 +14,9 @@ const ProductPage = () => {
         console.log('useEffect triggered');
         const fetchProducts = async () => {
             try {
-                // const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/?page=1&limit=10`;
+                // const url = `${api_url}/products/?page=1&limit=10`;
                 // const url = `${window.location.protocol}://${window.location.host === 'localhost' ? 'localhost:8000' : window.location.host}/products/?page=1&limit=10`;
-                const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/?page=1&limit=10`;
+                const url = `${api_url}/products/?page=1&limit=10`;
                 console.log(url);
                 console.log(window.location.hostname);
                 console.log(window.location.host);

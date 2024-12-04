@@ -3,11 +3,13 @@ import { Typography, Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/GetInfo";
 import { MyOrders, OrderItems, FinishOrder } from "../services/OrderServices";
 import { Order, UserData } from "../utils/types";
+import { api_url, local_url } from "../utils/utils";
 
 
 const MyAccount = () => {
     const [userData, setUserData] = useState<UserData | null>(null);
-    const [ordersData, setOrdersData] = useState<Order | null>(null);
+    // const [ordersData, setOrdersData] = useState<Order | null>(null);
+    const [ordersData, setOrdersData] = useState<Order[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [cartItems, setCartItems] = useState<Order['order_items'] | null>(null);
     // const token = 'Bearer ' + localStorage.getItem('token');
@@ -15,7 +17,7 @@ const MyAccount = () => {
     const fetchUserData = async () => {
         const response = await MyInfo();
         if (!response) {
-            const url = `${window.location.protocol}//${window.location.host}${window.location.host === 'localhost' ? ':3000' : ''}/sign-in`;
+            const url = `${local_url}/sign-in`;
             window.location.href = url;
 
         }
@@ -90,6 +92,7 @@ const MyAccount = () => {
                             {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> */}
                             <thead>
                                 <tr className="bg-slate-50">
+                                    <th className="lg:p-1 pt-2 pl-2 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Order ID</th>
                                     <th className="lg:p-1 pt-2 pl-2 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Total</th>
                                     <th className="lg:p-1 pt-2 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Date</th>
                                     {/* <th className="py-2 px-2">Completed</th> */}
@@ -102,8 +105,9 @@ const MyAccount = () => {
                                 {Array.isArray(ordersData) && ordersData.map((order) => (
                                     // <tr key={order.id} className="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-50">
                                     <tr key={order.id} className="hover:bg-slate-50">
+                                        <td className="pl-2 p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">{order.id}</td>
                                         <td className="pl-2 p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">${(order.order_total / 100).toFixed(2)}</td>
-                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{new Date(order.order_timestamp).toLocaleDateString()}</td>
+                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{new Date(order.created_at).toLocaleDateString()}</td>
                                         {/* <td className="py-2 px-2">{order.completed ? 'Yes' : 'No'}</td> */}
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{order.shipped ? 'Yes' : 'No'}</td>
                                         <td className="py-0 px-0 dark:opacity-80">
@@ -150,7 +154,7 @@ const MyAccount = () => {
                                 <tbody>
                                     {cartItems.map((item) => (
                                         <tr key={item.id}>
-                                            <td className="py-2 px-2 lg:px-4"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                                            <td className="py-2 px-2 lg:px-4"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                                             <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
                                             <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
                                             <td className="py-2 px-2 lg:px-4">${(item.subtotal / 100).toFixed(2)}</td>

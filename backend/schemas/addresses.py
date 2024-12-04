@@ -18,7 +18,7 @@ class AddressBase(BaseModel):
     city: str
     state: str
     country: str
-    zip: str
+    zip_code: str
     address_type: str
 
     class Config(BaseConfig):
@@ -32,7 +32,7 @@ class AddressCreate(BaseModel):
     city: str
     state: str
     country: str
-    zip: str
+    zip_code: str
     address_type: str
 
     class Config(BaseConfig):

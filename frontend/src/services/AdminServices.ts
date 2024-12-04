@@ -1,7 +1,8 @@
+import { api_url } from "../utils/utils";
 export const DeactivateProduct = async (product_id: number) => {
     // console.log(token);
     // const product_id = 1;
-    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/${product_id}/deactivate`;
+    const url =`${api_url}/products/${product_id}/deactivate`;
     const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -17,7 +18,7 @@ export const DeactivateProduct = async (product_id: number) => {
 
 export const AllOrders = async () => {
     // console.log(token);
-    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/orders/admin-orders`;
+    const url =`${api_url}/orders/admin-orders`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -32,7 +33,7 @@ export const AllOrders = async () => {
 
 export const AllUsers = async () => {
     // console.log(token);
-    const url =`${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/users/admin-users`;
+    const url =`${api_url}/users/admin-users`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -47,7 +48,7 @@ export const AllUsers = async () => {
 
 export const AllProducts = async () => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/admin-products`;
+    const url = `${api_url}/products/admin-products`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -63,7 +64,7 @@ export const AllProducts = async () => {
 export const UpdateProduct = async (product_id: number, payload: any) => {
     // console.log(token);
     console.log(payload);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/${product_id}`;
+    const url = `${api_url}/products/${product_id}`;
     const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -86,7 +87,7 @@ export const UploadImage = async (file: any) => {
     // const boundary = '---------------------------boundary';
     // const requestBody = `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="${file.name}"\r\nContent-Type: ${file.type}\r\n\r\n${file}\r\n--${boundary}--`;
     try {
-        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/upload`;
+        const url = `${api_url}/products/upload`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -110,7 +111,7 @@ export const UploadImage = async (file: any) => {
 
 export const CreateProduct = async ( payload: any ) => {
     console.log(payload);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/products/`;
+    const url = `${api_url}/products/create`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -127,7 +128,7 @@ export const CreateProduct = async ( payload: any ) => {
 
 export const UpdateShippingStatus = async (order_id: number) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/orders/${order_id}`;
+    const url = `${api_url}/orders/${order_id}/update-order`;
     const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -142,7 +143,7 @@ export const UpdateShippingStatus = async (order_id: number) => {
 
 export const GetShippingDetails = async (order_id: number) => {
     // console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/address/${order_id}/shipping`;
+    const url = `${api_url}/address/${order_id}/shipping`;
     const response = await fetch(url, {
         method: "GET",
         headers: {

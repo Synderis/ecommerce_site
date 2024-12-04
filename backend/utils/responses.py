@@ -29,6 +29,11 @@ class ResponseHandler:
         return ResponseHandler.success(message, data)
     
     @staticmethod
+    def temp_success(name, id, data):
+        message = f"{name} with id {id} created successfully"
+        return ResponseHandler.success(message, data)
+    
+    @staticmethod
     def create_failure(data, error):
         if 'users_email_key' in error:
             message = "Email already exists"

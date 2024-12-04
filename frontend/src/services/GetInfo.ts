@@ -1,11 +1,13 @@
 // import { useState } from "react";
 // import { token } from "../utils/utils";
+import { api_url } from "../utils/utils";
 
 
 export const MyInfo = async () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
-    const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/me`;
+    // const token = localStorage.getItem("token");
+    // console.log(token);
+    console.log(api_url);
+    const url = `${api_url}/me/info`;
     const response = await fetch(url, {
         method: "GET",
         headers: {

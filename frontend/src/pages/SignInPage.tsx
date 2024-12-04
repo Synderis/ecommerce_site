@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
+import { api_url } from "../utils/utils";
+import { Link } from "react-router-dom";
+import { local_url } from "../utils/utils";
 
 const SignInForm = () => {
 
@@ -30,7 +33,7 @@ const SignInForm = () => {
         e.preventDefault();
         console.log("Sign in");
         console.log(formData);
-        const url = `${window.location.protocol}//${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}/auth/login`;
+        const url = `${api_url}/auth/login`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -133,7 +136,7 @@ const SignInForm = () => {
                     <div className="!mt-4 flex justify-end">
                         <Typography
                             as="a"
-                            href="#"
+                            href="/forgot-password"
                             variant="small"
                             className="font-medium text-gray-900"
                         >
@@ -159,9 +162,9 @@ const SignInForm = () => {
                         className="!mt-4 text-center font-normal text-gray-900"
                     >
                         Not registered?{" "}
-                        <a href="/sign-up" className="font-medium text-orange-300">
+                        <Link to={`${local_url}/sign-up`} className="font-medium text-orange-300">
                             Create account
-                        </a>
+                        </Link>
                     </Typography>
                 </form>
             </div>

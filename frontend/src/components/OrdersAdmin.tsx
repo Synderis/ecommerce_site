@@ -4,6 +4,7 @@ import { AllOrders, UpdateShippingStatus, GetShippingDetails } from '../services
 import { OrderItems } from '../services/OrderServices';
 import { Button } from '@material-tailwind/react';
 import { ShippingModal } from './ShippingDetailsModal';
+import { api_url } from "../utils/utils";
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -11,8 +12,8 @@ const OrdersTable = () => {
   const [error, setError] = useState<Error | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [orderItems, setOrderItems] = useState<Order['order_items'] | null>(null);
-  const [completedFilter, setCompletedFilter] = useState(false);
-  const [shippedFilter, setShippedFilter] = useState(false);
+  const [completedFilter, setCompletedFilter] = useState(true);
+  const [shippedFilter, setShippedFilter] = useState(true);
   const [shippingModal, setShippingModal] = useState(false);
   const [address, setAddress] = useState<AddressDetails | null>(null);
 
@@ -63,7 +64,7 @@ const OrdersTable = () => {
 
   const filteredOrders = orders.filter((order) => {
     if (completedFilter && !order.completed) return false;
-    if (shippedFilter && !order.shipped) return false;
+    if (shippedFilter && order.shipped) return false;
     return true;
   });
 
@@ -74,13 +75,13 @@ const OrdersTable = () => {
         className={`px-4 py-2 ${completedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
         onClick={() => setCompletedFilter(!completedFilter)}
       >
-        {completedFilter ? 'Show all' : 'Hide pending'}
+        {completedFilter ? 'Show pending' : 'Hide pending'}
       </button>
       <button
         className={`px-4 py-2 ${shippedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
         onClick={() => setShippedFilter(!shippedFilter)}
       >
-        {shippedFilter ? 'Show all' : 'Hide not shipped'}
+        {shippedFilter ? 'Show shipped' : 'Hide shipped'}
       </button>
     </div>
     <table className="w-full text-center table-auto min-w-max pl-7 ml-3">
@@ -104,7 +105,7 @@ const OrdersTable = () => {
           <tr key={order.id}>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.id}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.user_id}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{new Date(order.order_timestamp).toLocaleString()}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{new Date(order.created_at).toLocaleString()}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.item_total / 100).toFixed(2)}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.tax_total / 100).toFixed(2)}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.shipping_total / 100).toFixed(2)}</td>
@@ -152,7 +153,7 @@ const OrdersTable = () => {
               <tbody>
               {orderItems.map((item) => (
                   <tr key={item.id} className="bg-white dark:bg-gray-800 dark:border-gray-700">
-                  <td className="py-2 px-2 lg:px-4"><img src={`http://localhost:8000/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                  <td className="py-2 px-2 lg:px-4"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                   <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
                   <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
                   <td className="py-2 px-2 lg:px-4">${(item.subtotal / 100).toFixed(2)}</td>

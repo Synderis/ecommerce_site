@@ -9,6 +9,9 @@ from utils.responses import ResponseHandler
 from schemas.auth import Signup
 from sqlalchemy.exc import IntegrityError
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
+from fastapi.templating import Jinja2Templates
+from jinja2 import Template
+import json
 import os
 from dotenv import load_dotenv
 
@@ -19,6 +22,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+templates = Jinja2Templates(directory="./assets")
 
 conf = ConnectionConfig(
     MAIL_USERNAME=os.environ.get("SMTP_LOGIN"),
@@ -80,20 +85,22 @@ class AuthService:
             
     @staticmethod
     async def forgot_password(email, db):
+        email = email.replace('%40', '@')
         user = db.query(User).filter(User.email == email).first()
         if not user:
             raise ResponseHandler.not_found_error('User', email)
         if user.role == 'admin':
             raise ResponseHandler.not_found_error('User', email)
-        new_secret_token = await create_reset_password_token(user.email)
-        forget_url_link =  f'http://localhost:8000/reset-password/{new_secret_token}'
+        new_secret_token = create_reset_password_token(user.email)
+        forget_url_link =  f'http://localhost:3000/reset-password/{new_secret_token}'
         email_body = { "company_name": "FastAPI",
                     "link_expiry_min": 10,
                     "reset_link": forget_url_link }
+        body = json.dumps(email_body)
         message = MessageSchema(
             subject="Password Reset Instructions",
             recipients=[user.email],
-            template_body=email_body,
+            template_body=body,
             subtype=MessageType.html
         )
         fm = FastMail(conf)
@@ -135,22 +142,20 @@ class AuthService:
     
     @staticmethod
     async def contact(email_data):
-#         template = """
-#         <html>
-#         <body>
+        with open("./assets/email.html", "r") as f:
+            template = Template(f.read())
 
-
-# <p>Hi !!!
-#         <br>Thanks for using fastapi mail, keep using it..!!!</p>
-
-
-#         </body>
-#         </html>
-#         """  
+    # Render the template with the actual values
+        email_body = template.render(
+            first_name=email_data.first_name, 
+            last_name=email_data.last_name, 
+            email=email_data.email, 
+            message=email_data.message
+        )
         message = MessageSchema(
-            subject='Contact Form Submission',
-            recipients=['toccidylan@gmail.com'],
-            body=email_data.message,
+            subject=f'Contact Form Submission',
+            recipients=['synderisdev@gmail.com'],
+            body=email_body,
             subtype=MessageType.html
         )
         fm = FastMail(conf)

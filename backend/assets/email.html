@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Form Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .footer {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Contact Form Submission</h2>
+        </div>
+        <div class="content">
+            <p>Dear Team,</p>
+            <p>You have received a new message from <strong>{{ first_name }} {{ last_name }}</strong>.</p>
+            <p>Here is the message:</p>
+            <blockquote>
+                <p>{{ message }}</p>
+            </blockquote>
+            <p>Best regards,</p>
+            <p>{{ first_name }} {{ last_name }}</p>
+            <p><a href="mailto:{{ email }}">{{ email }}</a></p>
+        </div>
+        <div class="footer">
+            <p>This email was sent from your website's contact form.</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -8,12 +8,22 @@ export function ContactSection() {
 
     const handleFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
         const formData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
+        const payload = {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            message: data.message,
+        };
         const url = `${api_url}/auth/contact`;
         const response = await fetch(url, {
             method: "POST",
-            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
         })
         if (response.ok) {
             alert("Message sent successfully");

@@ -95,14 +95,14 @@ const CurrentCart = () => {
                         </div>
                     </div>
                 </div>
-                <div className="relative flex flex-col lg:p-2 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
-                    <table className="w-full text-left table-auto min-w-max pl-3 ml-3">
+                <div className="relative flex flex-col lg:p-2 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+                    <table className="w-full text-left table-auto min-w-max pl-3">
                         <thead>
                             <tr className="bg-slate-50">
-                                <th className="p-1 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Product</th>
+                                <th className="p-1 pl-3 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Product</th>
                                 <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Name</th>
-                                <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Quantity</th>
-                                <th className="p-1 text-sm font-normal border-b border-slate-300 leading-none text-slate-500 dark:opacity-80 dark:text-white">Subtotal</th>
+                                <th className="p-1 text-sm font-normal border-b border-slate-300 text-center leading-none text-slate-500 dark:opacity-80 dark:text-white">Quantity</th>
+                                <th className="p-1 text-sm font-normal border-b border-slate-300 text-center leading-none text-slate-500 dark:opacity-80 dark:text-white">Subtotal</th>
                                 <th className="text-sm font-normal leading-none text-slate-500"></th>
                             </tr>
                         </thead>
@@ -110,10 +110,10 @@ const CurrentCart = () => {
                             {cartItems && cartItems.length > 0 ? (
                                 cartItems.map((item) => (
                                     <tr key={item.product.id} className="hover:bg-slate-50">
-                                        <td className="p-0 border-b border-slate-200 py-5"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                                        <td className="p-0 pl-3 border-b border-slate-200 py-5"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate dark:opacity-80 dark:text-white" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
-                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{item.quantity}</td>
-                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(item.subtotal / 100).toFixed(2)}</td>
+                                        <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{item.quantity}</td>
+                                        <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{(item.subtotal / 100).toFixed(2)}</td>
                                         <td className="py-5 dark:opacity-80">
                                             <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">

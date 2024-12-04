@@ -45,7 +45,7 @@ async def contact(
         email_data: EmailBase):
     return await AuthService.contact(email_data)
 
-@router.post("/forgot-password", status_code=status.HTTP_200_OK)
+@router.post("/forgot-password/{email}", status_code=status.HTTP_200_OK)
 async def forgot_password(
         email: str,
         db: Session = Depends(get_db)):

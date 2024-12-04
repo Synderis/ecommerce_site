@@ -22,7 +22,7 @@ const ProductTile: React.FC<ProductProps> = ({ product }) => {
     return (
         <div>
         {/* <div className="dark:bg-gray-900"> */}
-            <Card title={product.title} className="w-90 border dark:bg-gray-900 dark:border-orange-300 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-blue-gray-900" >
+            <Card title={product.title} className="w-90 border dark:bg-gray-900 dark:border-orange-300 shadow-lg dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-blue-gray-900" >
                 <Link to={`/products/${product.id}`} state={{ product_id: product.id }}>
                     <CardHeader shadow={false} floated={false} className="h-96 dark:bg-gray-900">
                         <img

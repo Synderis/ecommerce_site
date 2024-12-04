@@ -15,13 +15,12 @@ import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
 import { MyInfo } from "../services/GetInfo";
-// import { UserData } from "../utils/types";
+
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = useState(false);
     const [dark, setDark] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    // const [user, setUser] = useState<UserData | null>(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const location = useLocation();
 

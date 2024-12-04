@@ -9,6 +9,8 @@ import AboutTheDev from '../pages/AboutDev';
 import AdminDashboard from '../pages/AdminPage';
 import CompletePage from '../pages/CheckoutComplete';
 import ContactSection from '../pages/Support';
+import ForgotPassword from '../pages/ForgotPasswordPage';
+import ResetPassword from '../pages/ResetPasswordPage';
 
 
 export const routes = [
@@ -47,6 +49,14 @@ export const routes = [
     {
         path: '/support',
         element: <ContactSection />,
+    },
+    {
+        path: '/forgot-password',
+        element: <ForgotPassword />,
+    },
+    {
+        path: '/reset-password/:reset_token',
+        element: <ResetPassword />,
     },
     {
         path: '/about-the-dev',

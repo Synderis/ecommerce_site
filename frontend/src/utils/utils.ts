@@ -15,8 +15,8 @@ export function useIsLargeScreen() {
 
 export const themeToggle = document.getElementById('theme-toggle');
 
-// export const api_url = `http://localhost:8000`;
-export const api_url = `${window.location.hostname !== 'localhost' ? 'https:' : 'http:'}//${window.location.hostname !== 'localhost' ? 'api.' : ''}${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}`;
+export const api_url = `http://localhost:8000`;
+// export const api_url = `${window.location.hostname !== 'localhost' ? 'https:' : 'http:'}//${window.location.hostname !== 'localhost' ? 'api.' : ''}${window.location.hostname}${window.location.hostname === 'localhost' ? ':8000' : ''}`;
 
-// export const local_url = `http://localhost:3000`;
-export const local_url = `https://${window.location.hostname}${window.location.hostname === 'localhost' ? ':3000' : ''}`;
+export const local_url = `http://localhost:3000`;
+// export const local_url = `https://${window.location.hostname}${window.location.hostname === 'localhost' ? ':3000' : ''}`;

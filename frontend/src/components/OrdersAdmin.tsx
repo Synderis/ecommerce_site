@@ -69,7 +69,7 @@ const OrdersTable = () => {
   });
 
   return (
-    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
     <div className="flex justify-start mb-4">
       <button
         className={`px-4 py-2 ${completedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}

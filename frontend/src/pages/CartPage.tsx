@@ -76,8 +76,10 @@ const CurrentCart = () => {
 
 
     return (
-        <section className="dark:bg-gradient-to-b mb-2 overflow-visible h-screen min-h-screen dark:from-orange-800/10 dark:to-gray-800">
-            <div className="container mx-auto min-h-screen lg:h-screenHeight px-4">
+        <section className="dark:bg-gradient-to-b mb-2 overflow-visible flex flex-grow h-full dark:from-orange-800/10 dark:to-gray-800">
+        {/* <section className="flex flex-col dark:bg-gradient-to-b mb-2 min-h-100vh overflow-visible dark:from-orange-800/10 dark:to-gray-800"> */}
+            {/* <div className="container mx-auto min-h-screen lg:h-screenHeight px-4"> */}
+            <div className="container mx-auto px-4">
                 <div className="w-full flex justify-between items-center mb-3 pt-8 pl-7">
                     <div>
                         <h3 className="text-lg font-semibold text-slate-800">Shopping Cart</h3>
@@ -95,7 +97,7 @@ const CurrentCart = () => {
                         </div>
                     </div>
                 </div>
-                <div className="relative flex flex-col lg:p-2 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+                <div className="relative flex flex-col lg:p-2 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
                     <table className="w-full text-left table-auto min-w-max pl-3">
                         <thead>
                             <tr className="bg-slate-50">

@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import { api_url } from "../utils/utils";
+import "./supp.css";
+
 
 
 
@@ -35,13 +37,6 @@ export function ContactSection() {
     return (
         <section className="grid text-center lg:mt-[-10rem] lg:mb-[-6rem] h-screen items-center p-8 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             <div>
-                {/* <Typography
-                    variant="h5"
-                    color="blue-gray"
-                    className="mb-4 !text-base lg:!text-2xl text-gray-900"
-                >
-                    Customer Care
-                </Typography> */}
                 <Typography
                     variant="h1"
                     color="blue-gray"
@@ -72,7 +67,7 @@ export function ContactSection() {
                                     size="lg"
                                     placeholder="First Name"
                                     name="first_name"
-                                    className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
+                                    className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                                     containerProps={{
                                         className: "min-w-full",
                                     }}
@@ -93,9 +88,9 @@ export function ContactSection() {
                                     size="lg"
                                     placeholder="Last Name"
                                     name="last_name"
-                                    className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
+                                    className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                                     containerProps={{
-                                        className: "!min-w-full",
+                                        className: "min-w-full",
                                     }}
                                     labelProps={{
                                         className: "hidden",
@@ -115,7 +110,7 @@ export function ContactSection() {
                                 size="lg"
                                 placeholder="name@email.com"
                                 name="email"
-                                className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
+                                className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                                 containerProps={{
                                     className: "!min-w-full",
                                 }}
@@ -136,7 +131,7 @@ export function ContactSection() {
                                 color="gray"
                                 placeholder="Message"
                                 name="message"
-                                className="focus:border-t-orange-300 focus:border-b-orange-300 focus:border-l-orange-300 focus:border-r-orange-300"
+                                className="w-full placeholder:opacity-100 focus:border-t-primary text-gray-900 border-t-blue-gray-200 dark:focus:border-orange-300"
                                 containerProps={{
                                     className: "!min-w-full",
                                 }}

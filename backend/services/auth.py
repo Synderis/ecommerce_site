@@ -93,16 +93,23 @@ class AuthService:
             raise ResponseHandler.not_found_error('User', email)
         new_secret_token = create_reset_password_token(user.email)
         forget_url_link =  f'http://localhost:3000/reset-password/{new_secret_token}'
-        email_body = { "company_name": "FastAPI",
-                    "link_expiry_min": 10,
-                    "reset_link": forget_url_link }
-        body = json.dumps(email_body)
+        with open("./assets/reset_password_email.html", "r") as f:
+            template = Template(f.read())
+
+        email_body = template.render(
+            user_name=user.username,
+            company_name='Company Name', 
+            link_expiry_min=10, 
+            reset_link=forget_url_link,
+        )
+
         message = MessageSchema(
             subject="Password Reset Instructions",
             recipients=[user.email],
-            template_body=body,
+            body=email_body,
             subtype=MessageType.html
         )
+
         fm = FastMail(conf)
         try:
             await fm.send_message(message)
@@ -142,7 +149,7 @@ class AuthService:
     
     @staticmethod
     async def contact(email_data):
-        with open("./assets/email.html", "r") as f:
+        with open("./assets/contact_email.html", "r") as f:
             template = Template(f.read())
 
     # Render the template with the actual values

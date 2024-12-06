@@ -55,10 +55,10 @@ const MyAccount = () => {
     if (!userData) {
         return <div>Loading...</div>;
     }
-
+    
     return (
-        <section className="dark:bg-gradient-to-b pt-12 h-screenHeight dark:from-orange-800/10 dark:to-gray-800 ">
-            <div className="container mx-auto p-4 min-h-screen lg:h-screenHeight px-4">
+        <section className="dark:bg-gradient-to-b flex flex-grow pt-12 h-full dark:from-orange-800/10 dark:to-gray-800 ">
+            <div className="container mx-auto p-4 px-4">
                 <Typography variant="h2" className="mb-4">
                     My Account
                 </Typography>
@@ -86,7 +86,7 @@ const MyAccount = () => {
                 </div>
                 {ordersData && (
                     // <div className="overflow-x-auto relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
-                    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 lg:w-1/2 h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+                    <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 lg:w-1/2 overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
                         {/* <table className="w-full lg:w-2/3 mx-auto w-1/2 text-sm text-left rounded-lg overflow-hidden text-gray-500 dark:text-gray-400"> */}
                         <table className="w-full lg:w-full pr-12 text-left lg:text-center table-auto lg:min-w-2/3 lg:pl-7 lg:ml-3">
                             {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> */}

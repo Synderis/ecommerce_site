@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { StickyNavbar } from './components/NavBar';
 import { api_url } from './utils/utils';
+import FooterBar  from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import { routes } from './utils/routes';
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -40,17 +43,19 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ marginLeft: '10px' }}>
-      <StickyNavbar />
+    <Router>
+    <div className="app-container">
+    <StickyNavbar />
+    <Routes>
+      {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+      ))}
+    </Routes>
+    <FooterBar />
     </div>
+  </Router>
   );
 };
 
-// Wrap the App component with Router in the main entry file (e.g., index.tsx)
-const AppWrapper: React.FC = () => (
-  <Router>
-    <App />
-  </Router>
-);
+export default App;
 
-export default AppWrapper;

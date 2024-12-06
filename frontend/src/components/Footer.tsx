@@ -1,17 +1,11 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const FooterBar = () => {
 
-    const [footerHeight, setFooterHeight] = useState(0);
-
-    useLayoutEffect(() => {
-        const footer = document.querySelector('.footer') as HTMLElement;
-        setFooterHeight(footer?.offsetHeight ?? 0);
-    }, []);
-
     return (
-        <div className="footer" style={{ bottom: footerHeight }}>
+        // <div className="footer" style={{ bottom: footerHeight }}>
+        <div className="footer" style={{ verticalAlign: 'bottom', marginTop: 'auto' }}>
         <footer className="mt-auto relative bottom-0 w-full">
             <div className="w-full px-12 lg:px-1 mx-auto max-w-7xl">
                 <div className="grid justify-between grid-cols-1 gap-4 md:grid-cols-2">

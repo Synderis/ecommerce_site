@@ -11,8 +11,8 @@ const homeImages = [
 
 const HomePage = () => {
     return (
-        <section className="dark:bg-gradient-to-b mb-2 h-screenHeight dark:from-orange-800/10 dark:to-gray-800">
-        <div className="container mx-auto py-12 lg:pb-24 lg:py-20 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center" style={{ paddingBottom: '223px' }}>
+        <section className="dark:bg-gradient-to-b mb-2 flex flex-grow h-full dark:from-orange-800/10 dark:to-gray-800">
+        <div className="container mx-auto py-12 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center" style={{ paddingBottom: '223px' }}>
             {/* Welcome Section */}
             <div className="flex flex-col items-center text-center ml-5 mr-5 lg:w-full">
                 <Typography variant="h1" className="mb-4">

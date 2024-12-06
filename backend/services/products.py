@@ -60,7 +60,6 @@ class ProductService:
         for key, value in updated_product.model_dump().items():
             setattr(db_product, key, value)
 
-        # if type(db_product.price) == float:
         db_product.price = int(db_product.price * 100)
 
         db.commit()

@@ -2,8 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* html {
+    scroll-behavior: smooth;
+    height: 100%;
+} */
+
 body {
     background-color: rgb(66, 66, 66);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container {
+    min-height: 100vh;
+    /* set the minimum height to the full height of the viewport */
+    display: flex;
+    flex-direction: column;
 }
 
 ::-webkit-scrollbar {

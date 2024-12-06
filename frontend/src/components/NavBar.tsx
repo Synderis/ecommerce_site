@@ -8,9 +8,9 @@ import {
     // Card,
 } from "@material-tailwind/react";
 
-import { Routes, Link, Route, useLocation } from 'react-router-dom';
-import { routes } from "../utils/routes";
-import FooterBar from "./Footer";
+import { Link, useLocation } from 'react-router-dom';
+// import { routes } from "../utils/routes";
+// import FooterBar from "./Footer";
 import { Logout } from "../services/LogoutUser";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
@@ -148,8 +148,8 @@ export function StickyNavbar() {
 
     return (
         // max-h-[768px]
-        <div className="-m-6  w-[calc(100%+24px)] dark:bg-gray-800 overflow-visible">
-            <Navbar className="sticky top-0 border-t-0 border-r-0 dark:border-orange-300 dark:bg-gray-800 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+        // <div className="-m-6  w-[calc(100%+24px)] dark:bg-gray-800 overflow-visible">
+            <Navbar className="sticky top-0 border-t-0 border-r-0 border-l-0 dark:border-orange-300 dark:bg-gray-800 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Link to={"/"}>
                         <Typography
@@ -251,15 +251,7 @@ export function StickyNavbar() {
                     </div>
                 </MobileNav>
             </Navbar>
-            <Routes>
-                {routes.map((route) => (
-                    <Route key={route.path} path={route.path} element={route.element} />
-                ))}
-            </Routes>
-            {navList && (
-                <FooterBar />
-            )}
-        </div>
+        // </div>
     );
 }
 

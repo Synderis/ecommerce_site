@@ -54,6 +54,7 @@ const ResetPassword = () => {
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <label className="block mb-2 text-left">Email:</label>
+                    {/* <div className="flex flex-col gap-4"> */}
                     <Input
                         onChange={handleChange}
                         id="email"
@@ -63,11 +64,12 @@ const ResetPassword = () => {
                         type="email"
                         name="email"
                         placeholder="name@mail.com"
-                        className="w-full placeholder:opacity-100 mb-4 text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
+                        className="w-full placeholder:opacity-100 text-gray-900 focus:border-t-primary border-t-blue-gray-200 dark:focus:border-orange-300"
                         labelProps={{
                             className: "hidden",
                         }}
                     />
+                    <label className="block mb-2 mt-4 text-left">Password:</label>
                     <Input
                         id="new_password"
                         onChange={handleChange}
@@ -88,6 +90,7 @@ const ResetPassword = () => {
                             </i>
                         }
                     />
+                    <label className="block mb-2 mt-4 text-left">Confirm Password:</label>
                     <Input
                         id="confirm_password"
                         onChange={handleChange}
@@ -108,9 +111,10 @@ const ResetPassword = () => {
                             </i>
                         }
                     />
-                    <Button type="submit" color="gray" size="lg" className="mt-6 mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 hover:scale-105 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white" fullWidth>
-                        Send Reset Link
+                    <Button type="submit" color="gray" size="lg" className="mt-6 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 hover:scale-105 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white" fullWidth>
+                        Reset Password
                     </Button>
+                    {/* </div> */}
                 </form>
                 {error && (
                     <Typography className="text-red-500 mt-4">

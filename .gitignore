@@ -30,6 +30,7 @@ alembic/versions/
 .env
 .env_old
 .env.dev
+.env.prod
 test.py
 ecs-cdk
 *.docker*

@@ -30,7 +30,7 @@ const SingleProduct = () => {
                 </div>
                 <div className="w-full xl:w-4/12 p-4">
                     <Card className="h-full py-8 dark:bg-gray-900 border dark:border-orange-300 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900">
-                        <CardHeader color="gray" className="py-1 mt-1 align-left rounded-md bg-gray-800 border border-orange-300 text-sm text-white transition-all shadow-lg focus:bg-slate-700 active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white">
+                        <CardHeader color="gray" className="py-1 mt-1 align-left rounded-md bg-gray-800 border border-orange-300 text-sm text-white transition-all shadow-lg focus:bg-slate-700 active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-gray-800 dark:text-white">
                             <Typography variant="h3" color="white" className='ml-2 dark:text-gray-300'>
                                 {productData.title}
                             </Typography>

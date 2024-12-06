@@ -16,35 +16,35 @@ This is a modern e-commerce site built using FastAPI, React, and TypeScript, wit
 
 ### Home Page
 
-[![Home Page](https://i.imgur.com/cX6q0UP.png)](https://i.imgur.com/cX6q0UP.png)
+[![Home Page](https://i.imgur.com/dHZpW8r.png)](https://i.imgur.com/dHZpW8r.png)
 
 ### Product Page
 
-[![Product Page](https://i.imgur.com/Gx0m4jT.png)](https://i.imgur.com/Gx0m4jT.png)
+[![Product Page](https://i.imgur.com/0thdFMh.png)](https://i.imgur.com/0thdFMh.png)
 
 ### Product Details Page
 
-[![Product Details Page](https://i.imgur.com/EJnpi25.png)](https://i.imgur.com/EJnpi25.png)
+[![Product Details Page](https://i.imgur.com/SbWATG4.jpeg)](https://i.imgur.com/SbWATG4.jpeg)
 
 ### Cart Page
 
-[![Cart Page](https://i.imgur.com/ezLmp1B.png)](https://i.imgur.com/ezLmp1B.png)
+[![Cart Page](https://i.imgur.com/gUYyum4.png)](https://i.imgur.com/gUYyum4.png)
 
 ### Login Page
 
-[![Login Page](https://i.imgur.com/aMw2TN3.png)](https://i.imgur.com/aMw2TN3.png)
+[![Login Page](https://i.imgur.com/ntwMA80.png)](https://i.imgur.com/ntwMA80.png)
 
 ### Sign-up Page
 
-[![Sign-up Page](https://i.imgur.com/PhtmGYm.png)](https://i.imgur.com/PhtmGYm.png)
+[![Sign-up Page](https://i.imgur.com/fFHlZGM.png)](https://i.imgur.com/fFHlZGM.png)
 
 ### Account Page
 
-[![Account Page](https://i.imgur.com/yePmjvd.png)](https://i.imgur.com/yePmjvd.png)
+[![Account Page](https://i.imgur.com/z5Q2BUB.png)](https://i.imgur.com/z5Q2BUB.png)
 
 ### Order Summary Modal
 
-[![Order Summary Modal](https://i.imgur.com/e9Es2bx.png)](https://i.imgur.com/e9Es2bx.png)
+[![Order Summary Modal](https://i.imgur.com/Gy6jKhP.png)](https://i.imgur.com/Gy6jKhP.png)
 
 
 ## Getting Started

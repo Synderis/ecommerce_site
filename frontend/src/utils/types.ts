@@ -36,8 +36,6 @@ export interface Order {
     completed_at: string;
     created_at: string;
     shipped_at: string;
-    completed: boolean;
-    shipped: boolean;
     order_items: {
         id: number;
         quantity: number;

@@ -13,6 +13,12 @@ import base64
 import re
 import shutil
 logger = logging.getLogger(__name__)
+from supabase import create_client, Client
+from core.config import settings
+
+supabase_url = settings.supabase_s3_url
+supabase_key = settings.supabase_s3_key
+supabase = create_client(supabase_url, supabase_key)
 
 
 router = APIRouter(tags=["Products"], prefix="/products")
@@ -52,16 +58,21 @@ async def upload_image(
         request: Request,
         file: UploadFile,
 ):
-    # print(request.headers)
-    # print(request.body())
     try:
         contents = await file.read()
+        file_path = f"product_images/{file.filename}"
+        response = supabase.storage.from_('supercrazychick-assets').upload(file_path, contents, {
+                'upsert': 'true',
+            })
         file_path = f"./assets/{file.filename}"
         with open(file_path, "wb") as f:
             f.write(contents)
+        if response.error:
+            print(response.error)
         return {"message": "Image uploaded successfully"}
     except Exception as e:
         return {"message": str(e)}
+
 
 # Create New Product
 @router.post(

@@ -4,6 +4,14 @@ from schemas.products import ProductCreate, ProductUpdate
 from utils.responses import ResponseHandler
 from fastapi.responses import JSONResponse
 from datetime import datetime
+from supabase import create_client, Client
+from core.config import settings
+
+# supabase_url = os.environ.get("SUPABASE_S3_URL")
+supabase_url = settings.supabase_s3_url
+# supabase_key = os.environ.get("SUPABASE_S3_KEY")
+supabase_key = settings.supabase_s3_key
+supabase = create_client(supabase_url, supabase_key)
 
 
 class ProductService:
@@ -46,10 +54,16 @@ class ProductService:
     
     @staticmethod
     def upload_image(file):
-        file_path = f"./assets/{file.filename}"
-        with open(file_path, "wb") as f:
-            f.write(file.file.read())
-        return JSONResponse(content={"message": "Image uploaded successfully"}, status_code=200)
+        
+        file_path = f"product_images/{file.filename}"
+        return ResponseHandler.upload_success(file.filename)
+        try:
+            response = supabase.storage.from_('supercrazychick-assets').upload(file_path, file, {
+                    'upsert': 'true',
+                })
+        except Exception as e:
+            return ResponseHandler.create_failure(file.filename, str(e))
+        return ResponseHandler.update_success(file.filename)
 
     @staticmethod
     def update_product(db: Session, product_id: int, updated_product: ProductUpdate):

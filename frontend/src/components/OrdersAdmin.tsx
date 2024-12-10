@@ -63,8 +63,8 @@ const OrdersTable = () => {
   };
 
   const filteredOrders = orders.filter((order) => {
-    if (completedFilter && !order.completed) return false;
-    if (shippedFilter && order.shipped) return false;
+    if (completedFilter && !order.completed_at) return false;
+    if (shippedFilter && order.shipped_at) return false;
     return true;
   });
 
@@ -111,8 +111,8 @@ const OrdersTable = () => {
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.shipping_total / 100).toFixed(2)}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(order.order_total / 100).toFixed(2)}</td>
             {/* <td>{order.payment_type}</td> */}
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.completed ? 'Completed' : 'Pending'}</td>
-            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.shipped ? 'True' : 'False'}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.completed_at ? 'Completed' : 'Pending'}</td>
+            <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{order.shipped_at ? 'Yes' : 'No'}</td>
             <Button
               className="bg-orange-300 ml-2 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 w-20"
               onClick={() => handleCartClick(order.id)}

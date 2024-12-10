@@ -109,7 +109,7 @@ const MyAccount = () => {
                                         <td className="p-0 pr-2 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">${(order.order_total / 100).toFixed(2)}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{new Date(order.created_at).toLocaleDateString()}</td>
                                         {/* <td className="py-2 px-2">{order.completed ? 'Yes' : 'No'}</td> */}
-                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{order.shipped ? 'Yes' : 'No'}</td>
+                                        <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{order.shipped_at ? 'Yes' : 'No'}</td>
                                         <td className="py-0 lg:px-0 px-1 dark:opacity-80">
                                             <Button
                                                 className="bg-orange-300 py-0 px-0 dark:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 lg:w-20 w-12 lg:h-10 h-8"
@@ -118,7 +118,7 @@ const MyAccount = () => {
                                                 Items
                                             </Button>
                                         </td>
-                                        {order.completed ? (
+                                        {order.completed_at ? (
                                             <td className="py-5 px-0 dark:opacity-80"></td>
                                         ) : (
                                             <td className="py-5 px-0 dark:opacity-80">

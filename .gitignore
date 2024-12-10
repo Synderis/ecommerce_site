@@ -25,16 +25,17 @@ site_build
 venv
 docs.zip
 archive.zip
-# alembic
+# alembic*
 alembic/versions/
 .env
-.env_old
+.env.old
 .env.dev
 .env.prod
 test.py
 ecs-cdk
 *.docker*
 docker-compose.yml
+build/
 # vim temporary files
 *~
 .*.sw?

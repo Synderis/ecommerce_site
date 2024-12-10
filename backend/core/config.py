@@ -13,6 +13,10 @@ class Settings(BaseSettings):
     db_hostname: str
     db_port: str
     db_name: str
+    
+    # Supabase Config
+    supabase_s3_url: str
+    supabase_s3_key: str
 
     # JWT Config
     secret_key: str

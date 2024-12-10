@@ -76,6 +76,7 @@ class StripeService:
                 user_id=order.user_id,
                 full_name=shipping_data.shipping_details.name,
                 street_address=shipping_data.shipping_details.address.line1,
+                street_address_sub=shipping_data.shipping_details.address.line2,
                 city=shipping_data.shipping_details.address.city,
                 state=shipping_data.shipping_details.address.state,
                 country=shipping_data.shipping_details.address.country,
@@ -93,7 +94,6 @@ class StripeService:
         order.tax_total = 0
         for item in payment_items.data:
             order.tax_total += item.amount_tax
-        order.completed = True
         order.completed_at = datetime.now()
         order.payment_type = shipping_data.get("payment_method_types")[0]
         order.payment_id = None

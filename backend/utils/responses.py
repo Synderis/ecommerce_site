@@ -47,6 +47,11 @@ class ResponseHandler:
     def update_success(name, id, data):
         message = f"{name} with id {id} updated successfully"
         return ResponseHandler.success(message, data)
+    
+    @staticmethod
+    def upload_success(file_name):
+        message = f"{file_name} uploaded successfully"
+        return ResponseHandler.success(message)
 
     @staticmethod
     def delete_success(name, id, data):

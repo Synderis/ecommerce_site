@@ -103,8 +103,8 @@ class Order(Base):
     shipping_total = Column(Integer, nullable=False)
     order_total = Column(Integer, nullable=False)
     payment_type = Column(String, nullable=False)
-    completed = Column(Boolean, server_default="False", nullable=False)
-    shipped = Column(Boolean, server_default="False", nullable=False)
+    # completed = Column(Boolean, server_default="False", nullable=False)
+    # shipped = Column(Boolean, server_default="False", nullable=False)
     payment_id = Column(String, nullable=False)
 
     # Relationship with user and cart

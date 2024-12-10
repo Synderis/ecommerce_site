@@ -75,7 +75,6 @@ class OrderService:
         order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
         if not order:
             return ResponseHandler.not_found_error("Order", order_id)
-        order.shipped = True
         order.shipped_at = datetime.now()
         db.commit()
         db.refresh(order)
@@ -106,8 +105,6 @@ class OrderService:
                         shipping_total=0,
                         order_total=item_total,
                         payment_type="N/A",
-                        completed=False,
-                        shipped=False,
                         order_items=order_items,
                         completed_at=None,
                         shipped_at=None

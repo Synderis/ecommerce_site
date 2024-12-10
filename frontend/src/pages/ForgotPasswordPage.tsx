@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Typography, Input } from '@material-tailwind/react';
-import { api_url} from "../utils/utils";
+import { UserForgotPassword } from '../services/UserServices';
 import 'tailwindcss/tailwind.css';
 
 const ForgotPassword = () => {
@@ -16,16 +16,7 @@ const ForgotPassword = () => {
         event.preventDefault();
         console.log(email);
         try {
-            // const params = new URLSearchParams();
-            // params.append('email', email);
-            const url = new URL(`${api_url}/auth/forgot-password/${email}`);
-            const response = await fetch(url.toString(), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
+            const data = await UserForgotPassword(email);
             if (data.success) {
                 alert('Reset link sent to your email!');
             } else {

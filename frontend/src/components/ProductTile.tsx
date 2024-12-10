@@ -54,7 +54,7 @@ const ProductTile: React.FC<ProductProps> = ({ product }) => {
                         onClick={() => CartChoice(product.id, 1)}
                         ripple={false}
                         fullWidth={true}
-                        className="bg-orange-300 dark:bg-orange-800/10 dark:hover:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                        className="bg-orange-300 dark:bg-orange-800/10 dark:active:bg-orange-800/30  lg:dark:hover:bg-orange-800/30 text-blue-gray-900 dark:text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
                     >
                         Add to Cart
                     </Button>

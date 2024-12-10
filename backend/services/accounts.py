@@ -7,11 +7,9 @@ from core.security import get_password_hash, get_token_payload, check_auth
 class AccountService:
     @staticmethod
     def get_my_info(db: Session, token):
-        print(token)
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token.credentials, 'Auth failed')
         user_id = get_token_payload(token.credentials).get('id')
-        print(user_id)
         user = db.query(User).filter(User.id == user_id).first()
         if not user:
             ResponseHandler.not_found_error("User", user_id)

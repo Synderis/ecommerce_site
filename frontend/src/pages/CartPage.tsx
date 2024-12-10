@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import { MyInfo } from "../services/GetInfo";
+import { MyInfo } from "../services/UserServices";
 import { UpdateCart } from "../services/CartServices";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
@@ -117,7 +117,7 @@ const CurrentCart = () => {
                                         <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{item.quantity}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{(item.subtotal / 100).toFixed(2)}</td>
                                         <td className="py-5 dark:opacity-80">
-                                            <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
+                                            <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:active:bg-orange-800/30  lg:dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>

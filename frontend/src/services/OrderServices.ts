@@ -1,7 +1,6 @@
 import { api_url } from "../utils/utils";
 
 export const MyOrders = async () => {
-    // console.log(token);
     const url = `${api_url}/orders/user-orders/`;
     const response = await fetch(url, {
         method: "GET",
@@ -11,12 +10,11 @@ export const MyOrders = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const OrderItems = async ( order_id: number ) => {
-    // console.log(token);
     const url = `${api_url}/orders/${order_id}/items`;
     const response = await fetch(url, {
         method: "GET",
@@ -26,12 +24,11 @@ export const OrderItems = async ( order_id: number ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const CreateOrder = async ( cart_id: number ) => {
-    // console.log(token);
     const url = `${api_url}/orders/${cart_id}/create`;
     const response = await fetch(url, {
         method: "POST",
@@ -41,12 +38,11 @@ export const CreateOrder = async ( cart_id: number ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const CreateAddress = async ( address: any ) => {
-    // console.log(token);
     const url = `${api_url}/address/`;
     const response = await fetch(url, {
         method: "POST",
@@ -58,12 +54,11 @@ export const CreateAddress = async ( address: any ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const UnfinishedOrder = async () => {
-    // console.log(token);
     const url = `${api_url}/orders/current-order`;
     const response = await fetch(url, {
         method: "GET",
@@ -73,12 +68,11 @@ export const UnfinishedOrder = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const FinishOrder = async ( order_id: number ) => {
-    // console.log(token);
     const url = `${api_url}/stripe/process-payment/${order_id}`;
     const response = await fetch(url, {
         method: "POST",
@@ -88,12 +82,11 @@ export const FinishOrder = async ( order_id: number ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const ConfirmPayment = async ( order_id: number ) => {
-    // console.log(token);
     const url = `${api_url}/stripe/confirm-payment/${order_id}`;
     const response = await fetch(url, {
         method: "POST",
@@ -103,6 +96,6 @@ export const ConfirmPayment = async ( order_id: number ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };

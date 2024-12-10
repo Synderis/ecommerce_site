@@ -1,6 +1,6 @@
 import { api_url } from "../utils/utils";
 export const DeactivateProduct = async (product_id: number) => {
-    // console.log(token);
+
     // const product_id = 1;
     const url =`${api_url}/products/${product_id}/deactivate`;
     const response = await fetch(url, {
@@ -12,12 +12,11 @@ export const DeactivateProduct = async (product_id: number) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const AllOrders = async () => {
-    // console.log(token);
     const url =`${api_url}/orders/admin-orders`;
     const response = await fetch(url, {
         method: "GET",
@@ -27,12 +26,11 @@ export const AllOrders = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 
 export const AllUsers = async () => {
-    // console.log(token);
     const url =`${api_url}/users/admin-users`;
     const response = await fetch(url, {
         method: "GET",
@@ -42,12 +40,11 @@ export const AllUsers = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };
 
 export const AllProducts = async () => {
-    // console.log(token);
     const url = `${api_url}/products/admin-products`;
     const response = await fetch(url, {
         method: "GET",
@@ -57,12 +54,11 @@ export const AllProducts = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };
 
 export const UpdateProduct = async (product_id: number, payload: any) => {
-    // console.log(token);
     console.log(payload);
     const url = `${api_url}/products/${product_id}`;
     const response = await fetch(url, {
@@ -75,7 +71,7 @@ export const UpdateProduct = async (product_id: number, payload: any) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };
 
@@ -122,12 +118,11 @@ export const CreateProduct = async ( payload: any ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };
 
 export const UpdateShippingStatus = async (order_id: number) => {
-    // console.log(token);
     const url = `${api_url}/orders/${order_id}/update-order`;
     const response = await fetch(url, {
         method: "PUT",
@@ -137,12 +132,11 @@ export const UpdateShippingStatus = async (order_id: number) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };
 
 export const GetShippingDetails = async (order_id: number) => {
-    // console.log(token);
     const url = `${api_url}/address/${order_id}/shipping`;
     const response = await fetch(url, {
         method: "GET",
@@ -152,6 +146,6 @@ export const GetShippingDetails = async (order_id: number) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data
 };

@@ -25,7 +25,6 @@ class OrderService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user_id = get_current_user(token)
         order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
-        print('order', order.id)
         if not order:
             ResponseHandler.not_found_error("Order", order)
         return ResponseHandler.get_single_success("order", order_id, order)
@@ -46,7 +45,6 @@ class OrderService:
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         current_user_id = get_current_user(token)
-        print(current_user_id)
         order = db.query(Order).filter(Order.user_id == current_user_id, Order.completed == False).order_by(desc(Order.id)).first()
         if not order:
             ResponseHandler.not_found_error("Order", order)
@@ -62,7 +60,6 @@ class OrderService:
         # orders = db.query(Order).filter(Order.user_id == user_id, Order.completed == True).all()
         orders = db.query(Order).filter(Order.user_id == user_id).all()
         message = f"Page with  orders"
-        print(type(orders))
         if not orders:
             ResponseHandler.not_found_error("Order", orders)
         return ResponseHandler.success(message, orders)

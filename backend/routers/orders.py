@@ -25,7 +25,6 @@ def get_all_orders(
 def get_current_order(
         db: Session = Depends(get_db),
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
-    print(token)
     return OrderService.get_current_order(token, db)
 
 @router.put("/{order_id}/update-order", status_code=status.HTTP_200_OK, dependencies=[Depends(check_admin_role)])

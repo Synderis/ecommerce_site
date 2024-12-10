@@ -47,7 +47,6 @@ class AuthService:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Credentials")
         
         token = await get_user_token(id=user.id)
-        print(token)  # This will print the actual token value
         user.logged_in = True
         db.commit()
         db.refresh(user)

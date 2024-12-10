@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { Input, Typography } from "@material-tailwind/react";
-import { api_url } from "../utils/utils";
+import { SignUp } from "../services/UserServices";
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -21,24 +21,16 @@ const SignUpForm = () => {
         e.preventDefault();
         console.log("Sign up");
         console.log(formData);
-        const url = `${api_url}/auth/signup`;
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
-        const data = await response.json();
+        const response = await SignUp(formData);
 
         if (response.ok) {
             console.log("Sign up successful");
             navigate("/");
         } else {
             console.log("Sign up failed");
-            if (data.detail === "Email already exists") {
+            if (response.detail === "Email already exists") {
                 alert("Email already exists");
-            } else if (data.detail === "Username already exists") {
+            } else if (response.detail === "Username already exists") {
                 alert("Username already exists");
             } else {
                 alert("Internal Server Error");

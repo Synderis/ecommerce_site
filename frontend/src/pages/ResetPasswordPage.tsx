@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Typography, Input } from '@material-tailwind/react';
-import { api_url } from "../utils/utils";
+import { UserPasswordReset } from '../services/UserServices';
 import { useParams } from 'react-router-dom';
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import 'tailwindcss/tailwind.css';
@@ -27,14 +27,7 @@ const ResetPassword = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await fetch(`${api_url}/auth/reset-password/${formData.reset_token}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            const data = await response.json();
+            const data = await UserPasswordReset(formData);
             if (data.success) {
                 alert('Reset link sent to your email!');
             } else {

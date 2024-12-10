@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Typography, Button } from "@material-tailwind/react";
-import { MyInfo } from "../services/GetInfo";
+import { MyInfo } from "../services/UserServices";
 import { MyOrders, OrderItems, FinishOrder } from "../services/OrderServices";
 import { Order, UserData } from "../utils/types";
 import { api_url, local_url } from "../utils/utils";
@@ -84,8 +84,8 @@ const MyAccount = () => {
                     className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 /> */}
                 </div>
-                {ordersData && (
-                    // <div className="overflow-x-auto relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+                {/* {ordersData && ( */}
+                    {/* <div className="overflow-x-auto relative flex flex-col lg:p-4 dark:bg-gray-800 lg:dark:bg-gradient-to-b lg:dark:from-orange-300/30 lg:dark:to-blue-gray-900 w-full h-full overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border"> */}
                     <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 lg:w-1/2 overflow-hidden text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
                         {/* <table className="w-full lg:w-2/3 mx-auto w-1/2 text-sm text-left rounded-lg overflow-hidden text-gray-500 dark:text-gray-400"> */}
                         <table className="w-full lg:w-full pr-12 text-left lg:text-center table-auto lg:min-w-2/3 lg:pl-7 lg:ml-3">
@@ -102,7 +102,9 @@ const MyAccount = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {Array.isArray(ordersData) && ordersData.map((order) => (
+                                {/* {Array.isArray(ordersData) && ordersData.map((order) => ( */}
+                                {ordersData && ordersData.length > 0 ? (
+                                ordersData.map((order) => (
                                     // <tr key={order.id} className="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-50">
                                     <tr key={order.id} className="hover:bg-slate-50">
                                         <td className="pl-2 p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">{order.id}</td>
@@ -131,11 +133,17 @@ const MyAccount = () => {
                                             </td>
                                         )}
                                     </tr>
-                                ))}
+                                ))) : (
+                                    <tr>
+                                        <td colSpan={4} className="p-1 text-sm border-b border-slate-200 text-center">
+                                            No orders yet.
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
-                )}
+                {/* )} */}
                 {showModal && cartItems && (
                     <div
                         className="fixed inset-0 lg:w-full w-2/3 flex items-center justify-center z-50"

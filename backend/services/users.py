@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-
 from models.models import User
 from schemas.users import UserCreate, UserUpdate
 from utils.responses import ResponseHandler

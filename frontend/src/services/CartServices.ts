@@ -51,7 +51,6 @@ export const CartChoice = async (product_id: number, quantity: number) => {
 };
 
 export const MyCarts = async () => {
-    // console.log(token);
     const url = `${api_url}/carts/user-carts`;
     const response = await fetch(url, {
         method: "GET",
@@ -61,12 +60,11 @@ export const MyCarts = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 }
 
 export const MyActiveCart = async () => {
-    // console.log(token);
     const url = `${api_url}/carts/active`;
     const response = await fetch(url, {
         method: "GET",
@@ -76,12 +74,11 @@ export const MyActiveCart = async () => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 }
 
 export const MyCart = async ( cart_id: number ) => {
-    // console.log(token);
     const url = `${api_url}/carts/${cart_id}`;
     const response = await fetch(url, {
         method: "GET",
@@ -91,7 +88,7 @@ export const MyCart = async ( cart_id: number ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
-    // return responseData.data.carts[0];
+
     return responseData.data;
 };
 

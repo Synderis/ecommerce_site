@@ -43,7 +43,7 @@ const ProductPage = () => {
     }
 
     return (
-        <section className="py-10 px-6 lg:py-20 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
+        <section className="py-5 px-6 lg:py-10 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
             <div className="grid gap-10 grid-cols-1 lg:grid-cols-3 lg:gap-16 max-w-7xl mx-auto">
                 {products.map((product, index) => (
                     <ProductTile key={product.id} product={product} />

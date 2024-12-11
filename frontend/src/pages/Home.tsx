@@ -12,7 +12,7 @@ const homeImages = [
 const HomePage = () => {
     return (
         <section className="dark:bg-gradient-to-b mb-2 flex flex-grow h-full dark:from-orange-800/10 dark:to-gray-800">
-        <div className="container mx-auto py-12 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center" style={{ paddingBottom: '223px' }}>
+        <div className="container mx-auto py-6 grid grid-cols-1 gap-8 lg:grid-cols-2 items-center justify-center">
             {/* Welcome Section */}
             <div className="flex flex-col items-center text-center ml-5 mr-5 lg:w-full">
                 <Typography variant="h1" className="mb-4">
@@ -27,7 +27,7 @@ const HomePage = () => {
             </div>
 
             {/* Carousel Section */}
-            <div className="flex justify-center mr-2 ml-5 lg:w-full lg:mr-0 lg:ml-0">
+            <div className="flex justify-center mr-5 ml-5 lg:w-full lg:mr-0 lg:ml-0">
                 <CarouselCustomNavigation images={homeImages} />
             </div>
             {/* <img

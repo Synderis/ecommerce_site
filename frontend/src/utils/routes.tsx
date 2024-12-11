@@ -11,6 +11,8 @@ import CompletePage from '../pages/CheckoutComplete';
 import ContactSection from '../pages/Support';
 import ForgotPassword from '../pages/ForgotPasswordPage';
 import ResetPassword from '../pages/ResetPasswordPage';
+import AboutTheArtist from '../pages/AboutArtist';
+import FrequentlyAskedQuestions from '../pages/FAQPage';
 
 
 export const routes = [
@@ -51,6 +53,10 @@ export const routes = [
         element: <ContactSection />,
     },
     {
+        path: '/faqs',
+        element: <FrequentlyAskedQuestions />,
+    },
+    {
         path: '/forgot-password',
         element: <ForgotPassword />,
     },
@@ -61,6 +67,10 @@ export const routes = [
     {
         path: '/about-the-dev',
         element: <AboutTheDev />,
+    },
+    {
+        path: '/about-the-artist',
+        element: <AboutTheArtist />,
     },
     {
         path: '/admin/',

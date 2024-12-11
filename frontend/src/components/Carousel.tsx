@@ -61,7 +61,7 @@ const CarouselCustomNavigation = ({ images }: CarouselProps) => {
                     <img
                         src={img}
                         alt={`image-${index}`}
-                        className="h-[28rem] w-full object-cover"
+                        className="h-[45rem] w-full object-cover"
                     />
                 </SwiperSlide>
             ))}

@@ -95,7 +95,6 @@ const MyAccount = () => {
                                     <th className="lg:p-1 pt-2 pl-2 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Order ID</th>
                                     <th className="lg:p-1 pt-2 text-sm border-b text-center border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Total</th>
                                     <th className="lg:p-1 pt-2 text-sm border-b text-center border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Date</th>
-                                    {/* <th className="py-2 px-2">Completed</th> */}
                                     <th className="lg:p-1 pt-2 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">Shipped</th>
                                     <th className="text-sm font-normal leading-none text-slate-500"></th>
                                     <th className="text-sm font-normal leading-none text-slate-500"></th>
@@ -110,7 +109,6 @@ const MyAccount = () => {
                                         <td className="pl-2 p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">{order.id}</td>
                                         <td className="p-0 pr-2 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white lg:text-center">${(order.order_total / 100).toFixed(2)}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{new Date(order.created_at).toLocaleDateString()}</td>
-                                        {/* <td className="py-2 px-2">{order.completed ? 'Yes' : 'No'}</td> */}
                                         <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white text-center">{order.shipped_at ? 'Yes' : 'No'}</td>
                                         <td className="py-0 lg:px-0 px-1 dark:opacity-80">
                                             <Button
@@ -143,7 +141,6 @@ const MyAccount = () => {
                             </tbody>
                         </table>
                     </div>
-                {/* )} */}
                 {showModal && cartItems && (
                     <div
                         className="fixed inset-0 lg:w-full w-2/3 flex items-center justify-center z-50"

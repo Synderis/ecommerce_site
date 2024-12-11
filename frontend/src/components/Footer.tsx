@@ -8,76 +8,51 @@ const FooterBar = () => {
         <div className="footer" style={{ verticalAlign: 'bottom', marginTop: 'auto' }}>
         <footer className="mt-auto relative bottom-0 w-full">
             <div className="w-full px-12 lg:px-1 mx-auto max-w-7xl">
-                <div className="grid justify-between grid-cols-1 gap-4 md:grid-cols-2">
-                    <h5 className="mb-1 text-xl font-semibold text-slate-800 lg:ml-8 self-end">
-                        SuperCrazyChick
-                    </h5>
-                    <div className="grid justify-between grid-cols-3 gap-4">
-                        <ul>
-                            <p className="block mb-1 text-base font-semibold  text-slate-800">
-                                Product
-                            </p>
-                            <li>
-                                <Link to="/about-the-dev" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    <span className="relative group">How its made
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/about-the-dev" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    <span className="relative group">Custom Requests
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                        </ul>
-                        <ul>
-                            <p className="block mb-1 text-base font-semibold text-slate-800">
-                                Company
-                            </p>
-                            <li>
-                                <Link to="#" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    <span className="relative group">About the Artist
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/about-the-dev" className="relative block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm group">
-                                    <span className="relative group">About the Developer
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                        </ul>
-                        <ul>
-                            <p className="block mb-1 text-base font-semibold text-slate-800">
-                                Support
-                            </p>
-                            <li>
-                                <Link to="/support" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    <span className="relative group">Contact Us
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="#" className="block text-slate-600 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
-                                    <span className="relative group">FAQs
-                                        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-                                    </span>
-                                </Link>
-                            </li>
-                        </ul>
+                <div className="grid justify-between grid-cols-1 gap-4">
+                    <div className='lg:flex grid grid-cols-2 gap-2 lg:justify-space-between lg:items-center lg:mx-auto'>
+                        <Link to="/about-the-dev" className="block text-slate-600 lg:mx-5 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
+                            <span className="relative group">How its made
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link><span className="lg:inline-block hidden">|</span>
+                        <Link to="/about-the-dev" className="block text-slate-600 lg:mx-5 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
+                            <span className="relative group">Custom Requests
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link><span className="lg:inline-block hidden">|</span>
+                        <Link to="/about-the-artist" className="block text-slate-600 lg:mx-5 py-1 hover:text-slate-500 focus:text-slate-500 text-sm">
+                            <span className="relative group">About the Artist
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link><span className="lg:inline-block hidden">|</span>
+                        <Link to="/about-the-dev" className="relative block text-slate-600 lg:mx-5 py-1 hover:text-slate-500 focus:text-slate-500 text-sm group">
+                            <span className="relative group">About the Developer
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link><span className="lg:inline-block hidden">|</span>
+                        <Link to="/support" className="block text-slate-600 py-1 lg:mx-5 hover:text-slate-500 focus:text-slate-500 text-sm">
+                            <span className="relative group">Contact Us
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link><span className="lg:inline-block hidden">|</span>
+                        <Link to="/faqs" className="block text-slate-600 py-1 lg:mx-5 hover:text-slate-500 focus:text-slate-500 text-sm">
+                            <span className="relative group">FAQs
+                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-900 dark:bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </Link>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center w-full py-4 mt-4 border-t dark:border-orange-300 md:flex-row md:justify-between">
-                    <p className="block mb-4 text-sm text-center text-slate-500 md:mb-0 lg:ml-4 lg:mr-4">
-                        Copyright © 2024
-                        SuperCrazyChick. All
-                        Rights Reserved.
-                    </p>
+                <div className="flex flex-col items-center justify-center w-full py-2 mt-1 border-t dark:border-orange-300 md:flex-row md:justify-between">
+                    <h5 className="mb-1 text-xl font-semibold text-slate-800 lg:ml-8 lg:self-start">
+                        SuperCrazyChick
+                    </h5>
+                    <div className="flex items-center mx-auto">
+                        <p className="block mb-4 text-sm text-center text-slate-500 md:mb-0 lg:ml-4 lg:mr-4">
+                            Copyright © 2024
+                            SuperCrazyChick. All
+                            Rights Reserved.
+                        </p>
+                    </div>
                     <div className="flex gap-4 text-slate-600 sm:justify-center lg:mr-4">
                         <Link to="#" className="block transition-opacity text-inherit hover:opacity-80">
                             <svg className="w-5 h-5 hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

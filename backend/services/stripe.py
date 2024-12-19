@@ -6,12 +6,10 @@ from core.security import get_current_user, check_auth
 from datetime import datetime
 import stripe
 from fastapi import status
-import os
-from dotenv import load_dotenv
+from core.config import settings
 
-load_dotenv()
 
-stripe_secret_key = os.environ.get("STRIPE_SECRET_KEY")
+stripe_secret_key = settings.stripe_secret_key
 if stripe_secret_key is None:
     raise ValueError("STRIPE_SECRET_KEY environment variable is not set")
 stripe.api_key = stripe_secret_key

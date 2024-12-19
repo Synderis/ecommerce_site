@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Typography, Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/UserServices";
 import { MyOrders, OrderItems, FinishOrder } from "../services/OrderServices";
+import { AccountPageSkeleton } from "../components/PageSkeletons";
 import { Order, UserData } from "../utils/types";
-import { api_url, local_url } from "../utils/utils";
+import { api_url } from "../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 
 const MyAccount = () => {
@@ -14,12 +16,12 @@ const MyAccount = () => {
     const [cartItems, setCartItems] = useState<Order['order_items'] | null>(null);
     // const token = 'Bearer ' + localStorage.getItem('token');
     const hasFetchedData = useRef(false);
+    const navigate = useNavigate();
+    
     const fetchUserData = async () => {
         const response = await MyInfo();
         if (!response) {
-            const url = `${local_url}/sign-in`;
-            window.location.href = url;
-
+            navigate('/sign-in')
         }
         setUserData(response);
         const orders = await MyOrders();
@@ -32,7 +34,7 @@ const MyAccount = () => {
             fetchUserData();
             hasFetchedData.current = true;
         }
-    }, []);
+    });
     console.log(userData);
     console.log(ordersData);
 
@@ -41,7 +43,6 @@ const MyAccount = () => {
         const response = await FinishOrder(order_id);
         console.log(response);
         window.location.href = response.message;
-        // setShowModal(false);
     };
 
 
@@ -53,7 +54,7 @@ const MyAccount = () => {
     };
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return <AccountPageSkeleton />;
     }
     
     return (

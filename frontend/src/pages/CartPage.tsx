@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/UserServices";
 import { UpdateCart } from "../services/CartServices";
@@ -6,7 +6,9 @@ import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
 import { CreateOrder, FinishOrder } from "../services/OrderServices";
-import { api_url, local_url } from "../utils/utils";
+import { CartPageSkeleton } from "../components/PageSkeletons";
+import { api_url } from "../utils/utils";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,28 +16,31 @@ const CurrentCart = () => {
     const [cart, setCart] = React.useState<Cart | null>(null);
     const [cartItems, setCartItems] = React.useState<Cart['cart_items'] | null>(null);
     const [isUpdating, setIsUpdating] = React.useState(false);
+    const [loading, setLoading] = useState(true);
     const [cartTotalAmount, setCartTotalAmount] = React.useState<Cart['total_amount']>(0);
 
     const isLargeScreen = useMediaQuery({ query: '(min-width: 1024px)' });
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCart = async () => {
             try {
                 const response = await MyInfo();
                 if (!response) {
-                    const url = `${local_url}/sign-in`;
-                    window.location.href = url;
+                    navigate('/sign-in');
                 }
                 console.log(response.carts[0]);
                 setCart(response.carts[0]);
                 setCartItems(response.carts[0].cart_items);
                 setCartTotalAmount(response.carts[0].total_amount);
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 console.error("Failed to fetch cart:", error);
             }
         };
         fetchCart();
-    }, []);
+    }, [navigate]);
 
 
 
@@ -73,6 +78,9 @@ const CurrentCart = () => {
         }
     };
 
+    if (loading) {
+        return <CartPageSkeleton />;
+    }
 
 
     return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Typography, Button, Card, CardHeader, CardBody, CardFooter } from '@material-tailwind/react';
 import CarouselCustomNavigation from '../components/Carousel';
+import { ProductPageSkeleton } from '../components/PageSkeletons';
 import { MyProduct } from '../services/GetProduct';
 import { api_url } from "../utils/utils";
 
@@ -9,6 +10,7 @@ import { api_url } from "../utils/utils";
 const SingleProduct = () => {
     const location = useLocation();
     const product_id = location.state?.product_id;
+    const [loading, setLoading] = useState(true);
     const [productData, setProductData] = useState<any>({});
 
     useEffect(() => {
@@ -17,9 +19,14 @@ const SingleProduct = () => {
             console.log(response.data);
             console.log(response);
             setProductData(response);
+            setLoading(false);
         };
         fetchCart();
     }, [product_id]);
+
+    if (loading) {
+        return <ProductPageSkeleton />;
+    }
 
     return (
         <section className="dark:bg-gradient-to-b px-2 lg:pl-0 dark:from-orange-800/10 dark:to-gray-800 ">
@@ -44,7 +51,6 @@ const SingleProduct = () => {
                                 </Typography>
                             </CardBody>
                             <CardFooter>
-                                {/* <Button color="gray" className='bg-gray-900 text-blue-gray-900 dark:text-gray-300 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100' size="lg" onClick={() => CartChoice(product_id, 1)}> */}
                                 <Button color="gray" className="mt-6 mt-4 rounded-md bg-gray-800 hover:scale-105 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-orange-800/30 dark:text-white">
                                     Add to Cart
                                 </Button>

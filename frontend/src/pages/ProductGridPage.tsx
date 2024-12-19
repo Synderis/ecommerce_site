@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ProductTile from '../components/ProductTile';
 import { Product } from '../utils/types';
 import { api_url } from "../utils/utils";
+import { ProductGridSkeleton } from '../components/PageSkeletons';
+
 // import FooterBar from "../components/Footer";
 
 
@@ -35,12 +37,13 @@ const ProductPage = () => {
     }, [products]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <ProductGridSkeleton />;
     }
 
     if (error) {
         return <div>Error: {error}</div>;
     }
+    
 
     return (
         <section className="py-5 px-6 lg:py-10 dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">

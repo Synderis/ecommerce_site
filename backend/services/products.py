@@ -7,9 +7,8 @@ from datetime import datetime
 from supabase import create_client, Client
 from core.config import settings
 
-# supabase_url = os.environ.get("SUPABASE_S3_URL")
+
 supabase_url = settings.supabase_s3_url
-# supabase_key = os.environ.get("SUPABASE_S3_KEY")
 supabase_key = settings.supabase_s3_key
 supabase = create_client(supabase_url, supabase_key)
 

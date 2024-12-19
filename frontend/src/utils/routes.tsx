@@ -73,7 +73,7 @@ export const routes = [
         element: <AboutTheArtist />,
     },
     {
-        path: '/admin/',
+        path: '/admin',
         element: <AdminDashboard />,
     },
 ];

@@ -80,7 +80,8 @@ export function StickyNavbar() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         Logout();
-        setLoggedIn(false)
+        setLoggedIn(false);
+        setIsAdmin(false);
     };
 
     const navList = (

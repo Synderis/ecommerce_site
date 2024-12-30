@@ -65,8 +65,8 @@ def create_order(
     return OrderService.create_order(token, db, cart_id)
 
 # Delete Order By User ID
-# @router.delete("/{order_id}", status_code=status.HTTP_200_OK, response_model=OrderOutDelete, dependencies=[Depends(check_admin_role)])
-# def delete_order(
-#         order_id: int, db: Session = Depends(get_db),
-#         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
-#     return OrderService.delete_order(token, db, order_id)
+@router.delete("/{order_id}", status_code=status.HTTP_200_OK, dependencies=[Depends(check_admin_role)])
+def delete_order(
+        order_id: int, db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return OrderService.delete_order(token, db, order_id)

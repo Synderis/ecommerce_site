@@ -34,8 +34,6 @@ class OrderBase(BaseModel):
     shipping_total: int
     order_total: int
     payment_type: str
-    completed: bool
-    shipped: bool
     order_items: List[OrderItemBase]
 
     class Config(BaseConfig):
@@ -60,8 +58,6 @@ class OrderOutBase(BaseModel):
     shipping_total: int
     order_total: int
     payment_type: str
-    completed: bool
-    shipped: bool
     order_items: List[OrderItemBase]
 
     class Config(BaseConfig):

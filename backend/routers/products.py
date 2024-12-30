@@ -101,14 +101,14 @@ def update_product(
 
 # Delete Product By ID
 @router.put(
-    "/{product_id}/deactivate",
+    "/{product_id}/toggle-publish",
     status_code=status.HTTP_200_OK,
     response_model=ProductOutDelete,
     dependencies=[Depends(check_admin_role)])
-def deactivate_product(
+def toggle_product(
         product_id: int,
         db: Session = Depends(get_db)):
-    return ProductService.deactivate_product(db, product_id)
+    return ProductService.toggle_published_product(db, product_id)
 
 # Delete Product By ID
 @router.delete(

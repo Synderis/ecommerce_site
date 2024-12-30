@@ -43,9 +43,12 @@ const FooterBar = () => {
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center w-full py-2 mt-1 border-t dark:border-orange-300 md:flex-row md:justify-between">
-                    <h5 className="mb-1 text-xl font-semibold text-slate-800 lg:ml-8 lg:self-start">
-                        SuperCrazyChick
-                    </h5>
+                    <Link to={"/"} className="flex items-center">
+                        <h5 className="mb-1 text-xl font-semibold text-slate-800 lg:ml-8 lg:self-start">
+                            SuperCrazyChick
+                        </h5>
+                        <img src={`${window.location.origin}/SCC-Logo512.png`} alt="Logo" className="h-8 w-auto ml-2" />
+                    </Link>
                     <div className="flex items-center mx-auto">
                         <p className="block mb-4 text-sm text-center text-slate-500 md:mb-0 lg:ml-4 lg:mr-4">
                             Copyright © 2024

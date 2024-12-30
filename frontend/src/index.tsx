@@ -1,33 +1,29 @@
-import React from "react";
-// import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
-// import { ThemeProvider } from "@material-tailwind/react";
-
-
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+
+const AppWrapper = () => {
+  useEffect(() => {
+    let storedDarkMode = localStorage.getItem('dark-mode');
+    if (storedDarkMode === null) {
+      localStorage.setItem('dark-mode', 'true');
+      storedDarkMode = 'true';
+    }
+    if (storedDarkMode === 'true') {
+      document.body.classList.add("dark");
+      document.body.style.backgroundColor = "rgb(66, 66, 66)";
+    } else {
+      document.body.classList.remove("dark");
+      document.body.style.backgroundColor = "white";
+    }
+  }, []);
+
+  return <App />;
+};
+
 root.render(
-  <App />
+  <AppWrapper />
 );
-// const AppWrapper = () => {
-//   useEffect(() => {
-//     if (document.body.classList.contains("dark")) {
-//       document.body.style.backgroundColor = "rgb(66, 66, 66)";
-//     } else {
-//       document.body.style.backgroundColor = "white";
-//     }
-//   }, []);
-
-//   return (
-//     <ThemeProvider>
-//       <App />
-//     </ThemeProvider>
-//   );
-// };
-
-// const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-// root.render(
-//     <AppWrapper />
-// );

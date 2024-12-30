@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link} from 'react-router-dom';
-import { api_url } from "../utils/utils";
+import { s3_bucket_url } from "../utils/utils";
 
 import {
     Card,
@@ -26,7 +26,7 @@ const ProductTile: React.FC<ProductProps> = ({ product }) => {
                 <Link to={`/products/${product.id}`} state={{ product_id: product.id }}>
                     <CardHeader shadow={false} floated={false} className="h-96 dark:bg-gray-900">
                         <img
-                            src={`${api_url}/assets/${product.thumbnail}`}
+                            src={`${s3_bucket_url}/${product.thumbnail}`}
                             alt="card-image"
                             className="h-full w-full object-cover dark:brightness-50"
                         />

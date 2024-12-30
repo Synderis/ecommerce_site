@@ -80,11 +80,14 @@ class ProductService:
         return ResponseHandler.update_success(db_product.title, db_product.id, db_product)
     
     @staticmethod
-    def deactivate_product(db: Session, product_id: int):
+    def toggle_published_product(db: Session, product_id: int):
         db_product = db.query(Product).filter(Product.id == product_id).first()
         if not db_product:
             ResponseHandler.not_found_error("Product", product_id)
-        db_product.is_published = False
+        if db_product.is_published:
+            db_product.is_published = False
+        else:
+            db_product.is_published = True
         db.commit()
         db.refresh(db_product)
         return ResponseHandler.update_success(db_product.title, db_product.id, db_product)

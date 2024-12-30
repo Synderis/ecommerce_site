@@ -65,6 +65,12 @@ def update_cart(
         token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     return CartService.update_cart(token, db, cart_id, updated_cart)
 
+@router.post("/validate-cart/{cart_id}", status_code=status.HTTP_200_OK, response_model=CartOut)
+def validate_cart(
+        cart_id: int, db: Session = Depends(get_db),
+        token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    return CartService.validate_cart_items(token, db, cart_id)
+
 
 # Delete Cart By User ID
 @router.delete("/{cart_id}", status_code=status.HTTP_200_OK, response_model=CartOutDelete, dependencies=[Depends(check_admin_role)])

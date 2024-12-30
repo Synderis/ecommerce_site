@@ -67,6 +67,11 @@ class ResponseHandler:
     def not_found_error(name="", id=None):
         message = f"{name} With Id {id} Not Found!"
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=message)
+    
+    @staticmethod
+    def not_available_error(name, id):
+        message = f"{name} {id} is no longer available please remove it to continue."
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail={"message": message})
 
     @staticmethod
     def invalid_token(name=""):

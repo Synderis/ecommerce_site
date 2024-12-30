@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Typography, Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/UserServices";
-import { MyOrders, OrderItems, FinishOrder } from "../services/OrderServices";
+import { MyOrders, OrderItems, FinishOrder, ValidateOrder, DeleteOrder } from "../services/OrderServices";
 import { AccountPageSkeleton } from "../components/PageSkeletons";
 import { Order, UserData } from "../utils/types";
-import { api_url } from "../utils/utils";
+import { s3_bucket_url } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 
@@ -40,9 +40,24 @@ const MyAccount = () => {
 
 
     const handleProcessPayment = async (order_id: number) => {
+        console.log(`order id test: ${order_id}`);
+        const validate = await ValidateOrder(order_id);
+        if (!validate) {
+            alert('Items in your order are no longer available. Please make a new order.');
+            return;
+        }
         const response = await FinishOrder(order_id);
+        const url = `${response[0]}`;
         console.log(response);
-        window.location.href = response.message;
+        console.log(url);
+        window.location.href = url;
+    };
+
+    const handleDeleteOrder = async (order_id: number) => {
+        const response = await DeleteOrder(order_id);
+        console.log(response);
+        const orders = await MyOrders();
+        setOrdersData(orders);
     };
 
 
@@ -59,7 +74,7 @@ const MyAccount = () => {
     
     return (
         <section className="dark:bg-gradient-to-b flex flex-grow pt-12 h-full dark:from-orange-800/10 dark:to-gray-800 ">
-            <div className="container mx-auto p-4 px-4">
+            <div className="container mx-auto p-1 px-1">
                 <Typography variant="h2" className="mb-4">
                     My Account
                 </Typography>
@@ -131,6 +146,17 @@ const MyAccount = () => {
                                                 </Button>
                                             </td>
                                         )}
+                                        {order.completed_at ? (
+                                            <td className="py-5 px-0 dark:opacity-80"></td>
+                                        ) : (
+                                            <td className="py-5 px-0 dark:opacity-80">
+                                            <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:active:bg-orange-800/30  lg:dark:hover:text-orange-500 dark:text-orange-500 hover:scale-105" onClick={() => handleDeleteOrder(order.id)}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))) : (
                                     <tr>
@@ -160,7 +186,7 @@ const MyAccount = () => {
                                 <tbody>
                                     {cartItems.map((item) => (
                                         <tr key={item.id}>
-                                            <td className="py-2 px-2 lg:px-4"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                                            <td className="py-2 px-2 lg:px-4"><img src={`${s3_bucket_url}/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                                             <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
                                             <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
                                             <td className="py-2 px-2 lg:px-4">${(item.subtotal / 100).toFixed(2)}</td>

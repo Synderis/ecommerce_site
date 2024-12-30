@@ -20,3 +20,5 @@ export const api_url = `${window.location.hostname !== 'localhost' ? 'https:' : 
 
 // export const local_url = `http://localhost:3000`;
 export const local_url = `https://${window.location.hostname}${window.location.hostname === 'localhost' ? ':3000' : ''}`;
+
+export const s3_bucket_url = 'https://vfjujjiyruqjgjkbdedu.supabase.co/storage/v1/object/public/supercrazychick-assets/product_images';

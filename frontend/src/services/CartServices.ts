@@ -64,6 +64,8 @@ export const MyCarts = async () => {
     return responseData.data;
 }
 
+
+
 export const MyActiveCart = async () => {
     const url = `${api_url}/carts/active`;
     const response = await fetch(url, {
@@ -111,4 +113,18 @@ export const UpdateCart = async (cart_id: number, updatedCartItems: any) => {
     });
     const data = await response.json();
     console.log(data);
+};
+
+export const ValidateCart = async ( cart_id: number ) => {
+    const url = `${api_url}/carts/validate-cart/${cart_id}`;
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    return responseData;
 };

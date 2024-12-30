@@ -1,8 +1,8 @@
 import { api_url } from "../utils/utils";
-export const DeactivateProduct = async (product_id: number) => {
+export const ToggleActiveProduct = async (product_id: number) => {
 
     // const product_id = 1;
-    const url =`${api_url}/products/${product_id}/deactivate`;
+    const url =`${api_url}/products/${product_id}/toggle-publish`;
     const response = await fetch(url, {
         method: "PUT",
         headers: {

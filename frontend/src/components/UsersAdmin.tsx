@@ -5,6 +5,8 @@ import { AllUsers } from '../services/AdminServices';
 const UsersTable = () => {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState(false);
+  const [loggedInFilter, setLoggedInFilter] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -31,8 +33,28 @@ const UsersTable = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const filteredUsers = users.filter((user) => {
+    if (activeFilter && user.is_active) return false;
+    if (loggedInFilter && user.logged_in) return false;
+    return true;
+  });
+
   return (
     <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+      <div className="flex justify-start mb-4">
+        <button
+          className={`px-4 py-2 ${activeFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+          onClick={() => setActiveFilter(!activeFilter)}
+        >
+          {activeFilter ? 'Show active' : 'Hide active'}
+        </button>
+        <button
+          className={`px-4 py-2 ${loggedInFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+          onClick={() => setLoggedInFilter(!loggedInFilter)}
+        >
+          {loggedInFilter ? 'Show logged in' : 'Hide logged in'}
+        </button>
+      </div>
       <table className="w-full text-center table-auto min-w-max pl-7 ml-3">
       <thead>
         <tr>
@@ -47,7 +69,7 @@ const UsersTable = () => {
         </tr>
       </thead>
       <tbody>
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <tr key={user.id}>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{user.id}</td>
             <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{user.username}</td>

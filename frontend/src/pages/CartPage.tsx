@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { MyInfo } from "../services/UserServices";
-import { UpdateCart } from "../services/CartServices";
+import { UpdateCart, ValidateCart } from "../services/CartServices";
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../utils/utils';
 import { Cart } from "../utils/types";
 import { CreateOrder, FinishOrder } from "../services/OrderServices";
 import { CartPageSkeleton } from "../components/PageSkeletons";
-import { api_url } from "../utils/utils";
+import { s3_bucket_url } from "../utils/utils";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -69,10 +69,18 @@ const CurrentCart = () => {
     const handleOrderCreate = async () => {
         try {
             if (!cart) return;
-            const order = await CreateOrder(cart.id);
-            const checkout = await FinishOrder(order.id);
-            console.log(checkout);
-            window.location.href = `${checkout[0]}`;
+            const validate_cart_response = await ValidateCart(cart.id);
+            if (!validate_cart_response.ok) {
+                console.error("Failed to validate cart");
+                console.log(validate_cart_response);
+                alert(validate_cart_response.detail.message);
+                return;
+            } else {
+                const order = await CreateOrder(cart.id);
+                const checkout = await FinishOrder(order.id);
+                console.log(checkout);
+                window.location.href = `${checkout[0]}`;
+            }
         } catch (error) {
             console.error("Failed to create order:", error);
         }
@@ -120,12 +128,12 @@ const CurrentCart = () => {
                             {cartItems && cartItems.length > 0 ? (
                                 cartItems.map((item) => (
                                     <tr key={item.product.id} className="hover:bg-slate-50">
-                                        <td className="p-0 pl-3 border-b border-slate-200 py-5"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                                        <td className="p-0 pl-3 border-b border-slate-200 py-5"><img src={`${s3_bucket_url}/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-ellipsis overflow-hidden whitespace-nowrap truncate lg:truncate dark:opacity-80 dark:text-white" title={item.product.title}>{isLargeScreen ? item.product.title : truncate(item.product.title, 3)}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{item.quantity}</td>
                                         <td className="p-0 border-b border-slate-200 py-5 text-center dark:opacity-80 dark:text-white">{(item.subtotal / 100).toFixed(2)}</td>
                                         <td className="py-5 dark:opacity-80">
-                                            <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:active:bg-orange-800/30  lg:dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
+                                            <button type="button" className="text-slate-500 hover:text-slate-700 dark:opacity-80 dark:active:bg-orange-800/30 hover:scale-105 lg:dark:hover:text-orange-500 dark:text-orange-500" onClick={() => handleRemoveFromCart(item.product.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-6 h-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>

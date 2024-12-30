@@ -56,15 +56,19 @@ const CarouselCustomNavigation = ({ images }: CarouselProps) => {
             modules={[Navigation, Pagination]}
             className="relative rounded-lg [&_div.swiper-button-next]:text-background [&_div.swiper-button-prev]:text-background"
         >
-            {images.map((img, index) => (
-                <SwiperSlide key={index} className="select-none">
-                    <img
-                        src={img}
-                        alt={`image-${index}`}
-                        className="h-[45rem] w-full object-cover"
-                    />
-                </SwiperSlide>
-            ))}
+            {images && images.length > 0 ? (
+                images.map((img, index) => (
+                    <SwiperSlide key={index} className="select-none">
+                        <img
+                            src={img}
+                            alt={`image-${index}`}
+                            className="h-[45rem] w-full object-cover"
+                        />
+                    </SwiperSlide>
+                ))
+            ) : (
+                <div className="h-[45rem] w-full bg-gray-300" />
+            )}
             <CustomNavigation />
         </Swiper>
     );

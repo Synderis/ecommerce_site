@@ -145,25 +145,30 @@ export const ProductGridSkeleton = () => {
 
 export const ProductPageSkeleton = () => {
     return (
-        <div className="dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800">
-            <div className="container mx-auto p-4 pt-3">
-                <div className="flex flex-wrap -mx-4">
-                    <div className="w-full xl:w-8/12 p-4">
+            <div className="w-full xl:w-4/12 p-4">
+                <Card className="h-full py-8 dark:bg-gray-900 border dark:border-orange-300 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 animate-pulse">
+                    <CardHeader color="gray" className="py-1 mt-1 align-left rounded-md bg-gray-800 border border-orange-300 text-sm text-white transition-all shadow-lg focus:bg-slate-700">
+                        <Typography variant="h3" color="white" className='ml-2 dark:text-gray-300'>
+                            Loading...
+                        </Typography>
+                    </CardHeader>
+                    <CardBody><></>
+                    </CardBody>
+                    <CardFooter className="pt-0">
+                        <></>
+                    </CardFooter>
+                </Card>
+            </div>
+    );
+};
+
+export const ProductCarouselSkeleton = () => {
+    return (
+        <div className="dark:bg-gradient-to-b dark:from-orange-800/10 dark:to-gray-800 rounded-md">
+            <div className="container mx-auto">
+                <div className="flex flex-wrap">
+                    <div className="w-full">
                         <div className="h-[45rem] w-full bg-gray-900 animate-pulse rounded-md"></div>
-                    </div>
-                    <div className="w-full xl:w-4/12 p-4">
-                        <Card className="h-full py-8 dark:bg-gray-900 border dark:border-orange-300 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 animate-pulse">
-                            <CardHeader color="gray" className="py-1 mt-1 align-left rounded-md bg-gray-800 border border-orange-300 text-sm text-white transition-all shadow-lg focus:bg-slate-700">
-                                <Typography variant="h3" color="white" className='ml-2 dark:text-gray-300'>
-                                    Loading...
-                                </Typography>
-                            </CardHeader>
-                            <CardBody><></>
-                            </CardBody>
-                            <CardFooter className="pt-0">
-                                <></>
-                            </CardFooter>
-                        </Card>
                     </div>
                 </div>
             </div>

@@ -88,11 +88,20 @@ class OrderService:
         if not cart:
             return ResponseHandler.not_found_error("Cart", cart_id)
         cart_id = cart_id
-        item_total = cart.total_amount
+        
         order_items = []
+        
         for item in cart_items:
-            order_item = OrderItem(product_id=item.product_id, quantity=item.quantity, subtotal=item.subtotal)
-            order_items.append(order_item)
+            current_product = db.query(Product).filter(Product.id == item.product_id).first()
+            if current_product.stock == 1 and current_product.is_published == True:
+                order_item = OrderItem(product_id=item.product_id, quantity=item.quantity, subtotal=item.subtotal)
+                order_items.append(order_item)
+            else:
+                cart.total_amount -= item.subtotal
+                db.delete(item)
+                db.commit()
+
+        item_total = cart.total_amount
 
         order_db = Order(id=None,
                         item_total=item_total,

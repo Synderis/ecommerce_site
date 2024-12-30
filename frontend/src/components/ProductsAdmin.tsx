@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Product } from '../utils/types';
 import { ProductImagesModal } from './ImageModal';
-import { DeactivateProduct, AllProducts } from '../services/AdminServices';
+import { ToggleActiveProduct, AllProducts } from '../services/AdminServices';
 import { ProductEditModal } from './ProductEditModal';
 
 
@@ -10,6 +10,8 @@ const ProductsTable = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [publishedFilter, setPublishedFilter] = useState(false);
+  const [inStockFilter, setInStockFilter] = useState(false);
   const [openModals, setOpenModals] = useState<{ [key: number]: boolean }>({});
   const [openProductModals, setOpenProductModals] = useState<{ [key: number]: boolean }>({});
 
@@ -28,12 +30,12 @@ const ProductsTable = () => {
     fetchProducts();
   }, []);
 
-  const handleDeactivate = async (productId: number) => {
+  const handleActiveToggle = async (productId: number) => {
     try {
-      await DeactivateProduct(productId);
+      await ToggleActiveProduct(productId);
       const updatedProducts = products.map((product) => {
         if (product.id === productId) {
-          return { ...product, is_published: false };
+          return { ...product, is_published: !product.is_published };
         }
         return product;
       });
@@ -57,8 +59,28 @@ const ProductsTable = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const filteredProducts = products.filter((product) => {
+    if (publishedFilter && !product.is_published) return false;
+    if (inStockFilter && product.stock === 0) return false;
+    return true;
+  });
+
   return (
     <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
+      <div className="flex justify-start mb-4">
+      <button
+        className={`px-4 py-2 ${publishedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+        onClick={() => setPublishedFilter(!publishedFilter)}
+      >
+        {publishedFilter ? 'Show published' : 'Hide unpublished'}
+      </button>
+      <button
+        className={`px-4 py-2 ${inStockFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+        onClick={() => setInStockFilter(!inStockFilter)}
+      >
+        {inStockFilter ? 'Show 0 stock' : 'Hide 0 stock'}
+      </button>
+    </div>
       <table className="w-full text-left table-auto min-w-max pl-7 ml-3">
         <thead>
           <tr>
@@ -75,7 +97,7 @@ const ProductsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <tr key={product.id}>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.id}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.title}</td>
@@ -101,9 +123,15 @@ const ProductsTable = () => {
                 </div>
               </td>
               <td>
-                <button className="mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-red-800/30 dark:text-white" onClick={() => handleDeactivate(product.id)}>
-                  Deactivate
-                </button>
+                {product.is_published ? (
+                  <button className="mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-red-800/30 dark:text-white" onClick={() => handleActiveToggle(product.id)}>
+                    Deactivate
+                  </button>
+                ) : (
+                  <button className="mt-4 w-full rounded-md bg-gray-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:bg-green-700/30 dark:text-white" onClick={() => handleActiveToggle(product.id)}>
+                    Activate
+                  </button>
+                )}
               </td>
             </tr>
           ))}

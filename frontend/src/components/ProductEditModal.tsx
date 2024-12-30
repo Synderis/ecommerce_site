@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
 import { UpdateProduct, UploadImage } from '../services/AdminServices';
-import { Input, Textarea } from '@material-tailwind/react';
+import { Input, Textarea, Spinner } from '@material-tailwind/react';
 import { Product } from '../utils/types';
 
 interface EditProductModalProps {
@@ -13,6 +13,7 @@ interface EditProductModalProps {
 export const ProductEditModal = ({ product, isOpen, onClose }: EditProductModalProps) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [editingProduct, setEditingProduct] = useState<Product | null>(product);
+    const [loading, setLoading] = useState(false);
     const [editForm, setEditForm] = useState({
         title: product.title,
         description: product.description,
@@ -62,6 +63,7 @@ export const ProductEditModal = ({ product, isOpen, onClose }: EditProductModalP
     };
 
     const handleSaveEditProduct = async () => {
+        setLoading(true);
         const payload = {
             "title": editForm.title,
             "description": editForm.description,
@@ -93,6 +95,7 @@ export const ProductEditModal = ({ product, isOpen, onClose }: EditProductModalP
 
         const updatedProduct = await UpdateProduct(product.id, payload);
         setEditingProduct(updatedProduct);
+        setLoading(false);
         onClose();
     };
 
@@ -105,6 +108,11 @@ export const ProductEditModal = ({ product, isOpen, onClose }: EditProductModalP
             className="fixed inset-0 lg:w-full w-2/3 flex items-center justify-center z-50" 
             overlayClassName="overlay"
         >
+            {loading ? (
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <Spinner className="h-20 w-20" />
+                </div>
+            ) : null}
             <div className="dark:bg-gray-700 p-8 lg:ml-0 ml-32 rounded-lg shadow-lg">
                 <div className="modal-header border-b border-gray-200">
                     <h5 className="modal-title">Edit Product</h5>
@@ -214,6 +222,7 @@ export const ProductEditModal = ({ product, isOpen, onClose }: EditProductModalP
                     >
                         Save Changes
                     </button>
+                    
                     <button
                         className="btn btn-secondary px-4 py-2"
                         onClick={() => onClose()}

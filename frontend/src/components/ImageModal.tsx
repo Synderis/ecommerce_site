@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import { api_url } from "../utils/utils";
+import { s3_bucket_url } from "../utils/utils";
 
 export const ProductImagesModal = ({ isOpen, onRequestClose, product }: { isOpen: boolean, onRequestClose: () => void, product: { title: string, thumbnail: string, images: string[] } }) => {
     return (
@@ -20,11 +20,11 @@ export const ProductImagesModal = ({ isOpen, onRequestClose, product }: { isOpen
                     </div>
                     <div className="modal-body px-0 lg:p-4">
                         <div className="product-images">
-                            <img src={`${api_url}/assets/${product.thumbnail}`} alt={product.title} className="w-32 h-32" />
+                            <img src={`${s3_bucket_url}/${product.thumbnail}`} alt={product.title} className="w-32 h-32" />
                         </div>
                         <div className="flex justify-center">
                             {product.images.map((image, index) => (
-                                <img key={index} src={`${api_url}/assets/${image}`} alt={product.title} className="w-32 h-32" />
+                                <img key={index} src={`${s3_bucket_url}/${image}`} alt={product.title} className="w-32 h-32" />
                             ))}
                         </div>
                     </div>

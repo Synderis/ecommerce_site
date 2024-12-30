@@ -42,6 +42,20 @@ export const CreateOrder = async ( cart_id: number ) => {
     return responseData.data;
 };
 
+export const DeleteOrder = async ( order_id: number ) => {
+    const url = `${api_url}/orders/${order_id}`;
+    const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    return responseData.data;
+};
+
 export const CreateAddress = async ( address: any ) => {
     const url = `${api_url}/address/`;
     const response = await fetch(url, {
@@ -62,6 +76,20 @@ export const UnfinishedOrder = async () => {
     const url = `${api_url}/orders/current-order`;
     const response = await fetch(url, {
         method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    return responseData.data;
+};
+
+export const ValidateOrder = async ( order_id: number ) => {
+    const url = `${api_url}/stripe/validate-items/${order_id}`;
+    const response = await fetch(url, {
+        method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -99,3 +127,4 @@ export const ConfirmPayment = async ( order_id: number ) => {
 
     return responseData.data;
 };
+

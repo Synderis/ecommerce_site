@@ -1,10 +1,20 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { StickyNavbar } from './components/NavBar';
 import { api_url } from './utils/utils';
 import FooterBar  from './components/Footer';
 import { Routes, Route } from 'react-router-dom';
 import { routes } from './utils/routes';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -44,16 +54,17 @@ const App: React.FC = () => {
 
   return (
     <Router>
-    <div className="app-container">
-    <StickyNavbar />
-    <Routes>
-      {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-      ))}
-    </Routes>
-    <FooterBar />
-    </div>
-  </Router>
+      <ScrollToTop />
+      <div className="app-container">
+        <StickyNavbar />
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+        <FooterBar />
+      </div>
+    </Router>
   );
 };
 

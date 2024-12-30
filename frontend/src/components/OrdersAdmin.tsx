@@ -4,7 +4,7 @@ import { AllOrders, UpdateShippingStatus, GetShippingDetails } from '../services
 import { OrderItems } from '../services/OrderServices';
 import { Button } from '@material-tailwind/react';
 import { ShippingModal } from './ShippingDetailsModal';
-import { api_url } from "../utils/utils";
+import { s3_bucket_url } from "../utils/utils";
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -153,7 +153,7 @@ const OrdersTable = () => {
               <tbody>
               {orderItems.map((item) => (
                   <tr key={item.id} className="bg-white dark:bg-gray-800 dark:border-gray-700">
-                  <td className="py-2 px-2 lg:px-4"><img src={`${api_url}/assets/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
+                  <td className="py-2 px-2 lg:px-4"><img src={`${s3_bucket_url}/${item.product.thumbnail}`} alt="product" className="w-16 h-16 object-cover rounded" /></td>
                   <td className="py-2 px-2 lg:px-4">{item.product.title}</td>
                   <td className="py-2 px-2 lg:px-4">{item.quantity}</td>
                   <td className="py-2 px-2 lg:px-4">${(item.subtotal / 100).toFixed(2)}</td>

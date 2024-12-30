@@ -16,11 +16,26 @@ stripe.api_key = stripe_secret_key
 
 class StripeService:
     @staticmethod
+    async def validate_items(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        order = db.query(Order).filter(Order.id == order_id).first()
+        for item in order.order_items:
+            current_product = db.query(Product).filter(Product.id == item.product_id).first()
+            if current_product.stock != 1 or current_product.is_published != True:
+                for order_item in order.order_items:
+                    db.delete(order_item)
+                db.delete(order)
+                db.commit()
+                return ResponseHandler.not_found_error("Order", order_id)
+    
+    @staticmethod
     async def process_payment(token, db: Session, order_id: int):
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         user = get_current_user(token)
-        order = db.query(Order).filter(Order.id == order_id, Order.completed == False).first()
+        order = db.query(Order).filter(Order.id == order_id).first()
+        
         try:
             checkout_session = stripe.checkout.Session.create(
                 customer_email='toccidylan@gmail.com',
@@ -44,7 +59,7 @@ class StripeService:
                     for item in order.order_items
                 ],
                 mode='payment',
-                success_url=f'https://supercrazychick.com/?success=true/{order.id}',
+                success_url=f'https://supercrazychick.com/success=true/{order.id}',
                 # cancel_url=YOUR_DOMAIN + '?canceled=true',
                 automatic_tax={'enabled': True},
             )
@@ -62,11 +77,12 @@ class StripeService:
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
         # user = get_current_user(token.credentials)
         order = db.query(Order).filter(Order.id == order_id).first()
-        if order.completed:
+        if order.completed_at:
             return ResponseHandler.not_found_error("Order", order)
         try:
-            payment_items = stripe.checkout.Session.list_line_items(order.payment_id)
-            shipping_data = stripe.checkout.Session.retrieve(order.payment_id)
+            if stripe.checkout.Session.retrieve(order.payment_id).payment_status == 'paid':
+                payment_items = stripe.checkout.Session.list_line_items(order.payment_id)
+                shipping_data = stripe.checkout.Session.retrieve(order.payment_id)
         except Exception as e:
             return ResponseHandler.not_found_error("Order", e)
         
@@ -86,12 +102,18 @@ class StripeService:
             for i in payment_items.data:
                 if i.description == f"{item.product_id}":
                     tax_subtotal = i.amount_tax
-                    db.query(OrderItem).filter_by(product_id=item.product_id, order_id=order.id).update({"tax_subtotal": tax_subtotal})
-                    db.query(Product).filter_by(id=item.product_id).update({"stock": 0, "is_published": False})
-                    db.commit()
+                    current_order_item = db.query(OrderItem).filter_by(product_id=item.product_id, order_id=order.id).first()
+                    current_order_item.tax_subtotal = tax_subtotal
+                    current_product = db.query(Product).filter_by(id=item.product_id).first()
+                    current_product.stock = 0
+                    current_product.is_published = False
+        db.commit()
         order.tax_total = 0
         for item in payment_items.data:
             order.tax_total += item.amount_tax
+        if order.order_total == order.item_total and (order.shipping_total != 0 or order.shipping_total != 0):
+            order.order_total += order.shipping_total
+            order.order_total += order.tax_total
         order.completed_at = datetime.now()
         order.payment_type = shipping_data.get("payment_method_types")[0]
         order.payment_id = None

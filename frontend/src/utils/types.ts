@@ -26,6 +26,14 @@ export interface UserData {
     logged_in: boolean;
 }
 
+export interface UserContextType {
+    Fields: {
+        user: UserData | null
+        loading: boolean
+        fetchUser: () => void
+    }
+}
+
 export interface Order {
     id: number;
     user_id: number;

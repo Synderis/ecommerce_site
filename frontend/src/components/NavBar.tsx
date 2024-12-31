@@ -6,17 +6,20 @@ import {
     IconButton,
     Collapse,
 } from "@material-tailwind/react";
-import { Link, useLocation } from 'react-router-dom';
-import { Logout, MyInfo } from "../services/UserServices";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Logout } from "../services/UserServices";
 import { IoMoon } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
+import { useUser } from '../context/UserContext';
 
 export function StickyNavbar() {
     const [openNav, setOpenNav] = useState(false);
     const [dark, setDark] = useState(true); // Default to dark mode
+    const { user, setUser } = useUser() || {};
     const [loggedIn, setLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const darkModeHandler = () => {
         if (!dark) {
@@ -44,20 +47,10 @@ export function StickyNavbar() {
         if (localStorage.getItem('token')) {
             setLoggedIn(true);
         }
-        const getUser = async () => {
-            if (!localStorage.getItem('token')) {
-                return;
-            }
-            const userLogin = await MyInfo();
-            if (userLogin) {
-                console.log(userLogin);
-                if (userLogin.role === 'admin') {
-                    setIsAdmin(true);
-                }
-            }
-        };
-        getUser();
-    }, [location]);
+        if (user && user.role === 'admin') {
+            setIsAdmin(true);
+        }
+    }, [location, user]);
 
     useEffect(() => {
         window.addEventListener(
@@ -69,8 +62,10 @@ export function StickyNavbar() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         Logout();
+        setUser && setUser(null);
         setLoggedIn(false);
         setIsAdmin(false);
+        navigate('/');
     };
 
     const navList = (

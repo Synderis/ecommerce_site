@@ -5,10 +5,13 @@ import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { api_url } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { local_url } from "../utils/utils";
+import { useUser } from '../context/UserContext';
 
 const SignInForm = () => {
 
     const navigate = useNavigate();
+    const userContext = useUser();
+    const { setUser } = userContext || {};
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -47,8 +50,13 @@ const SignInForm = () => {
             console.log("Sign in successful");
             localStorage.setItem("token", data.access_token);
             localStorage.setItem('refreshToken', data.refresh_token);
+            
+            if (setUser) {
+                setUser(data.user); // Update user data in the context
+            }
             setLoggedIn(true);
-            navigate("/");
+            navigate("/"); // Redirect to home page
+            window.location.reload(); // Reload the window
         } else {
             console.log("Sign in failed");
             if (data.detail === "Email already exists") {

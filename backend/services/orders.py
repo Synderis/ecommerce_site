@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from models.models import Cart, CartItem, Product, Order, OrderItem
+from services.stripe import StripeService
 from schemas.orders import OrderOut
 from utils.responses import ResponseHandler
 from datetime import datetime
@@ -59,6 +60,9 @@ class OrderService:
         user_id = get_current_user(token)
         # orders = db.query(Order).filter(Order.user_id == user_id, Order.completed == True).all()
         orders = db.query(Order).filter(Order.user_id == user_id).all()
+        for order in orders:
+            if order.payment_id:
+                StripeService.confirm_payment(token, db, order.id)
         message = f"Page with  orders"
         if not orders:
             ResponseHandler.not_found_error("Order", orders)

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Order, AddressDetails } from '../utils/types';
-import { AllOrders, UpdateShippingStatus, GetShippingDetails } from '../services/AdminServices';
-import { OrderItems } from '../services/OrderServices';
+import { AllOrders, AllOrderItems, UpdateShippingStatus, GetShippingDetails } from '../services/AdminServices';
 import { Button } from '@material-tailwind/react';
 import { ShippingModal } from './ShippingDetailsModal';
 import { s3_bucket_url } from "../utils/utils";
@@ -34,7 +33,7 @@ const OrdersTable = () => {
   }, []);
 
   const handleCartClick = async ( order_id: number ) => {
-    const response = await OrderItems( order_id );
+    const response = await AllOrderItems( order_id );
     console.log(response);
     setOrderItems(response);
     setShowModal(true);

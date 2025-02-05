@@ -30,6 +30,20 @@ export const AllOrders = async () => {
     return responseData.data;
 };
 
+export const AllOrderItems = async (order_id: number) => {
+    const url =`${api_url}/orders/${order_id}/admin-order-items`;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    return responseData.data;
+};
+
 export const AllUsers = async () => {
     const url =`${api_url}/users/admin-users`;
     const response = await fetch(url, {

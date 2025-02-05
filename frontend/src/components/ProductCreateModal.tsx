@@ -24,7 +24,6 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
         price: 0,
         stock: 1,
         is_published: false,
-        // created_at: '',
         thumbnail: '',
         images: [] as string[],
     });
@@ -73,7 +72,6 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
             brand: createForm.brand,
             rating: 0,
             category_id: 1,
-            // created_at: '',
             is_published: createForm.is_published,
             thumbnail: createForm.thumbnail,
             images: createForm.images
@@ -160,7 +158,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                 }}
                             />
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>Brand</label>
                             <Input
                                 onChange={handleChange}
@@ -175,7 +173,7 @@ export const ProductCreateModal = ({ isOpen, onClose }: ProductCreateModalProps)
                                     className: "hidden",
                                 }}
                             />
-                        </div>
+                        </div> */}
                         <div className="inline-flex items-center mt-2">
                             <label className="cursor-pointer mr-2 opacity-75 dark:text-white text-sm" htmlFor="is_published">
                                 Publish: 

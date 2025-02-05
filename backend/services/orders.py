@@ -18,6 +18,17 @@ class OrderService:
         orders = db.query(Order).all()
         message = f"Page with orders"
         return ResponseHandler.success(message, orders)
+    
+    # Get Order Items ADMIN
+    @staticmethod
+    def get_all_order_items(token, db: Session, order_id: int):
+        if not check_auth(token.credentials):
+            return ResponseHandler.blacklisted_token(token, 'Auth failed')
+        order = db.query(Order).filter(Order.id == order_id).first()
+        order_items = order.order_items
+        if not order:
+            ResponseHandler.not_found_error("Order", order)
+        return ResponseHandler.success("order", order_items)
 
     # Get A Order By ID
     @staticmethod
@@ -72,8 +83,7 @@ class OrderService:
     def update_order(token, db: Session, order_id: int):
         if not check_auth(token.credentials):
             return ResponseHandler.blacklisted_token(token, 'Auth failed')
-        user_id = get_current_user(token)
-        order = db.query(Order).filter(Order.id == order_id, Order.user_id == user_id).first()
+        order = db.query(Order).filter(Order.id == order_id).first()
         if not order:
             return ResponseHandler.not_found_error("Order", order_id)
         order.shipped_at = datetime.now()

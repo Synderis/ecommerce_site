@@ -21,7 +21,7 @@ def get_all_orders(
 ):
     return OrderService.get_all_orders(token, db)
 
-@router.get("/{order_id}/admin-order-items", status_code=status.HTTP_200_OK, response_model=OrdersOutList, dependencies=[Depends(check_admin_role)])
+@router.get("/{order_id}/admin-order-items", status_code=status.HTTP_200_OK, response_model=OrderItemsOut, dependencies=[Depends(check_admin_role)])
 def get_all_orders(
     order_id: int,
     db: Session = Depends(get_db),

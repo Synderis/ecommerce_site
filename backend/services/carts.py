@@ -79,7 +79,7 @@ class CartService:
         cart = db.query(Cart).filter(Cart.id == cart_id).first()
         for item in cart.cart_items:
             current_product = db.query(Product).filter(Product.id == item.product_id).first()
-            if current_product.stock != 1 or current_product.is_published != True:
+            if current_product.stock < 1 or current_product.is_published != True:
                 product_name = current_product.title
                 return ResponseHandler.not_available_error("Product", product_name)
         return ResponseHandler.success("All items are available", cart)

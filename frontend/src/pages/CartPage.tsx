@@ -69,20 +69,17 @@ const CurrentCart = () => {
     const handleOrderCreate = async () => {
         try {
             if (!cart) return;
-            const validate_cart_response = await ValidateCart(cart.id);
-            if (!validate_cart_response.ok) {
-                console.error("Failed to validate cart");
-                console.log(validate_cart_response);
-                alert(validate_cart_response.detail.message);
-                return;
-            } else {
-                const order = await CreateOrder(cart.id);
-                const checkout = await FinishOrder(order.id);
-                console.log(checkout);
-                window.location.href = `${checkout[0]}`;
-            }
-        } catch (error) {
+            await ValidateCart(cart.id);
+
+            // If ValidateCart throws, it will be caught below.
+            // Otherwise, proceed to create order.
+            const order = await CreateOrder(cart.id);
+            const checkout = await FinishOrder(order.id);
+            console.log(checkout);
+            window.location.href = `${checkout[0]}`;
+        } catch (error: any) {
             console.error("Failed to create order:", error);
+            alert(error.message || "Failed to create order");
         }
     };
 

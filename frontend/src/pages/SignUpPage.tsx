@@ -21,16 +21,15 @@ const SignUpForm = () => {
         e.preventDefault();
         console.log("Sign up");
         console.log(formData);
-        const response = await SignUp(formData);
-
-        if (response.ok) {
+        try {
+            await SignUp(formData);
             console.log("Sign up successful");
             navigate("/");
-        } else {
+        } catch (error: any) {
             console.log("Sign up failed");
-            if (response.detail === "Email already exists") {
+            if (error.message === "Email already exists") {
                 alert("Email already exists");
-            } else if (response.detail === "Username already exists") {
+            } else if (error.message === "Username already exists") {
                 alert("Username already exists");
             } else {
                 alert("Internal Server Error");

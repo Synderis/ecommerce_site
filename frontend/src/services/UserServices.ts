@@ -43,7 +43,7 @@ export const MyInfo = async () => {
     return responseData.data;
 };
 
-export const SignUp = async ( formData: any ) => {
+export const SignUp = async (formData: any) => {
     const url = `${api_url}/auth/signup`;
     const response = await fetch(url, {
         method: "POST",
@@ -54,6 +54,10 @@ export const SignUp = async ( formData: any ) => {
     });
     const responseData = await response.json();
     console.log(responseData);
+    if (!response.ok) {
+        // Attach responseData for more context
+        throw new Error(responseData.message || "Signup failed");
+    }
     return responseData;
 };
 

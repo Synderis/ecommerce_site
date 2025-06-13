@@ -4,7 +4,6 @@ import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { api_url } from "../utils/utils";
 import { Link } from "react-router-dom";
-import { local_url } from "../utils/utils";
 import { useUser } from '../context/UserContext';
 
 const SignInForm = () => {
@@ -170,7 +169,7 @@ const SignInForm = () => {
                         className="!mt-4 text-center font-normal text-gray-900"
                     >
                         Not registered?{" "}
-                        <Link to={`${local_url}/sign-up`} className="font-medium text-orange-300">
+                        <Link to="/sign-up" className="font-medium text-orange-300">
                             Create account
                         </Link>
                     </Typography>

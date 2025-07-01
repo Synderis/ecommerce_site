@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from routers import products, carts, users, accounts, auth, orders, addresses, stripe
+from routers import products, carts, users, accounts, auth, orders, addresses, stripe, analytics
 from core.security import get_user_token
 
 
@@ -36,3 +36,4 @@ app.include_router(orders.router)
 app.include_router(users.router)
 app.include_router(accounts.router)
 app.include_router(auth.router)
+app.include_router(analytics.router)

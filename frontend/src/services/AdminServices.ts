@@ -163,3 +163,17 @@ export const GetShippingDetails = async (order_id: number) => {
 
     return responseData.data
 };
+
+export const GetQueryByName = async (name: string) => {
+    const url = `${api_url}/query/${name}`;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+
+    return responseData;
+};

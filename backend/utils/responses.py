@@ -91,3 +91,13 @@ class ResponseHandler:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Payment {message} failed due to {error}",)
+
+    @staticmethod
+    def query_success(query):
+        message = "Query result"
+        return ResponseHandler.success(message, query)
+
+    @staticmethod
+    def query_failure(query):
+        message = "Query result not found"
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=message)

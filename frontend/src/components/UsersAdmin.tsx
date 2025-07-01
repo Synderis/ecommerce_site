@@ -43,13 +43,13 @@ const UsersTable = () => {
     <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
       <div className="flex justify-start mb-4">
         <button
-          className={`px-4 py-2 ${activeFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+          className={`px-4 py-2 ${activeFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white hover:scale-105' : 'bg-gray-200 dark:bg-gray-800 hover:scale-105'} mr-2 rounded-md`}
           onClick={() => setActiveFilter(!activeFilter)}
         >
           {activeFilter ? 'Show active' : 'Hide active'}
         </button>
         <button
-          className={`px-4 py-2 ${loggedInFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+          className={`px-4 py-2 ${loggedInFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white hover:scale-105' : 'bg-gray-200 dark:bg-gray-800 hover:scale-105'} mr-2 rounded-md`}
           onClick={() => setLoggedInFilter(!loggedInFilter)}
         >
           {loggedInFilter ? 'Show logged in' : 'Hide logged in'}

@@ -43,3 +43,6 @@ build/
 
 # macOS
 .DS_Store
+.env*
+README2.md
+create_tables_create_functions_insert_data.sql

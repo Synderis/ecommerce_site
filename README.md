@@ -66,10 +66,6 @@ API documentation can be found at `/docs` endpoint.
 
 Contributions are welcome! Please submit a pull request with a clear description of the changes.
 
-## License
-
-This project is licensed under the MIT License.
-
 ## Acknowledgments
 
 * FastAPI: <https://fastapi.tiangolo.com/>

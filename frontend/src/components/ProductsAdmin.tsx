@@ -69,19 +69,19 @@ const ProductsTable = () => {
     <div className="relative flex flex-col lg:p-4 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-orange-300/30 dark:to-blue-gray-900 w-full h-full lg:overflow-hidden overflow-x-auto text-gray-700 bg-white lg:shadow-md rounded-lg bg-clip-border">
       <div className="flex justify-start mb-4">
       <button
-        className={`px-4 py-2 ${publishedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+        className={`px-4 py-2 ${publishedFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white hover:scale-105' : 'bg-gray-200 dark:bg-gray-800 hover:scale-105'} mr-2 rounded-md`}
         onClick={() => setPublishedFilter(!publishedFilter)}
       >
         {publishedFilter ? 'Show published' : 'Hide unpublished'}
       </button>
       <button
-        className={`px-4 py-2 ${inStockFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white' : 'bg-gray-200 dark:bg-gray-800'} mr-2 rounded-md`}
+        className={`px-4 py-2 ${inStockFilter ? 'bg-blue-500 dark:bg-orange-800/30 text-white hover:scale-105' : 'bg-gray-200 dark:bg-gray-800 hover:scale-105'} mr-2 rounded-md`}
         onClick={() => setInStockFilter(!inStockFilter)}
       >
         {inStockFilter ? 'Show 0 stock' : 'Hide 0 stock'}
       </button>
     </div>
-      <table className="w-full text-left table-auto min-w-max pl-7 ml-3">
+      <table className="w-full text-center table-auto min-w-max pl-7 ml-3">
         <thead>
           <tr>
             <th className="p-1 text-sm border-b border-slate-300 font-normal leading-none text-slate-500 dark:opacity-80 dark:text-white">ID</th>
@@ -101,7 +101,13 @@ const ProductsTable = () => {
             <tr key={product.id}>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.id}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.title}</td>
-              <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.description}</td>
+              <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white" title={product.description || ""}>
+                {product.description
+                  ? product.description.length > 35
+                    ? product.description.slice(0, 35) + '...'
+                    : product.description
+                  : ''}
+              </td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{(product.price / 100).toFixed(2)}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{product.is_published ? 'Yes' : 'No'}</td>
               <td className="p-0 border-b border-slate-200 py-5 dark:opacity-80 dark:text-white">{new Date(product.created_at).toLocaleString()}</td>

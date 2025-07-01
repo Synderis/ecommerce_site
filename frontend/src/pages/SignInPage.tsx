@@ -58,11 +58,10 @@ const SignInForm = () => {
             window.location.reload(); // Reload the window
         } else {
             console.log("Sign in failed");
-            if (data.detail === "Email already exists") {
-                alert("Email already exists");
-            } else if (data.detail === "Username already exists") {
-                alert("Username already exists");
+            if (data.detail === "Invalid Credentials") {
+                alert("Invalid Credentials");
             } else {
+                console.log("Error:", data.detail);
                 alert("Internal Server Error");
             }
         }
